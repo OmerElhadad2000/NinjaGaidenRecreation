@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FrogBossJump
+  m_Name: MiniGunAttack
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 5c1f59d37a968e744bf316ab29c39412, type: 2}
+      value: {fileID: 21300000, guid: c40f2bbaff417184eba210fda0b7728c, type: 2}
+    - time: 0.083333336
+      value: {fileID: 21300000, guid: 64f173812692a644d8682187cdd3fa1f, type: 2}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,13 +46,14 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 5c1f59d37a968e744bf316ab29c39412, type: 2}
+    - {fileID: 21300000, guid: c40f2bbaff417184eba210fda0b7728c, type: 2}
+    - {fileID: 21300000, guid: 64f173812692a644d8682187cdd3fa1f, type: 2}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.083333336
+    m_StopTime: 0.16666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
