@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: 7f5c1d3b09dfeb441a37414e70fe0ee6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4963493124386598861
+    second: End-Of-Act1-Cut-Scene_0
+  - first:
+      213: -8571777256965196332
+    second: End-Of-Act1-Cut-Scene_1
+  - first:
+      213: -7620013929742411729
+    second: End-Of-Act1-Cut-Scene_2
+  - first:
+      213: 4366239275583604190
+    second: End-Of-Act1-Cut-Scene_3
+  - first:
+      213: -1381733541150900195
+    second: End-Of-Act1-Cut-Scene_4
+  - first:
+      213: -6120570613754560581
+    second: End-Of-Act1-Cut-Scene_5
+  - first:
+      213: -9058802047978242425
+    second: End-Of-Act1-Cut-Scene_6
+  - first:
+      213: 8407909528529977599
+    second: End-Of-Act1-Cut-Scene_7
+  - first:
+      213: 5616200344465341350
+    second: End-Of-Act1-Cut-Scene_8
+  - first:
+      213: 835540952595933448
+    second: End-Of-Act1-Cut-Scene_9
+  - first:
+      213: -6344520981522822801
+    second: End-Of-Act1-Cut-Scene_10
+  - first:
+      213: 8926781341729816883
+    second: End-Of-Act1-Cut-Scene_11
+  - first:
+      213: 6182215833663842295
+    second: End-Of-Act1-Cut-Scene_12
+  - first:
+      213: -2344238718176703181
+    second: End-Of-Act1-Cut-Scene_13
+  - first:
+      213: 3307543496788173428
+    second: End-Of-Act1-Cut-Scene_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 134
+        width: 258
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 330d7d31d412e1bb0800000000000000
+      internalID: -4963493124386598861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_1
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 134
+        width: 258
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d531d0000eea0980800000000000000
+      internalID: -8571777256965196332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_2
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 134
+        width: 258
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f28dc2614b5404690800000000000000
+      internalID: -7620013929742411729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_3
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 134
+        width: 258
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed50581ec7ff79c30800000000000000
+      internalID: 4366239275583604190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_4
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 134
+        width: 258
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1045714aa813dce0800000000000000
+      internalID: -1381733541150900195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_5
+      rect:
+        serializedVersion: 2
+        x: 1285
+        y: 134
+        width: 258
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbff678747d5f0ba0800000000000000
+      internalID: -6120570613754560581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_6
+      rect:
+        serializedVersion: 2
+        x: 1542
+        y: 134
+        width: 258
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78efcaf688ba84280800000000000000
+      internalID: -9058802047978242425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 66
+        width: 130
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff0c6af4b25eea470800000000000000
+      internalID: 8407909528529977599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_8
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 66
+        width: 130
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ab78471570c0fd40800000000000000
+      internalID: 5616200344465341350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_9
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 66
+        width: 130
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 809a5cac110789b00800000000000000
+      internalID: 835540952595933448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_10
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 66
+        width: 130
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f69c15238cbb3f7a0800000000000000
+      internalID: -6344520981522822801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_11
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 66
+        width: 130
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 331046d855c42eb70800000000000000
+      internalID: 8926781341729816883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_12
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 66
+        width: 130
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f72452cb84abc550800000000000000
+      internalID: 6182215833663842295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_13
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 66
+        width: 130
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33d4c5e5e47977fd0800000000000000
+      internalID: -2344238718176703181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: End-Of-Act1-Cut-Scene_14
+      rect:
+        serializedVersion: 2
+        x: 967
+        y: 33
+        width: 98
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47266354941c6ed20800000000000000
+      internalID: 3307543496788173428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      End-Of-Act1-Cut-Scene_0: -4963493124386598861
+      End-Of-Act1-Cut-Scene_1: -8571777256965196332
+      End-Of-Act1-Cut-Scene_10: -6344520981522822801
+      End-Of-Act1-Cut-Scene_11: 8926781341729816883
+      End-Of-Act1-Cut-Scene_12: 6182215833663842295
+      End-Of-Act1-Cut-Scene_13: -2344238718176703181
+      End-Of-Act1-Cut-Scene_14: 3307543496788173428
+      End-Of-Act1-Cut-Scene_2: -7620013929742411729
+      End-Of-Act1-Cut-Scene_3: 4366239275583604190
+      End-Of-Act1-Cut-Scene_4: -1381733541150900195
+      End-Of-Act1-Cut-Scene_5: -6120570613754560581
+      End-Of-Act1-Cut-Scene_6: -9058802047978242425
+      End-Of-Act1-Cut-Scene_7: 8407909528529977599
+      End-Of-Act1-Cut-Scene_8: 5616200344465341350
+      End-Of-Act1-Cut-Scene_9: 835540952595933448
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
