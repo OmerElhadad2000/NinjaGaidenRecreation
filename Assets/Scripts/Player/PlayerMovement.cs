@@ -4,33 +4,37 @@ using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //Components
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallSlideLayerMask;
-
+    
+    //Movement Variables
     private float _horizontal;
     private float _vertical;
-    private float _speed = 5f;
-    private float _jumpingPower = 5f;
-    private bool _isFacingRight = true;
-
-    private bool _isWallSliding;
-    private float _wallSlidingSpeed = 0.5f;
-
-    private bool _isWallJumping;
-    private float _wallJumpingDirection;
-    private float _wallJumpingTime = 0.2f;
-    private float _wallJumpingCounter;
-    private float _wallJumpingDuration = 0.2f;
-    private Vector2 _wallJumpingPower = new(1f, 5f);
-    
-    private bool _isClimbing;
-    private bool _isLadder;
-    private float _climbingSpeed = 3f;
     private bool _isGrounded;
     private bool _isCrouching;
+    private bool _isClimbing;
+    private bool _isLadder;
+    private bool _isWallJumping;
+    private float _wallJumpingDirection;
+    private bool _isFacingRight = true;
+    private bool _isWallSliding;
+    private float _wallJumpingCounter;
+
+    //Movement Constants
+    private const float WallSlidingSpeed = 0.5f;
+    private const float WallJumpingTime = 0.2f;
+    private const float WallJumpingDuration = 0.2f;
+    private readonly Vector2 _wallJumpingPower = new(1f, 5f);
+    private const float ClimbingSpeed = 3f;
+    private const float Speed = 5f;
+    private const float JumpingPower = 5f;
+    
+    
+    //Player Movement Logic
     private void Update()
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
@@ -38,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, _jumpingPower);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, JumpingPower);
         }
 
         if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
@@ -78,13 +82,13 @@ public class PlayerMovement : MonoBehaviour
         
         if (!_isWallJumping)
         {
-            rb.linearVelocity = new Vector2(_horizontal * _speed, rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(_horizontal * Speed, rb.linearVelocity.y);
         }
 
         if (_isClimbing)
         {
             rb.gravityScale = 0f;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Input.GetAxis("Vertical") * _climbingSpeed);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Input.GetAxis("Vertical") * ClimbingSpeed);
         }
         else
         {
@@ -114,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
         if (IsWalled() && !IsGrounded() && _horizontal != 0f)
         {
             _isWallSliding = true;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, -_wallSlidingSpeed, float.MaxValue));
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, -WallSlidingSpeed, float.MaxValue));
         }
         else
         {
@@ -129,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _isWallJumping = false;
             _wallJumpingDirection = -transform.localScale.x;
-            _wallJumpingCounter = _wallJumpingTime;
+            _wallJumpingCounter = WallJumpingTime;
 
             CancelInvoke(nameof(StopWallJumping));
         }
@@ -152,14 +156,14 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = localScale;
         }
 
-        Invoke(nameof(StopWallJumping), _wallJumpingDuration);
+        Invoke(nameof(StopWallJumping), WallJumpingDuration);
     }
 
     private void StopWallJumping()
     {
         _isWallJumping = false;
     }
-
+    
     private void Flip()
     {
         if ((!_isFacingRight || !(_horizontal < 0f)) && (_isFacingRight || !(_horizontal > 0f))) return;
@@ -183,6 +187,4 @@ public class PlayerMovement : MonoBehaviour
         _isLadder = false;
         _isClimbing = false;
     }
-    
-    
 }
