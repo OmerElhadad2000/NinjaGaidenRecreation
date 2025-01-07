@@ -25,11 +25,11 @@ public class PlayerMovement : MonoBehaviour
     private float _wallJumpingCounter;
     private float _wallJumpingDuration = 0.2f;
     private Vector2 _wallJumpingPower = new(1f, 5f);
-    private bool _isJumping;
     
     private bool _isClimbing;
     private bool _isLadder;
     private float _climbingSpeed = 3f;
+    private bool _isGrounded;
     private void Update()
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
@@ -43,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
-            _isJumping = true;
         }
 
         if (_isLadder && Mathf.Abs(_vertical) > 0f)
@@ -61,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
         // This Is Adding Wall Transparencie When Not Jumping
-        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer($"Slide Wall"), IsGrounded());
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer($"Slide Wall"), _isGrounded);
     }
 
     private void FixedUpdate()
@@ -84,9 +83,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        if (!Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer)) return false;
-        _isJumping = false;
-        return true;
+        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return _isGrounded;
     }
 
     private bool IsWalled()
