@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isLadder;
     private float _climbingSpeed = 3f;
     private bool _isGrounded;
+    private bool _isCrouching;
     private void Update()
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
@@ -48,7 +49,16 @@ public class PlayerMovement : MonoBehaviour
         if (_isLadder && Mathf.Abs(_vertical) > 0f)
         {
             _isClimbing = true;
-            
+        }
+        
+        if (IsGrounded() && _vertical < 0f)
+        {
+            _isCrouching = true;
+        }
+        
+        else
+        {
+            _isCrouching = false;
         }
 
         WallSlide();
@@ -59,12 +69,13 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
         
-        // This Is Adding Wall Transparencie When Not Jumping
+        // This Is Adding Wall Transparency When Not Jumping
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer($"Slide Wall"), _isGrounded);
     }
 
     private void FixedUpdate()
     {
+        
         if (!_isWallJumping)
         {
             rb.linearVelocity = new Vector2(_horizontal * _speed, rb.linearVelocity.y);
@@ -78,6 +89,12 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.gravityScale = 1f;
+        }
+        
+        if (_isCrouching)
+        {
+            rb.linearVelocity = new Vector2(0f, 0f);
+            
         }
     }
 
@@ -166,4 +183,6 @@ public class PlayerMovement : MonoBehaviour
         _isLadder = false;
         _isClimbing = false;
     }
+    
+    
 }
