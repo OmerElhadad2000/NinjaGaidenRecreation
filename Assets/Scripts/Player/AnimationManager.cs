@@ -11,12 +11,16 @@ public class AnimationManager : MonoSingleton<AnimationManager>
     {
         PlayerMovement.Jumping += OnJumping;
         PlayerMovement.Grounded += OnGrounded;
-        PlayerMovement.WallHanged += OnWallHanged;
+        PlayerMovement.WallHanging += OnWallHanging;
+        PlayerMovement.Crouching += OnCrouching;
+        PlayerMovement.Running += OnRunning;
+        PlayerMovement.LadderClimbing += OnLadderClimbing;
     }
     
     
     private void OnJumping()
     {
+        animator.SetBool("Running", false);
         animator.SetBool("Grounded", false);
         animator.SetBool("Jumping", true);
     }
@@ -27,17 +31,36 @@ public class AnimationManager : MonoSingleton<AnimationManager>
         animator.SetBool("Grounded", isGrounded);
     }
 
-    private void OnWallHanged(bool isWallHanged)
+    private void OnWallHanging(bool isWallHanged)
     {
+        animator.SetBool("Running", false);
         animator.SetBool("WallHang", isWallHanged);
     }
     
+    private void OnCrouching(bool isCrouching)
+    {
+        animator.SetBool("Crouching", isCrouching);
+    }
     
+    private void OnRunning(bool isRunning)
+    {
+        animator.SetBool("Running", isRunning);
+    }
     
-    
+    private void OnLadderClimbing(bool isOnLadder, bool isClmbing)
+    {
+        animator.SetBool("Climbing", isClmbing);
+        animator.SetBool("OnLadder", isOnLadder);
+        //take only the first frame of the animation
+    }
+        
     private void OnDisable()
     {
         PlayerMovement.Jumping -= OnJumping;
         PlayerMovement.Grounded -= OnGrounded;
+        PlayerMovement.WallHanging -= OnWallHanging;
+        PlayerMovement.Crouching -= OnCrouching;
+        PlayerMovement.Running -= OnRunning;
+        PlayerMovement.LadderClimbing -= OnLadderClimbing;
     }
 }

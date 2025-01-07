@@ -792,7 +792,7 @@ GameObject:
   - component: {fileID: 593186912}
   - component: {fileID: 593186911}
   m_Layer: 0
-  m_Name: Animation Manager
+  m_Name: Player Animation Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

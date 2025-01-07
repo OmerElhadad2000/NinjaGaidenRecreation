@@ -36,7 +36,10 @@ public class PlayerMovement : MonoBehaviour
 
     public static event Action Jumping;
     public static event Action<bool> Grounded;
-    public static event Action<bool> WallHanged;
+    public static event Action<bool> WallHanging;
+    public static event Action<bool> Crouching;
+    public static event Action<bool> Running;
+    public static event Action<bool, bool> LadderClimbing;
 
     //Player Movement Logic
     private void Update()
@@ -74,7 +77,10 @@ public class PlayerMovement : MonoBehaviour
         WallSlide();
         WallJump();
         
-        WallHanged?.Invoke(_isWallSliding);
+        WallHanging?.Invoke(_isWallSliding);
+        Crouching?.Invoke(_isCrouching);
+        Running?.Invoke(Mathf.Abs(_horizontal) > 0f);
+        LadderClimbing?.Invoke(_isLadder, Mathf.Abs(_vertical) > 0f);
 
         if (!_isWallJumping)
         {
