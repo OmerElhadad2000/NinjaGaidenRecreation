@@ -1,133 +1,125 @@
-using System;
-using UnityEngine;
-using UnityEngine.Serialization;
 
+using UnityEngine;  
 public class PlayerMovement : MonoBehaviour
 {
-    private static readonly int Running = Animator.StringToHash("Running");
-    private static readonly int Jumping = Animator.StringToHash("Jumping");
-
-    [SerializeField]
-    private Transform playerGroundPosition;
-
-    [SerializeField]
-    private LayerMask groundLayer;
-
-    [SerializeField]
-    private Animator animator;
-
-    [SerializeField]
-    private float jumpForce;
-
-    [SerializeField]
-    private float moveSpeed;
-    
-    [SerializeField] private LayerMask wallLayer;
-    
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform wallCheck;
-    
-    
+    [SerializeField] private LayerMask wallLayer;
 
-    private bool _isJumping;
-    
-    private bool _isInAir;
-
-    private bool _isCrouching;
-
-    private float _lastXDirection;
+    private float _horizontal;
+    private float _speed = 5f;
+    private float _jumpingPower = 5f;
+    private bool _isFacingRight = true;
 
     private bool _isWallSliding;
-    
-    private float _wallSlidingSpeed = 2f;
-    
-    private float xInput;
-    
-    
+    private float _wallSlidingSpeed = 0.5f;
 
-    [SerializeField] private Rigidbody2D playerRb;
-
+    private bool _isWallJumping;
+    private float _wallJumpingDirection;
+    private float _wallJumpingTime = 0.2f;
+    private float _wallJumpingCounter;
+    private float _wallJumpingDuration = 0.4f;
+    private Vector2 _wallJumpingPower = new Vector2(1f, 5f);
     private void Update()
     {
-        xInput = Input.GetAxis("Horizontal");
-        
-        _isJumping = IsOnGround() && Input.GetKey(KeyCode.UpArrow);
-        
-        _isCrouching = Input.GetKey(KeyCode.DownArrow) && !_isInAir;
-        
+        _horizontal = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetButtonDown("Jump") && IsGrounded())
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, _jumpingPower);
+        }
+
+        if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+        }
+
         WallSlide();
+        WallJump();
+
+        if (!_isWallJumping)
+        {
+            Flip();
+        }
     }
 
     private void FixedUpdate()
     {
-        
-        
-        
-        
-        // Move the player horizontally only if not crouching
-        playerRb.linearVelocity = new Vector2(xInput * moveSpeed, playerRb.linearVelocity.y);
-
-        if (xInput != 0)
+        if (!_isWallJumping)
         {
-            _lastXDirection = xInput;
-        }
-        
-        SetPlayerDirection();
-        
-        if (_isJumping)
-        {
-            JumpNoSword();
-        }
-        
-        else if (_isCrouching)
-        {
-            Crouch();
+            rb.linearVelocity = new Vector2(_horizontal * _speed, rb.linearVelocity.y);
         }
     }
 
-    private void JumpNoSword()
+    private bool IsGrounded()
     {
-        playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x, 0);
-        playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-    }
-    
-    private void Crouch()
-    {
-        playerRb.linearVelocity = new Vector2(0, playerRb.linearVelocity.y);
-    }
-
-    private bool IsOnGround()
-    {
-        var hit = Physics2D.Raycast(playerGroundPosition.position, Vector2.down, 0.2f, groundLayer);
-        return hit.collider != null;
-    }
-    
-    private void SetPlayerDirection()
-    {
-        if (_lastXDirection == 0) {return;}
-        Vector3 localScale = transform.localScale;
-        localScale.x = Mathf.Sign(_lastXDirection) * Mathf.Abs(localScale.x);
-        transform.localScale = localScale;
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
     private bool IsWalled()
     {
         return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
-        
     }
-    
+
     private void WallSlide()
     {
-        if (IsWalled() && !IsOnGround() && xInput != 0f)
+        if (IsWalled() && !IsGrounded() && _horizontal != 0f)
         {
-            Debug.Log("Wall sliding");
             _isWallSliding = true;
-            playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x, Mathf.Clamp(playerRb.linearVelocity.y, -_wallSlidingSpeed, float.MaxValue));
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, -_wallSlidingSpeed, float.MaxValue));
         }
         else
         {
             _isWallSliding = false;
         }
     }
-    
-    
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void WallJump()
+    {
+        if (_isWallSliding)
+        {
+            _isWallJumping = false;
+            _wallJumpingDirection = -transform.localScale.x;
+            _wallJumpingCounter = _wallJumpingTime;
+
+            CancelInvoke(nameof(StopWallJumping));
+        }
+        
+        else
+        {
+            _wallJumpingCounter -= Time.deltaTime;
+        }
+        
+        if (!Input.GetButtonDown("Jump") || !(_wallJumpingCounter > 0f)) return;
+        _isWallJumping = true;
+        rb.linearVelocity = new Vector2(_wallJumpingDirection * _wallJumpingPower.x, _wallJumpingPower.y);
+        _wallJumpingCounter = 0f;
+
+        if (!Mathf.Approximately(transform.localScale.x, _wallJumpingDirection))
+        {
+            _isFacingRight = !_isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
+
+        Invoke(nameof(StopWallJumping), _wallJumpingDuration);
+    }
+
+    private void StopWallJumping()
+    {
+        _isWallJumping = false;
+    }
+
+    private void Flip()
+    {
+        if ((!_isFacingRight || !(_horizontal < 0f)) && (_isFacingRight || !(_horizontal > 0f))) return;
+        _isFacingRight = !_isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
+    }
 }
