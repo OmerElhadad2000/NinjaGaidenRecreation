@@ -1,14 +1,17 @@
 
-using UnityEngine;  
+using UnityEngine;
+using UnityEngine.Serialization;
+
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform wallCheck;
-    [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private LayerMask wallSlideLayerMask;
 
     private float _horizontal;
+    private float _vertical;
     private float _speed = 5f;
     private float _jumpingPower = 5f;
     private bool _isFacingRight = true;
@@ -20,12 +23,18 @@ public class PlayerMovement : MonoBehaviour
     private float _wallJumpingDirection;
     private float _wallJumpingTime = 0.2f;
     private float _wallJumpingCounter;
-    private float _wallJumpingDuration = 0.4f;
-    private Vector2 _wallJumpingPower = new Vector2(1f, 5f);
+    private float _wallJumpingDuration = 0.2f;
+    private Vector2 _wallJumpingPower = new(1f, 5f);
+    private bool _isJumping;
+    
+    private bool _isClimbing;
+    private bool _isLadder;
+    private float _climbingSpeed = 3f;
     private void Update()
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
-
+        _vertical = Input.GetAxisRaw("Vertical");
+        
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, _jumpingPower);
@@ -34,6 +43,13 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+            _isJumping = true;
+        }
+
+        if (_isLadder && Mathf.Abs(_vertical) > 0f)
+        {
+            _isClimbing = true;
+            
         }
 
         WallSlide();
@@ -43,6 +59,9 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
+        
+        // This Is Adding Wall Transparencie When Not Jumping
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer($"Slide Wall"), IsGrounded());
     }
 
     private void FixedUpdate()
@@ -51,16 +70,28 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(_horizontal * _speed, rb.linearVelocity.y);
         }
+
+        if (_isClimbing)
+        {
+            rb.gravityScale = 0f;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Input.GetAxis("Vertical") * _climbingSpeed);
+        }
+        else
+        {
+            rb.gravityScale = 1f;
+        }
     }
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        if (!Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer)) return false;
+        _isJumping = false;
+        return true;
     }
 
     private bool IsWalled()
     {
-        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
+            return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallSlideLayerMask);
     }
 
     private void WallSlide()
@@ -121,5 +152,20 @@ public class PlayerMovement : MonoBehaviour
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
         transform.localScale = localScale;
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            _isLadder = true;
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.CompareTag("Ladder")) return;
+        _isLadder = false;
+        _isClimbing = false;
     }
 }
