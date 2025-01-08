@@ -1,12 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttacks : MonoBehaviour
 {
-
-    [SerializeField]
-    private BoxCollider2D playerSword;
     
     private int _mana;
+    
+    private Dictionary<string, int> _attackCostDictionary = new Dictionary<string, int> {{"JumpSwordAttack", 10}, 
+        {"ShuriKenAttack", 5}, {"SpecialShuriKenAttack", 15}, {"FireBallAttack", 20}, {"FireCircleAttack", 25}};
     private void JumpSwordAttack()
     {
         //Attack logic

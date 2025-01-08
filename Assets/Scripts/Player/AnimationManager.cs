@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,8 +17,15 @@ public class AnimationManager : MonoSingleton<AnimationManager>
         PlayerMovement.Running += OnRunning;
         PlayerMovement.LadderClimbing += OnLadderClimbing;
     }
-    
-    
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Q))
+        {
+            SwordAttack();
+        }
+    }
+
     private void OnJumping()
     {
         animator.SetBool("Running", false);
@@ -52,6 +60,11 @@ public class AnimationManager : MonoSingleton<AnimationManager>
         animator.SetBool("Climbing", isClmbing);
         animator.SetBool("OnLadder", isOnLadder);
         //take only the first frame of the animation
+    }
+    
+    private void SwordAttack()
+    {
+        animator.SetTrigger("SwordAttack");
     }
         
     private void OnDisable()

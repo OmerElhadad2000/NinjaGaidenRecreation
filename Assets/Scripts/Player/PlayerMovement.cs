@@ -80,8 +80,7 @@ public class PlayerMovement : MonoBehaviour
         WallHanging?.Invoke(_isWallSliding);
         Crouching?.Invoke(_isCrouching);
         Running?.Invoke(Mathf.Abs(_horizontal) > 0f);
-        LadderClimbing?.Invoke(_isLadder, Mathf.Abs(_vertical) > 0f);
-
+        LadderClimbing?.Invoke(_isLadder && _isClimbing, _isLadder && Mathf.Abs(_vertical) > 0f);
         if (!_isWallJumping)
         {
             Flip();
