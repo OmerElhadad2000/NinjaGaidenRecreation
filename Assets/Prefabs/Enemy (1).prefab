@@ -111,7 +111,7 @@ Rigidbody2D:
     m_Bits: 1024
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &6982122898106942841
 MonoBehaviour:
@@ -133,7 +133,7 @@ MonoBehaviour:
     m_Bits: 72
   circleRadius: 0.28
   jumpHeight: 2.55
-  player: {fileID: 794624024442782404, guid: b99ed84e444efde43a5a6ccb72e00b3c, type: 3}
+  player: {fileID: 7822778008480341888, guid: b99ed84e444efde43a5a6ccb72e00b3c, type: 3}
   groundCheck: {fileID: 3410930247204209891}
   boxSize: {x: 0.67, y: 0.09}
   lineOfSite: {x: 3.84, y: 1.68}

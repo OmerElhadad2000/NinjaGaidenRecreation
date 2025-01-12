@@ -81,8 +81,16 @@ public class JumpingEnemyMovement : MonoBehaviour {
 
     void FlipTowardsPlayer()
     {
-        float playerPosition = player.position.x - transform.position.x;
-        Debug.Log("Player Position: " + playerPosition);
+        float playerPosition = 0;
+        if (facingRight)
+        {
+            playerPosition = -(player.position.x - transform.position.x);
+        }
+        else
+        {
+            playerPosition = player.position.x - transform.position.x;
+        }
+        
         if (playerPosition<0 && facingRight)
         {
             Flip();
