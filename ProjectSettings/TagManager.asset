@@ -8,6 +8,18 @@ TagManager:
   - Wall
   - Ladder
   - Player Attack
+  - Red Spirit Points
+  - Special Jump
+  - Blue Points
+  - Blue Spirit Points
+  - Health
+  - Extra Life
+  - Time Freeze
+  - Red Points
+  - Regular Shuriken
+  - Special Shuriken
+  - Flame
+  - Fire Circle
   layers:
   - Default
   - TransparentFX
@@ -17,8 +29,8 @@ TagManager:
   - UI
   - Wall
   - Slide Wall
-  - 
-  - 
+  - Player Attacks
+  - Player
   - 
   - 
   - 

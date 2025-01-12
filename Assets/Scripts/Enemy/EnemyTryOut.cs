@@ -13,12 +13,10 @@ public class EnemyTryOut : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player Attack"))
-        {
-            Debug.Log("Player hit me");
-            TakeDamage();
-            Debug.Log("Health: " + _health);
-        }
+        if (!other.CompareTag("Player Attack")) return;
+        Debug.Log("Player hit me");
+        TakeDamage();
+        Debug.Log("Health: " + _health);
     }
     
     void Update()
@@ -28,6 +26,4 @@ public class EnemyTryOut : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
-    
 }

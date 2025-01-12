@@ -69,10 +69,10 @@ public class PlayerMovement : MonoBehaviour
             _isCrouching = true;
         }
 
-        else
-        {
-            _isCrouching = false;
-        }
+        // else
+        // {
+        //     _isCrouching = false;
+        // }
 
         WallSlide();
         WallJump();
@@ -94,11 +94,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_isWallJumping)
         {
+            _isCrouching = false;
             rb.linearVelocity = new Vector2(_horizontal * Speed, rb.linearVelocity.y);
         }
 
         if (_isClimbing)
         {
+            _isCrouching = false;
             rb.gravityScale = 0f;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, Input.GetAxis("Vertical") * ClimbingSpeed);
         }
@@ -196,6 +198,8 @@ public class PlayerMovement : MonoBehaviour
         {
             _isLadder = true;
         }
+        
+        
     }
 
     private void OnTriggerExit2D(Collider2D other)

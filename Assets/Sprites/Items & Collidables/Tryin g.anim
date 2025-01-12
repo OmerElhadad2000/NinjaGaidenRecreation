@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpecialShurikenAttack
+  m_Name: Tryin g
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 2161842845183271329, guid: b34e8167594002942be4ab4425988edd, type: 3}
+      value: {fileID: 1872813245304089599, guid: 50e69d892feb0e244a2560fc6628fc27, type: 3}
     - time: 0.083333336
-      value: {fileID: -3285922347849371561, guid: b34e8167594002942be4ab4425988edd, type: 3}
+      value: {fileID: -4534649932017617288, guid: 50e69d892feb0e244a2560fc6628fc27, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,8 +46,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 2161842845183271329, guid: b34e8167594002942be4ab4425988edd, type: 3}
-    - {fileID: -3285922347849371561, guid: b34e8167594002942be4ab4425988edd, type: 3}
+    - {fileID: 1872813245304089599, guid: 50e69d892feb0e244a2560fc6628fc27, type: 3}
+    - {fileID: -4534649932017617288, guid: 50e69d892feb0e244a2560fc6628fc27, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

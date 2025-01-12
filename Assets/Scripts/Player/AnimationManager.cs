@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class AnimationManager : MonoSingleton<AnimationManager>
 {
-    
     [SerializeField] private Animator animator;
-    
-    
     private void OnEnable()
     {
         PlayerMovement.Jumping += OnJumping;

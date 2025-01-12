@@ -142,7 +142,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -1009,7 +1009,43 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      All-Items-&-Collidables_0: 4873987454974819197
+      All-Items-&-Collidables_1: 1872813245304089599
+      All-Items-&-Collidables_10: 1515900545593547837
+      All-Items-&-Collidables_11: -9222742675532268786
+      All-Items-&-Collidables_12: 7382803673199412242
+      All-Items-&-Collidables_13: -5361982030538584579
+      All-Items-&-Collidables_14: -120752343545327089
+      All-Items-&-Collidables_15: -9031323645397540573
+      All-Items-&-Collidables_16: -594635338023058019
+      All-Items-&-Collidables_17: 985291372586048177
+      All-Items-&-Collidables_18: 808569464976535307
+      All-Items-&-Collidables_19: 5618286571998146479
+      All-Items-&-Collidables_2: 6388401526491569959
+      All-Items-&-Collidables_20: 8900480134747427705
+      All-Items-&-Collidables_21: -4545160966206249291
+      All-Items-&-Collidables_22: 2440007395735106793
+      All-Items-&-Collidables_23: 6398985854990204779
+      All-Items-&-Collidables_24: 9005403388693642855
+      All-Items-&-Collidables_25: -8920003301811257227
+      All-Items-&-Collidables_26: 3526122075032009100
+      All-Items-&-Collidables_27: 6295645060387406787
+      All-Items-&-Collidables_28: 6918659691735096672
+      All-Items-&-Collidables_29: 9066056157398852435
+      All-Items-&-Collidables_3: -4534649932017617288
+      All-Items-&-Collidables_30: -2636777146821293229
+      All-Items-&-Collidables_31: 1299765131418664764
+      All-Items-&-Collidables_32: -8593362705443444145
+      All-Items-&-Collidables_33: -8437075387665384494
+      All-Items-&-Collidables_34: -3461230892616855325
+      All-Items-&-Collidables_35: 2108726668373955324
+      All-Items-&-Collidables_4: -7910068097049970007
+      All-Items-&-Collidables_5: -7167739962849778052
+      All-Items-&-Collidables_6: -933333245684551326
+      All-Items-&-Collidables_7: 3491911435265718350
+      All-Items-&-Collidables_8: 4540743702545140303
+      All-Items-&-Collidables_9: 5377807500175792045
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
