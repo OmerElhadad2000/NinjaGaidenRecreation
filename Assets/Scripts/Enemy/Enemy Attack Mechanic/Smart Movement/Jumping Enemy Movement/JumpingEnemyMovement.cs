@@ -66,12 +66,12 @@ public class JumpingEnemyMovement : MonoBehaviour {
                 Flip();
             }
         }
-        enemyRB.velocity = new Vector2(moveSpeed * moveDirection, enemyRB.velocity.y);
+        enemyRB.linearVelocity = new Vector2(moveSpeed * moveDirection, enemyRB.linearVelocity.y);
     }
 
     void JumpAttack()
     {
-        float distanceFromPlayer = Mathf.Abs(player.position.x - transform.position.x);
+        float distanceFromPlayer = player.position.x - transform.position.x;
 
         if (isGrounded)
         {
@@ -81,15 +81,8 @@ public class JumpingEnemyMovement : MonoBehaviour {
 
     void FlipTowardsPlayer()
     {
-        float playerPosition = 0;
-        if (facingRight)
-        {
-            playerPosition = -(player.position.x - transform.position.x);
-        }
-        else
-        {
-            playerPosition = player.position.x - transform.position.x;
-        }
+        
+        float playerPosition = player.position.x - transform.position.x;
         
         if (playerPosition<0 && facingRight)
         {
