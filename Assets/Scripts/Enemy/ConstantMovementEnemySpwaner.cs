@@ -8,7 +8,7 @@ public class ConstantMovementEnemySpwaner : MonoBehaviour
     [SerializeField] private float spawnRate;
     [SerializeField] private float spawnDistance;
     private float _nextSpawnTime;
-    [SerializeField] private Transform[] movementPoints;
+    //[SerializeField] private Transform[] movementPoints;
     
     private void Update()
     {
@@ -22,7 +22,7 @@ public class ConstantMovementEnemySpwaner : MonoBehaviour
     {
         //use pool
         EnemyTemplate enemy = RegularMovementEnemyPool.Instance.Get();
-        enemy.gameObject.GetComponent<ConstantMovementEnemy>().SetMovementPoints(movementPoints);
+        //enemy.gameObject.GetComponent<ConstantMovementEnemy>().SetMovementPoints(movementPoints);
         enemy.transform.position = transform.position;
         enemy.SetEnemyAnimationController(enemyAnimator);
     }

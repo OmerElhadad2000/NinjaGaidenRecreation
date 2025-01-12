@@ -29,7 +29,7 @@ public class JumpingEnemyMovement : MonoBehaviour {
     void Start()
     {
         enemyRB = GetComponent<Rigidbody2D>(); 
-        enemyAnim = GetComponent<Animator>();        
+        // enemyAnim = GetComponent<Animator>();        
     }
 
    
@@ -71,7 +71,7 @@ public class JumpingEnemyMovement : MonoBehaviour {
 
     void JumpAttack()
     {
-        float distanceFromPlayer = player.position.x - transform.position.x;
+        float distanceFromPlayer = Mathf.Abs(player.position.x - transform.position.x);
 
         if (isGrounded)
         {
@@ -82,6 +82,7 @@ public class JumpingEnemyMovement : MonoBehaviour {
     void FlipTowardsPlayer()
     {
         float playerPosition = player.position.x - transform.position.x;
+        Debug.Log("Player Position: " + playerPosition);
         if (playerPosition<0 && facingRight)
         {
             Flip();
