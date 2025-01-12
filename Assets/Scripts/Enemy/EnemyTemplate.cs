@@ -9,7 +9,6 @@ public class EnemyTemplate : MonoBehaviour, IPoolableObject
     private void OnEnable()
     {
         _enemyAnimator = GetComponent<Animator>();
-        
     }
     
     public void Reset()

@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 6571291029291944658}
   - component: {fileID: -815350607655825579}
   - component: {fileID: -1164182527478523592}
+  - component: {fileID: 1010938138568819412}
   m_Layer: 10
-  m_Name: enemyPrefab
+  m_Name: Constant Movement Enemy
   m_TagString: Regular Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,3 +199,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.22, y: 0.33}
   m_EdgeRadius: 0
+--- !u!114 &1010938138568819412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608295480130777924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48977f9a43b42bc4db98c1f2df325831, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementPoints:
+  - {fileID: 7901880777534434194, guid: b21d1bc04e1387443b682d81c6f6e7f3, type: 3}
+  - {fileID: 1056936429971254714, guid: 2a05070b237e103468a9a1a403c659b1, type: 3}
+  movementSpeed: 3
