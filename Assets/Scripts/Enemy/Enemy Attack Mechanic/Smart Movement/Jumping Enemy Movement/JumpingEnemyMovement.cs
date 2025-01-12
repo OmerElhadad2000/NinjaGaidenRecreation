@@ -1,6 +1,6 @@
 using UnityEngine;
-public class JumpingEnemy : MonoBehaviour
-{
+public class JumpingEnemyMovement : MonoBehaviour {
+    
     [Header("For Petrolling")]
     [SerializeField] float moveSpeed;
     private float moveDirection = 1;
