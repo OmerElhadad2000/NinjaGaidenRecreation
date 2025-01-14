@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform wallCheck;
-    [SerializeField] private LayerMask wallSlideLayerMask;
     [SerializeField] private float jumpingPower;
 
     //Movement Variables
@@ -71,9 +70,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
-
-        // This Is Adding Wall Transparency When Not Jumping
-        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer($"Slide Wall"), _isGrounded);
     }
 
     private void FixedUpdate()
@@ -141,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip()
     {
-        if ((!_isFacingRight || !(_horizontal < 0f)) && (_isFacingRight || !(_horizontal > 0f))) return;
+        if ((!_isFacingRight || !(_horizontal < 0f)) && (_isFacingRight || !(_horizontal > 0f)) || _isWallSliding) return;
         _isFacingRight = !_isFacingRight;
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
@@ -158,13 +154,10 @@ public class PlayerMovement : MonoBehaviour
                 rb.simulated = false;
             }
         }
-        if (other.CompareTag("Wall Slide Right"))
-        {
-            if (other.transform.position.x > transform.position.x && !IsGrounded() && !_isWallJumping)
-            {
-                _isWallSliding = true;
-                rb.simulated = false;
-            }
-        }
+
+        if (!other.CompareTag($"Wall Slide Right")) return;
+        if (!(other.transform.position.x > transform.position.x) || IsGrounded() || _isWallJumping) return;
+        _isWallSliding = true;
+        rb.simulated = false;
     }
 }

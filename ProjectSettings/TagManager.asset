@@ -22,6 +22,8 @@ TagManager:
   - Fire Circle
   - Regular Enemy
   - Boss Enemy
+  - Wall Slide Left
+  - Wall Slide RIght
   layers:
   - Default
   - TransparentFX
