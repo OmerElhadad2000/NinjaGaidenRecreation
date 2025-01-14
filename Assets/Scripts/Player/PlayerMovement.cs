@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private float jumpingPower;
+    [SerializeField] private LayerMask slideLayer;
 
     //Movement Variables
     private float _horizontal;
@@ -26,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     //Movement Constants
     private const float WallJumpingTime = 0.2f;
     private const float WallJumpingDuration = 0.2f;
-    private readonly Vector2 _wallJumpingPower = new(1f, 5f);
+    private readonly Vector2 _wallJumpingPower = new(1.1f, 6f);
     private const float Speed = 5f;
 
 
@@ -149,16 +150,22 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Wall Slide Left"))
         {
-            if (other.transform.position.x < transform.position.x && !IsGrounded() && !_isWallJumping)
+            if (other.transform.position.x < transform.position.x && !IsGrounded()
+                && Physics2D.OverlapCircle(wallCheck.position, 0.2f,slideLayer ))
             {
                 _isWallSliding = true;
                 rb.simulated = false;
             }
         }
-
-        if (!other.CompareTag($"Wall Slide Right")) return;
-        if (!(other.transform.position.x > transform.position.x) || IsGrounded() || _isWallJumping) return;
-        _isWallSliding = true;
-        rb.simulated = false;
+        if (other.CompareTag("Wall Slide Right"))
+        {
+            if (other.transform.position.x > transform.position.x && !IsGrounded() && 
+                 Physics2D.OverlapCircle(wallCheck.position, 0.2f, slideLayer))
+            {
+                _isWallSliding = true;
+                rb.simulated = false;
+            }
+        }
     }
+    
 }

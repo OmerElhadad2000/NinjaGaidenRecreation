@@ -33,6 +33,7 @@ public class AnimationManager : MonoSingleton<AnimationManager>
     {
         animator.SetBool(Running, false);
         animator.SetBool(Grounded, false);
+        animator.SetBool(WallHang, false);
         animator.SetBool(Jumping, true);
     }
 
@@ -45,6 +46,11 @@ public class AnimationManager : MonoSingleton<AnimationManager>
     private void OnWallHanging(bool isWallHanged)
     {
         animator.SetBool(Running, false);
+        if (isWallHanged)
+        {
+            animator.SetBool(Grounded, false);
+            animator.SetBool(Jumping, false);
+        }
         animator.SetBool(WallHang, isWallHanged);
     }
     
