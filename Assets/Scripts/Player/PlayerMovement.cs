@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallSlideLayerMask;
+    [SerializeField] private float jumpingPower;
 
     //Movement Variables
     private float _horizontal;
@@ -26,13 +27,12 @@ public class PlayerMovement : MonoBehaviour
     private float _wallJumpingCounter;
 
     //Movement Constants
-    private const float WallSlidingSpeed = 0f;
     private const float WallJumpingTime = 0.2f;
     private const float WallJumpingDuration = 0.2f;
     private readonly Vector2 _wallJumpingPower = new(1f, 5f);
     private const float ClimbingSpeed = 3f;
     private const float Speed = 5f;
-    private const float JumpingPower = 5f;
+    
 
     public static event Action Jumping;
     public static event Action<bool> Grounded;
@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, JumpingPower);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
         }
 
         if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
