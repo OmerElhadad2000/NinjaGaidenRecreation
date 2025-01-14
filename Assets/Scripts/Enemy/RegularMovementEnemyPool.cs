@@ -1,5 +1,5 @@
 using UnityEngine;
 
-public class RegularMovementEnemyPool : MonoPool<EnemyTemplate>
+public class RegularMovementEnemyPool : MonoPool<PoolableEnemy>
 {
 }

@@ -2,7 +2,7 @@ using System;
 using Mono_Pool;
 using UnityEngine;
 
-public class EnemyTemplate : MonoBehaviour, IPoolableObject
+public class PoolableEnemy : MonoBehaviour, IPoolableObject
 {
     private Animator _enemyAnimator;
     
