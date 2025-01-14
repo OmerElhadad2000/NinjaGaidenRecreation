@@ -44,14 +44,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+            // rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+            rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
         }
 
-        if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0f)
+        if (rb.linearVelocity.y > 0f)
         {
             // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
             Jumping?.Invoke();
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+            // rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
         }
         
 

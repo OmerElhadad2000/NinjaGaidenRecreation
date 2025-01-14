@@ -23,7 +23,7 @@ TagManager:
   - Regular Enemy
   - Boss Enemy
   - Wall Slide Left
-  - Wall Slide RIght
+  - Wall Slide Right
   layers:
   - Default
   - TransparentFX
