@@ -9122,6 +9122,7 @@ GameObject:
   - component: {fileID: 1703845788}
   - component: {fileID: 1703845790}
   - component: {fileID: 1703845789}
+  - component: {fileID: 1703845791}
   m_Layer: 7
   m_Name: Jump Wall (33)
   m_TagString: Wall
@@ -9138,8 +9139,8 @@ Transform:
   m_GameObject: {fileID: 1703845787}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.33, y: 2.717, z: 0.25120673}
-  m_LocalScale: {x: 0.1782523, y: 7.6543736, z: 0.6654}
+  m_LocalPosition: {x: -38.363, y: 2.741, z: 0.25120673}
+  m_LocalScale: {x: 0.6061113, y: 7.6543736, z: 0.6654}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 928968106}
@@ -9174,8 +9175,8 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
@@ -9245,6 +9246,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!251 &1703845791
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703845787}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 1023
+  m_RotationalOffset: -90
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 28.55
 --- !u!1 &1743399616
 GameObject:
   m_ObjectHideFlags: 0

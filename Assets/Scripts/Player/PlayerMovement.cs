@@ -18,8 +18,6 @@ public class PlayerMovement : MonoBehaviour
     private float _vertical;
     private bool _isGrounded;
     private bool _isCrouching;
-    private bool _isClimbing;
-    private bool _isLadder;
     private bool _isWallJumping;
     private float _wallJumpingDirection;
     private bool _isFacingRight = true;
@@ -30,16 +28,14 @@ public class PlayerMovement : MonoBehaviour
     private const float WallJumpingTime = 0.2f;
     private const float WallJumpingDuration = 0.2f;
     private readonly Vector2 _wallJumpingPower = new(1f, 5f);
-    private const float ClimbingSpeed = 3f;
     private const float Speed = 5f;
-    
+
 
     public static event Action Jumping;
     public static event Action<bool> Grounded;
     public static event Action<bool> WallHanging;
     public static event Action<bool> Crouching;
     public static event Action<bool> Running;
-    public static event Action<bool, bool> LadderClimbing;
 
     //Player Movement Logic
     private void Update()
@@ -58,29 +54,19 @@ public class PlayerMovement : MonoBehaviour
             Jumping?.Invoke();
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
         }
-
-        if (_isLadder && Mathf.Abs(_vertical) > 0f)
-        {
-            _isClimbing = true;
-        }
+        
 
         if (IsGrounded() && _vertical < 0f)
         {
             _isCrouching = true;
         }
-
-        // else
-        // {
-        //     _isCrouching = false;
-        // }
-
-        WallSlide();
-        WallJump();
         
+        WallJump();
+
         WallHanging?.Invoke(_isWallSliding);
         Crouching?.Invoke(_isCrouching);
         Running?.Invoke(Mathf.Abs(_horizontal) > 0f);
-        LadderClimbing?.Invoke(_isLadder && _isClimbing, _isLadder && Mathf.Abs(_vertical) > 0f);
+        
         if (!_isWallJumping)
         {
             Flip();
@@ -97,18 +83,6 @@ public class PlayerMovement : MonoBehaviour
             _isCrouching = false;
             rb.linearVelocity = new Vector2(_horizontal * Speed, rb.linearVelocity.y);
         }
-
-        if (_isClimbing)
-        {
-            _isCrouching = false;
-            rb.gravityScale = 0f;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Input.GetAxis("Vertical") * ClimbingSpeed);
-        }
-        else
-        {
-            rb.gravityScale = 1f;
-        }
-
         if (_isCrouching)
         {
             rb.linearVelocity = new Vector2(0f, 0f);
@@ -122,28 +96,7 @@ public class PlayerMovement : MonoBehaviour
         return _isGrounded;
     }
 
-    private bool IsWalled()
-    {
-        return Physics2D.OverlapCircle(wallCheck.position, 0.1f, wallSlideLayerMask);
-    }
 
-    private void WallSlide()
-    {
-        if (IsWalled() && !IsGrounded())
-        {
-            if (_isWallSliding) {return;}
-            _isWallSliding = true;
-            // rb.linearVelocity = new Vector2(rb.linearVelocity.x,
-            //     Mathf.Clamp(rb.linearVelocity.y, -WallSlidingSpeed, float.MaxValue));
-            rb.simulated = false;
-        }
-        else
-        {
-            if (!_isWallSliding){return;}
-            _isWallSliding = false;
-            rb.simulated = true;
-        }
-    }
 
     // ReSharper disable Unity.PerformanceAnalysis
     private void WallJump()
@@ -164,8 +117,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (!Input.GetButtonDown("Jump") || !(_wallJumpingCounter > 0f)) return;
         _isWallJumping = true;
+        _isWallSliding = false;
+        rb.simulated = true;
         rb.linearVelocity = new Vector2(_wallJumpingDirection * _wallJumpingPower.x, _wallJumpingPower.y);
         _wallJumpingCounter = 0f;
+        
 
         if (!Mathf.Approximately(transform.localScale.x, _wallJumpingDirection))
         {
@@ -194,18 +150,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Ladder"))
+        if (other.CompareTag("Wall Slide Left"))
         {
-            _isLadder = true;
+            if (other.transform.position.x < transform.position.x && !IsGrounded() && !_isWallJumping)
+            {
+                _isWallSliding = true;
+                rb.simulated = false;
+            }
         }
-        
-        
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (!other.CompareTag("Ladder")) return;
-        _isLadder = false;
-        _isClimbing = false;
+        if (other.CompareTag("Wall Slide Right"))
+        {
+            if (other.transform.position.x > transform.position.x && !IsGrounded() && !_isWallJumping)
+            {
+                _isWallSliding = true;
+                rb.simulated = false;
+            }
+        }
     }
 }
