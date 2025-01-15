@@ -24,6 +24,7 @@ TagManager:
   - Boss Enemy
   - Wall Slide Left
   - Wall Slide Right
+  - Enemy Attack
   layers:
   - Default
   - TransparentFX
