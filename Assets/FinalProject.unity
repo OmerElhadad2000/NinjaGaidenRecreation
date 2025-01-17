@@ -1249,7 +1249,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &196900383
 Transform:
   m_ObjectHideFlags: 0
@@ -1841,6 +1841,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &266859774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 266859775}
+  - component: {fileID: 266859776}
+  m_Layer: 0
+  m_Name: Boxer Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &266859775
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266859774}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1375414660}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &266859776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266859774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5cdeca812a70744389621948fdd7507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemiesInSpawner: 3
+  currentEnemiesInSpawner: 0
+  spawnRate: 1
+  spawnRateTimer: 0
+  player: {fileID: 2186729128304583183}
+  enemyPool: {fileID: 858423380}
 --- !u!1 &279779323
 GameObject:
   m_ObjectHideFlags: 0
@@ -2783,7 +2833,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &481269113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3216,6 +3266,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &496862609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 496862611}
+  - component: {fileID: 496862612}
+  m_Layer: 0
+  m_Name: Baseball Bat Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &496862611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496862609}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.9045732, y: 0.0156235695, z: 0.016724348}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1189145154}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &496862612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496862609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2bf0fb4153b94c4cb4506e8a7bde61e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemiesInSpawner: 3
+  currentEnemiesInSpawner: 0
+  spawnRate: 1
+  spawnRateTimer: 0
+  player: {fileID: 2186729128304583183}
+  enemyPool: {fileID: 984160876}
 --- !u!1 &514493648
 GameObject:
   m_ObjectHideFlags: 0
@@ -5427,6 +5527,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &858423378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 858423379}
+  - component: {fileID: 858423380}
+  m_Layer: 0
+  m_Name: Boxer Pool Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &858423379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858423378}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1375414660}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &858423380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858423378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b86e449798f11bc40b71237099a417b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialSize: 3
+  prefab: {fileID: 7731183977958671044, guid: 17dd9b77fdfa704488529148158c0c38, type: 3}
+  parent: {fileID: 266859775}
 --- !u!1 &866758362
 GameObject:
   m_ObjectHideFlags: 0
@@ -6273,6 +6420,53 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!1 &984160875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 984160877}
+  - component: {fileID: 984160876}
+  m_Layer: 0
+  m_Name: Baseball Bat Pool Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &984160876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984160875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b01a14230acce243b8ea0ac03d2b494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialSize: 3
+  prefab: {fileID: 699204622460399882, guid: d29430a25cbb8e64b91c9cd02a325531, type: 3}
+  parent: {fileID: 496862611}
+--- !u!4 &984160877
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984160875}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.9045732, y: 2.1258798, z: 0.016724348}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1189145154}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1019803184
 GameObject:
   m_ObjectHideFlags: 0
@@ -7505,6 +7699,70 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3433468976382979219, guid: 7ec6aad2b23d83e45bca7936382beb44, type: 3}
   m_PrefabInstance: {fileID: 1187163096}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1189145153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1189145154}
+  m_Layer: 0
+  m_Name: Baseball Spawner Assets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1189145154
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189145153}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1561561, y: -2.4156237, z: -2.2868588}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 496862611}
+  - {fileID: 984160877}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1323263023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1323263024}
+  m_Layer: 0
+  m_Name: ---------Enemy Spawners----------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1323263024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323263023}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.14084092, y: -2.6141367, z: -2.2644804}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1325555479
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7771,6 +8029,44 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!1 &1361606721 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3829651613428342015, guid: e5a4e6eb7ced3654f9e6114791875d69, type: 3}
+  m_PrefabInstance: {fileID: 1083503655970986479}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1375414659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1375414660}
+  m_Layer: 0
+  m_Name: Boxer Spawner Assets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1375414660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375414659}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1561561, y: -2.4156237, z: -2.2868588}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 858423379}
+  - {fileID: 266859775}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1376377371
 GameObject:
   m_ObjectHideFlags: 0
@@ -12425,11 +12721,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6570215426249560373, guid: e5a4e6eb7ced3654f9e6114791875d69, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.22
+      value: -6.99
       objectReference: {fileID: 0}
     - target: {fileID: 6570215426249560373, guid: e5a4e6eb7ced3654f9e6114791875d69, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.46
+      value: -2.64
       objectReference: {fileID: 0}
     - target: {fileID: 6570215426249560373, guid: e5a4e6eb7ced3654f9e6114791875d69, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12466,79 +12762,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3829651613428342015, guid: e5a4e6eb7ced3654f9e6114791875d69, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6076749307113631197}
   m_SourcePrefab: {fileID: 100100000, guid: e5a4e6eb7ced3654f9e6114791875d69, type: 3}
 --- !u!4 &2186729128304583183 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6570215426249560373, guid: e5a4e6eb7ced3654f9e6114791875d69, type: 3}
   m_PrefabInstance: {fileID: 1083503655970986479}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &3848639773406988811
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6078354625939348105, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2186729128304583183}
-    - target: {fileID: 6539547654337488880, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.5500474
-      objectReference: {fileID: 0}
-    - target: {fileID: 6539547654337488880, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.6263146
-      objectReference: {fileID: 0}
-    - target: {fileID: 6539547654337488880, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.2544174
-      objectReference: {fileID: 0}
-    - target: {fileID: 6539547654337488880, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6539547654337488880, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6539547654337488880, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6539547654337488880, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6539547654337488880, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6539547654337488880, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6539547654337488880, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9097398634529321128, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
-      propertyPath: m_Name
-      value: Baseball Bat Enemy
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a076c61b824c66a489642c7c748a6c88, type: 3}
 --- !u!95 &6076749307113631191 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2426701875335030541, guid: e5a4e6eb7ced3654f9e6114791875d69, type: 3}
   m_PrefabInstance: {fileID: 1083503655970986479}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6076749307113631197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361606721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 530a9c1b42486584f930b5c429289452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  invincibilityDuration: 3
+  invincibilityAlpha: 0.5
+  flickerInterval: 0.06
 --- !u!1001 &7623790596154171771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12551,6 +12805,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2186729128304583183}
+    - target: {fileID: 2426326986900324610, guid: 8e128f1ac36618247b0ff9cacfbb4369, type: 3}
+      propertyPath: moveSpeed
+      value: 1.24
+      objectReference: {fileID: 0}
     - target: {fileID: 4185134212391394084, guid: 8e128f1ac36618247b0ff9cacfbb4369, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5
@@ -12595,6 +12853,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knife Thrower Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5446664939918883600, guid: 8e128f1ac36618247b0ff9cacfbb4369, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446664939918883600, guid: 8e128f1ac36618247b0ff9cacfbb4369, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12616,4 +12882,6 @@ SceneRoots:
   - {fileID: 7623790596154171771}
   - {fileID: 481269114}
   - {fileID: 196900383}
-  - {fileID: 3848639773406988811}
+  - {fileID: 1323263024}
+  - {fileID: 1189145154}
+  - {fileID: 1375414660}

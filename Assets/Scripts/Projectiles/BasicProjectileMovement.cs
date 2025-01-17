@@ -26,4 +26,9 @@ public class BasicProjectileMovement : MonoBehaviour, IPoolableObject
         ProjectileRigidbody.linearVelocity = Vector2.zero;
         transform.rotation = Quaternion.identity;
     }
+    
+    public void SetPlayerTransform(Transform player)
+    {
+        // Do nothing
+    }
 }

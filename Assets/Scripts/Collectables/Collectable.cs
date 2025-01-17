@@ -34,4 +34,9 @@ public class Collectable : MonoBehaviour, IPoolableObject
     {
         _spriteRenderer.sprite = newSprite;
     }
+    
+    public void SetPlayerTransform(Transform player)
+    {
+        // Do nothing
+    }
 }

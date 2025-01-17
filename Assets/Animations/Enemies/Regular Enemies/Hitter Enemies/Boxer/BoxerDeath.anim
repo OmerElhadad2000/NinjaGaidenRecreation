@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BaseballWalk
+  m_Name: BoxerDeath
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -23,7 +23,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -31,7 +31,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.20833334
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -51,13 +51,21 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: b76bca29b2a4a90479b39f1017441d76, type: 2}
+      value: {fileID: -209852131443289560, guid: 307ce6703cc2ff04e8d9f722c9ed5bd9, type: 3}
+    - time: 0.041666668
+      value: {fileID: -6909007588959879813, guid: 307ce6703cc2ff04e8d9f722c9ed5bd9, type: 3}
+    - time: 0.083333336
+      value: {fileID: 653698852418109019, guid: 307ce6703cc2ff04e8d9f722c9ed5bd9, type: 3}
+    - time: 0.125
+      value: {fileID: -7632265425516689811, guid: 307ce6703cc2ff04e8d9f722c9ed5bd9, type: 3}
+    - time: 0.16666667
+      value: {fileID: -1395261209730058153, guid: 307ce6703cc2ff04e8d9f722c9ed5bd9, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 12
+  m_SampleRate: 24
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -83,13 +91,17 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: b76bca29b2a4a90479b39f1017441d76, type: 2}
+    - {fileID: -209852131443289560, guid: 307ce6703cc2ff04e8d9f722c9ed5bd9, type: 3}
+    - {fileID: -6909007588959879813, guid: 307ce6703cc2ff04e8d9f722c9ed5bd9, type: 3}
+    - {fileID: 653698852418109019, guid: 307ce6703cc2ff04e8d9f722c9ed5bd9, type: 3}
+    - {fileID: -7632265425516689811, guid: 307ce6703cc2ff04e8d9f722c9ed5bd9, type: 3}
+    - {fileID: -1395261209730058153, guid: 307ce6703cc2ff04e8d9f722c9ed5bd9, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.083333336
+    m_StopTime: 0.20833334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -111,7 +123,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -119,7 +131,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.20833334
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -138,4 +150,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.20833333
+    functionName: 
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

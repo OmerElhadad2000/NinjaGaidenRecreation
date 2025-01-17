@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class PunchingEnemyMovement : BasicEnemyMovement
 {
     private static readonly int CanSeePlayer = Animator.StringToHash("CanSeePlayer");
+    private static readonly int EnemyHit = Animator.StringToHash("EnemyHit");
 
     [Header("For Jump Attack")]
     [SerializeField] private float jumpHeight;
@@ -31,7 +33,7 @@ public class PunchingEnemyMovement : BasicEnemyMovement
 
     private void JumpAttack()
     {
-        float distanceFromPlayer = player.position.x - transform.position.x;
+        float distanceFromPlayer = Player.position.x - transform.position.x;
 
         if (_isGrounded)
         {
@@ -66,5 +68,18 @@ public class PunchingEnemyMovement : BasicEnemyMovement
         base.Reset();
         _isGrounded = false;
         _canJump = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player Attack"))
+        {
+            EnemyAnimator.SetTrigger(EnemyHit);
+        }
+    }
+    
+    private void OnHitByPlayer()
+    {
+        BoxerPool.Instance.Return(this);
     }
 }

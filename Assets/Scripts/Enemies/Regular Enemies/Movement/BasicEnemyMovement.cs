@@ -1,6 +1,7 @@
 using System;
 using Mono_Pool;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
 {
@@ -15,9 +16,9 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
     
     protected bool CheckingGround;
     protected bool CheckingWall;
-
+    
     [Header("For SeeingPlayer")]
-    [SerializeField] protected Transform player;
+    protected Transform Player;
     [SerializeField] protected Vector2 lineOfSite;
     [SerializeField] protected LayerMask playerLayer;
     private protected bool PlayerInRange;
@@ -25,10 +26,11 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
     [Header("Other")]
     private protected Animator EnemyAnimator;
     private protected Rigidbody2D EnemyRigidbody2D;
-    void Start()
+
+    private void OnEnable()
     {
-        EnemyRigidbody2D = GetComponent<Rigidbody2D>(); 
-        EnemyAnimator = GetComponent<Animator>();        
+        EnemyAnimator = GetComponent<Animator>();
+        EnemyRigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     protected void Patrolling()
@@ -50,7 +52,7 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
     protected void FlipTowardsPlayer()
     {
         
-        float playerPosition = player.position.x - transform.position.x;
+        float playerPosition = Player.position.x - transform.position.x;
         
         if (playerPosition<0 && FacingRight)
         {
@@ -90,5 +92,10 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
         CheckingWall = false;
         PlayerInRange = false;
         transform.rotation = Quaternion.identity;
+    }
+    
+    public void SetPlayerTransform(Transform playerTransform)
+    {
+        Player = playerTransform;
     }
 }

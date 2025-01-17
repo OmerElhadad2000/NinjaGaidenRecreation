@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private float jumpingPower;
     [SerializeField] private LayerMask slideLayer;
+    
+    [SerializeField] private float knockbackForce = 5f; // Force applied when hit
+    [SerializeField] private float knockbackDuration = 0.5f; // Duration of knockback
 
     //Movement Variables
     private float _horizontal;
@@ -36,8 +40,16 @@ public class PlayerMovement : MonoBehaviour
     public static event Action<bool> WallHanging;
     public static event Action<bool> Crouching;
     public static event Action<bool> Running;
-
+    
     //Player Movement Logic
+
+    private void OnEnable()
+    {
+        PlayerBehavior.PlayerHit += OnPlayerHit;
+        // PlayerHealth.PlayerInvincible += OnPlayerInvincible;
+        // PlayerHealth.PlayerNotInvincible += OnPlayerNotInvincible;
+    }
+
     private void Update()
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
@@ -95,7 +107,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
     // ReSharper disable Unity.PerformanceAnalysis
     private void WallJump()
     {
@@ -131,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
 
         Invoke(nameof(StopWallJumping), WallJumpingDuration);
     }
-
+    
     private void StopWallJumping()
     {
         _isWallJumping = false;
@@ -168,4 +179,39 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
+    void OnPlayerHit(Vector2 contactPoint)
+    {
+        if (contactPoint == Vector2.zero)
+        {
+            contactPoint = rb.position + Vector2.left; // Default direction if contact point is zero
+        }
+
+        Vector2 knockbackDirection = (rb.position - contactPoint).normalized;
+
+        if (IsGrounded())
+        {
+            knockbackDirection.x = Mathf.Max(Mathf.Abs(knockbackDirection.x), 0.1f) * Mathf.Sign(knockbackDirection.x); 
+        }
+        else
+        {
+            knockbackDirection.x = Mathf.Max(Mathf.Abs(knockbackDirection.x), 0.1f) * Mathf.Sign(knockbackDirection.x); // Ensure a small horizontal component
+            knockbackDirection.y = Mathf.Max(knockbackDirection.y, 0.1f); // Ensure a small upward component
+        }
+
+        Vector2 knockbackVelocity = knockbackDirection.normalized * knockbackForce;
+        rb.linearVelocity = knockbackVelocity;
+        StartCoroutine(DisableMovementUntilGrounded());
+    }
+
+    private IEnumerator DisableMovementUntilGrounded()
+    {
+        enabled = false; // Disable player movement
+        yield return new WaitUntil(IsGrounded); // Wait until the player is grounded
+        enabled = true; // Re-enable player movement
+    }
+    
+    void OnDisable()
+    {
+        PlayerBehavior.PlayerHit -= OnPlayerHit;
+    }
 }

@@ -72,7 +72,6 @@ public class KnifeThrowerMovement : BasicEnemyMovement
     
     public void EnablePatrol()
     {
-        Debug.Log("Patrol enabled");
         _canPatrol = true;
     }
 
