@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class KnifeThrowerMovement : BasicEnemyMovement
@@ -79,8 +81,23 @@ public class KnifeThrowerMovement : BasicEnemyMovement
     {
         _state = (EnemyState)Random.Range(0, 2);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player Attack"))
+        {
+            EnemyRigidbody2D.simulated = false;
+            EnemyAnimator.SetTrigger("EnemyHit");
+        }
+    }
     
-    public new void Reset()
+    private void OnEnemyGotHit()
+    {
+        KnifeThrowerPool.Instance.Return(this);
+    }
+
+    override 
+    public void Reset()
     {
         base.Reset();
         _state = EnemyState.Standing;

@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class JumpingDogMovement : BasicEnemyMovement
+public class AlienDogMovement : BasicEnemyMovement
 {
+    private static readonly int EnemyHit = Animator.StringToHash("EnemyHit");
+
     [Header("For JumpAttacking")]
     [SerializeField] private float jumpHeight;
     [SerializeField] private Transform groundCheck;
@@ -40,10 +42,26 @@ public class JumpingDogMovement : BasicEnemyMovement
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position, lineOfSite);
     }
-
-    public new void Reset()
+    
+    
+    override 
+    public void Reset()
     {
         base.Reset();
-        _isGrounded = false;
+        _isGrounded = true;
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player Attack"))
+        {
+            EnemyRigidbody2D.simulated = false;
+            EnemyAnimator.SetTrigger(EnemyHit);
+        }
+    }
+    
+    private void OnEnemyGotHit()
+    {
+        AlienDogPool.Instance.Return(this);
     }
 }

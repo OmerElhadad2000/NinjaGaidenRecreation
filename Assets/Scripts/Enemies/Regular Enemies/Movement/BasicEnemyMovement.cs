@@ -83,8 +83,9 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
     
     }
 
-    public void Reset()
+    public virtual void Reset()
     {
+        EnemyRigidbody2D.simulated = true;
         MoveDirection = 1;
         FacingRight = true;
         EnemyRigidbody2D.linearVelocity = Vector2.zero;

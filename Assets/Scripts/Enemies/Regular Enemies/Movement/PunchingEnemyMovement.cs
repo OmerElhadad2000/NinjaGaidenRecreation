@@ -15,6 +15,7 @@ public class PunchingEnemyMovement : BasicEnemyMovement
     private const float Cooldown = 1f; 
     private bool _isGrounded;
     private bool _canJump = true; 
+    
     private void FixedUpdate()
     {
         CheckingGround = Physics2D.OverlapCircle(groundCheckPoint.position, circleRadius, groundLayer);
@@ -63,10 +64,11 @@ public class PunchingEnemyMovement : BasicEnemyMovement
         Gizmos.DrawWireCube(transform.position, lineOfSite);
     }
     
-    public new void Reset()
+    override 
+    public void Reset()
     {
         base.Reset();
-        _isGrounded = false;
+        _isGrounded = true;
         _canJump = true;
     }
 
@@ -74,6 +76,7 @@ public class PunchingEnemyMovement : BasicEnemyMovement
     {
         if (other.CompareTag("Player Attack"))
         {
+            EnemyRigidbody2D.simulated = false;
             EnemyAnimator.SetTrigger(EnemyHit);
         }
     }

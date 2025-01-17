@@ -20,6 +20,7 @@ public class BaseballBatMovement : BasicEnemyMovement
     {
         if (other.CompareTag("Player Attack"))
         {
+            EnemyRigidbody2D.simulated = false;
             EnemyAnimator.SetTrigger(EnemyHit); 
         }
     }
