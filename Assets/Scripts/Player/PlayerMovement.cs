@@ -46,8 +46,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         PlayerBehavior.PlayerHit += OnPlayerHit;
-        // PlayerHealth.PlayerInvincible += OnPlayerInvincible;
-        // PlayerHealth.PlayerNotInvincible += OnPlayerNotInvincible;
     }
 
     private void Update()
@@ -57,7 +55,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            // rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
             rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
         }
 
@@ -65,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
         {
             // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
             Jumping?.Invoke();
-            // rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
         }
         
 

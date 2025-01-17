@@ -9,6 +9,7 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private float invincibilityDuration = 2f; // Duration of invincibility in seconds
     [SerializeField] private float invincibilityAlpha = 0.5f; // Alpha value when invincible
     [SerializeField] private float flickerInterval = 0.1f; // Interval between flickers
+    [SerializeField] private int lives = 2;
     
     private SpriteRenderer _spriteRenderer;
     private Color _originalColor;    
@@ -17,7 +18,7 @@ public class PlayerBehavior : MonoBehaviour
     private bool _isDead;
     
     public static event Action<Vector2> PlayerHit;
-    private void Start()
+    private void OnEnable()
     {
         _currentHealth = maxHealth;
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -32,15 +33,15 @@ public class PlayerBehavior : MonoBehaviour
         {
             _currentHealth = 0;
             _isDead = true;
-            Die();
+            OnPlayerDeath();
         }
         else
         {
             StartCoroutine(InvincibilityCoroutine());
         }
     }
-
-    private void Heal(int healAmount)
+    
+    private void OnPlayerHealthCollected(int healAmount)
     {
         if (_isDead) return;
         _currentHealth += healAmount;
@@ -49,17 +50,33 @@ public class PlayerBehavior : MonoBehaviour
             _currentHealth = maxHealth;
         }
     }
+    
+    private void OnPlayerExtraLifeCollected()
+    {
+        lives++;
+    }
+    
+    private void OnPlayerDeath()
+    {
+        lives--;
+        if (lives <= 0)
+        {
+            //will call an event to end the game
+            Debug.Log("Game Over");
+        }
+        else
+        {
+            //will call an event to reset the player
+            _currentHealth = maxHealth;
+            _isDead = false;
+        }
+    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (!(other.gameObject.CompareTag("Regular Enemy") || other.gameObject.CompareTag("Enemy Attack"))) return;
+        if (!(other.gameObject.CompareTag("Boss Enemy") || other.gameObject.CompareTag("Regular Enemy") || other.gameObject.CompareTag("Enemy Attack"))) return;
         PlayerHit?.Invoke(other.GetContact(0).point);
-        TakeDamage(1);
-    }
-
-    private void Die()
-    {
-        Debug.Log("Player died");
+        TakeDamage(other.gameObject.CompareTag("Boss Enemy") ? 2 : 1);
     }
 
     private IEnumerator InvincibilityCoroutine()

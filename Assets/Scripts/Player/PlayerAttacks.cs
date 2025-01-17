@@ -15,9 +15,7 @@ public class PlayerAttacks : MonoBehaviour
     {
         {"JumpSwordAttack", 10},
         {"ShurikenAttack", 5},
-        {"SpecialShurikenAttack", 15},
-        {"FireballAttack", 20},
-        {"FireCircleAttack", 25}
+        {"FireCircleAttack", 0}
     };
     
     private void OnEnable()
@@ -45,7 +43,7 @@ public class PlayerAttacks : MonoBehaviour
     
     private void OnRegularShurikenCollected()
     {
-        // get a shuriken prefab from the pool
+        // will update the canvas with the pic of the shuriken
     }
     
     private void OnSpecialShurikenCollected()
@@ -66,6 +64,13 @@ public class PlayerAttacks : MonoBehaviour
     private void OnSpecialJumpCollected()
     {
         // get a special jump prefab from the pool
+    }
+    
+    private void OnPlayerDeath()
+    {
+        _mana = 0;
+        
+        // needs to update the canvas with the mana - Canvas Job
     }
     
     private void OnDisable()

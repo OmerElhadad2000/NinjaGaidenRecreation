@@ -23,7 +23,6 @@ public class CollectablesManager : MonoBehaviour
         if (other.CompareTag("Red Spirit Points"))
         {
             RedSpiritPointsCollected?.Invoke();
-            Destroy(other.gameObject);
         }
         else if (other.CompareTag("Blue Spirit Points"))
         {
@@ -58,16 +57,6 @@ public class CollectablesManager : MonoBehaviour
         else if (other.CompareTag("Regular Shuriken"))
         {
             RegularShurikenCollected?.Invoke();
-        }
-
-        else if (other.CompareTag("Special Shuriken"))
-        {
-            SpecialShurikenCollected?.Invoke();
-        }
-
-        else if (other.CompareTag("Flame"))
-        {
-            FlameCollected?.Invoke();
         }
 
         else if (other.CompareTag("Fire Circle"))
