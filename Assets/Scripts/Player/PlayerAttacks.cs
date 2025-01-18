@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerAttacks : MonoBehaviour
 {
-    
     private int _mana;
     
     [SerializeField] private Transform attackPoint;
@@ -18,68 +17,47 @@ public class PlayerAttacks : MonoBehaviour
         {"FireCircleAttack", 0}
     };
     
+    public static event Action<int> ManaChanged;
+    public static event Action<Sprite> AttackChanged;
     private void OnEnable()
     {
-        CollectablesManager.RedSpiritPointsCollected += OnRedSpiritPointsCollected;
-        CollectablesManager.BlueSpiritPointsCollected += OnBlueSpiritPointsCollected;
+        CollectablesManager.RedSpiritPointsCollected += UpdateSpiritPoints;
+        CollectablesManager.BlueSpiritPointsCollected += UpdateSpiritPoints;
         CollectablesManager.RegularShurikenCollected += OnRegularShurikenCollected;
-        CollectablesManager.SpecialShurikenCollected += OnSpecialShurikenCollected;
-        CollectablesManager.FlameCollected += OnFlameCollected;
         CollectablesManager.FireCircleCollected += OnFireCircleCollected;
         CollectablesManager.SpecialJumpCollected += OnSpecialJumpCollected;
     }
-    
-    private void OnRedSpiritPointsCollected()
+
+    private void UpdateSpiritPoints(int spiritPoints)
     {
-        _mana += 10;
-        Debug.Log("Red spirit points collected. Current mana: " +  _mana);
+        print("Updating spirit points with " + spiritPoints);
+        _mana += spiritPoints;
+        ManaChanged?.Invoke(_mana);
     }
-    
-    private void OnBlueSpiritPointsCollected()
-    {
-        _mana += 5;
-        Debug.Log("Blue spirit points collected. Current mana: " +  _mana);
-    }
-    
-    private void OnRegularShurikenCollected()
+
+    private void OnRegularShurikenCollected(Sprite shurikenSprite)
     {
         // will update the canvas with the pic of the shuriken
+        AttackChanged?.Invoke(shurikenSprite);
     }
     
-    private void OnSpecialShurikenCollected()
+    private void OnFireCircleCollected(Sprite fireCircleSprite)
     {
-        // get a special shuriken prefab from the pool
+        // will update the canvas with the pic of the fire circle
+        AttackChanged?.Invoke(fireCircleSprite);
     }
     
-    private void OnFlameCollected()
+    private void OnSpecialJumpCollected(Sprite specialJumpSprite)
     {
-        // get a flame prefab from the pool
-    }
-    
-    private void OnFireCircleCollected()
-    {
-        // get a fire circle prefab from the pool
-    }
-    
-    private void OnSpecialJumpCollected()
-    {
-        // get a special jump prefab from the pool
-    }
-    
-    private void OnPlayerDeath()
-    {
-        _mana = 0;
-        
-        // needs to update the canvas with the mana - Canvas Job
+        // will update the canvas with the pic of the special jump
+        AttackChanged?.Invoke(specialJumpSprite);
     }
     
     private void OnDisable()
     {
-        CollectablesManager.RedSpiritPointsCollected -= OnRedSpiritPointsCollected;
-        CollectablesManager.BlueSpiritPointsCollected -= OnBlueSpiritPointsCollected;
+        CollectablesManager.RedSpiritPointsCollected -= UpdateSpiritPoints;
+        CollectablesManager.BlueSpiritPointsCollected -= UpdateSpiritPoints;
         CollectablesManager.RegularShurikenCollected -= OnRegularShurikenCollected;
-        CollectablesManager.SpecialShurikenCollected -= OnSpecialShurikenCollected;
-        CollectablesManager.FlameCollected -= OnFlameCollected;
         CollectablesManager.FireCircleCollected -= OnFireCircleCollected;
         CollectablesManager.SpecialJumpCollected -= OnSpecialJumpCollected;
     }

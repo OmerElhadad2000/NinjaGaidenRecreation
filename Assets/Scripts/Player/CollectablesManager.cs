@@ -3,70 +3,68 @@ using UnityEngine;
 
 public class CollectablesManager : MonoBehaviour
 {
-    public static event Action RedSpiritPointsCollected;
-    public static event Action BlueSpiritPointsCollected;
-    public static event Action HealthCollected;
+    public static event Action<int> RedSpiritPointsCollected;
+    public static event Action<int> BlueSpiritPointsCollected;
+    public static event Action<int> HealthCollected;
     public static event Action ExtraLifeCollected;
     public static event Action TimeFreezeCollected;
-    public static event Action RedPointsCollected;
-    public static event Action BluePointsCollected;
+    public static event Action<int> RedPointsCollected;
+    public static event Action<int> BluePointsCollected;
     
-    public static event Action RegularShurikenCollected;
-    public static event Action SpecialShurikenCollected;
-    public static event Action FlameCollected;
-    public static event Action FireCircleCollected;
-    public static event Action SpecialJumpCollected;
+    public static event Action<Sprite> RegularShurikenCollected;
+    public static event Action<Sprite> FireCircleCollected;
+    public static event Action<Sprite> SpecialJumpCollected;
 
-
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D (Collision2D other)
     {
-        if (other.CompareTag("Red Spirit Points"))
+        if (other.gameObject.CompareTag("Red Spirit Points"))
         {
-            RedSpiritPointsCollected?.Invoke();
+            RedSpiritPointsCollected?.Invoke(10);
         }
-        else if (other.CompareTag("Blue Spirit Points"))
+        else if (other.gameObject.CompareTag("Blue Spirit Points"))
         {
-            BlueSpiritPointsCollected?.Invoke();
-        }
-
-        else if (other.CompareTag("Health"))
-        {
-            HealthCollected?.Invoke();
+            print("Blue spirit points collected");
+            BlueSpiritPointsCollected?.Invoke(5);
         }
 
-        else if (other.CompareTag("Extra Life"))
+        else if (other.gameObject.CompareTag("Health"))
+        {
+            HealthCollected?.Invoke(6);
+        }
+
+        else if (other.gameObject.CompareTag("Extra Life"))
         {
             ExtraLifeCollected?.Invoke();
         }
 
-        else if (other.CompareTag("Time Freeze"))
+        else if (other.gameObject.CompareTag("Time Freeze"))
         {
             TimeFreezeCollected?.Invoke();
         }
 
-        else if (other.CompareTag("Red Points"))
+        else if (other.gameObject.CompareTag("Red Points"))
         {
-            RedPointsCollected?.Invoke();
+            RedPointsCollected?.Invoke(1000);
         }
 
-        else if (other.CompareTag("Blue Points"))
+        else if (other.gameObject.CompareTag("Blue Points"))
         {
-            BluePointsCollected?.Invoke();
+            BluePointsCollected?.Invoke(500);
         }
 
-        else if (other.CompareTag("Regular Shuriken"))
+        else if (other.gameObject.CompareTag("Regular Shuriken"))
         {
-            RegularShurikenCollected?.Invoke();
+            RegularShurikenCollected?.Invoke(other.gameObject.GetComponent<SpriteRenderer>().sprite);
         }
 
-        else if (other.CompareTag("Fire Circle"))
+        else if (other.gameObject.CompareTag("Fire Circle"))
         {
-            FireCircleCollected?.Invoke();
+            FireCircleCollected?.Invoke(other.gameObject.GetComponent<SpriteRenderer>().sprite);
         }
 
-        else if (other.CompareTag("Special Jump"))
+        else if (other.gameObject.CompareTag("Special Jump"))
         {
-            SpecialJumpCollected?.Invoke();
+            SpecialJumpCollected?.Invoke(other.gameObject.GetComponent<SpriteRenderer>().sprite);
         }
     }
 }

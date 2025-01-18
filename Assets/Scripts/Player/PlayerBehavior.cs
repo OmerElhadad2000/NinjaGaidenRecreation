@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    [SerializeField] private int maxHealth;
+    private const int MaxHealth = 16;
     [SerializeField] private float invincibilityDuration = 2f; // Duration of invincibility in seconds
     [SerializeField] private float invincibilityAlpha = 0.5f; // Alpha value when invincible
     [SerializeField] private float flickerInterval = 0.1f; // Interval between flickers
@@ -18,18 +19,22 @@ public class PlayerBehavior : MonoBehaviour
     private bool _isDead;
     
     public static event Action<Vector2> PlayerHit;
+    public static event Action<int> PlayerHealthChanged;
+    
     private void OnEnable()
     {
-        _currentHealth = maxHealth;
+        _currentHealth = MaxHealth;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _originalColor = _spriteRenderer.color;
+        CollectablesManager.HealthCollected += OnPlayerHealthCollected;
     }
 
     private void TakeDamage(int damage)
     {
         if (_isDead || _isInvincible) return;
         _currentHealth -= damage;
-        if (_currentHealth <= 0)
+        PlayerHealthChanged?.Invoke(_currentHealth);
+        if (_currentHealth < 0)
         {
             _currentHealth = 0;
             _isDead = true;
@@ -45,9 +50,10 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (_isDead) return;
         _currentHealth += healAmount;
-        if (_currentHealth > maxHealth)
+        PlayerHealthChanged?.Invoke(_currentHealth);
+        if (_currentHealth > MaxHealth)
         {
-            _currentHealth = maxHealth;
+            _currentHealth = MaxHealth;
         }
     }
     
@@ -67,7 +73,7 @@ public class PlayerBehavior : MonoBehaviour
         else
         {
             //will call an event to reset the player
-            _currentHealth = maxHealth;
+            _currentHealth = MaxHealth;
             _isDead = false;
         }
     }
