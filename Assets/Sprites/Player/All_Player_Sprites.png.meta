@@ -331,10 +331,10 @@ TextureImporter:
       name: All_Player_Sprites_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 219
-        width: 19
-        height: 34
+        x: 13
+        y: 220
+        width: 17
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -353,11 +353,11 @@ TextureImporter:
       name: All_Player_Sprites_1
       rect:
         serializedVersion: 2
-        x: 40
-        y: 219
-        width: 22
-        height: 33
-      alignment: 0
+        x: 41
+        y: 220
+        width: 20
+        height: 31
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -375,12 +375,12 @@ TextureImporter:
       name: All_Player_Sprites_2
       rect:
         serializedVersion: 2
-        x: 65
-        y: 219
-        width: 24
-        height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 66
+        y: 220
+        width: 22
+        height: 31
+      alignment: 9
+      pivot: {x: 0.45454547, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -397,10 +397,10 @@ TextureImporter:
       name: All_Player_Sprites_3
       rect:
         serializedVersion: 2
-        x: 90
-        y: 219
-        width: 22
-        height: 33
+        x: 91
+        y: 220
+        width: 20
+        height: 31
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -419,10 +419,10 @@ TextureImporter:
       name: All_Player_Sprites_4
       rect:
         serializedVersion: 2
-        x: 115
-        y: 219
-        width: 22
-        height: 33
+        x: 116
+        y: 220
+        width: 20
+        height: 31
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -441,12 +441,12 @@ TextureImporter:
       name: All_Player_Sprites_5
       rect:
         serializedVersion: 2
-        x: 140
-        y: 219
-        width: 24
-        height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 141
+        y: 220
+        width: 22
+        height: 31
+      alignment: 9
+      pivot: {x: 0.45454547, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -463,11 +463,11 @@ TextureImporter:
       name: All_Player_Sprites_6
       rect:
         serializedVersion: 2
-        x: 165
-        y: 219
-        width: 22
-        height: 33
-      alignment: 0
+        x: 166
+        y: 220
+        width: 20
+        height: 31
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -485,12 +485,12 @@ TextureImporter:
       name: All_Player_Sprites_7
       rect:
         serializedVersion: 2
-        x: 190
-        y: 227
-        width: 19
-        height: 26
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 191
+        y: 228
+        width: 17
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6666667}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -708,7 +708,7 @@ TextureImporter:
         x: 75
         y: 159
         width: 30
-        height: 30
+        height: 29
       alignment: 9
       pivot: {x: 0.38928756, y: 0.5110733}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -730,9 +730,9 @@ TextureImporter:
         x: 111
         y: 165
         width: 18
-        height: 24
+        height: 23
       alignment: 9
-      pivot: {x: 0.527512, y: 0.39590964}
+      pivot: {x: 0.4722222, y: 0.6956522}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -752,9 +752,9 @@ TextureImporter:
         x: 131
         y: 165
         width: 39
-        height: 24
+        height: 23
       alignment: 9
-      pivot: {x: 0.24357057, y: 0.39442825}
+      pivot: {x: 0.21794872, y: 0.6956522}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -774,9 +774,9 @@ TextureImporter:
         x: 173
         y: 165
         width: 29
-        height: 24
+        height: 23
       alignment: 9
-      pivot: {x: 0.36017898, y: 0.39302316}
+      pivot: {x: 0.29310346, y: 0.6956522}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

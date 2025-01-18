@@ -847,7 +847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &132328501
 Transform:
   m_ObjectHideFlags: 0
@@ -2225,7 +2225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &331265654
 Transform:
   m_ObjectHideFlags: 0
@@ -13045,6 +13045,7 @@ MonoBehaviour:
   invincibilityDuration: 3
   invincibilityAlpha: 0.5
   flickerInterval: 0.06
+  lives: 2
 --- !u!1001 &7623790596154171771
 PrefabInstance:
   m_ObjectHideFlags: 0
