@@ -23,7 +23,7 @@ public class AnimationManager : MonoSingleton<AnimationManager>
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             SwordAttack();
         }
