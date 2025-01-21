@@ -56,14 +56,4 @@ public class MonoPool<T> : MonoSingleton<MonoPool<T>> where T : MonoBehaviour, I
             _pool.Push(obj);
         }
     }
-    
-    public int GetCurrentCounter()
-    {
-        return _activeObjectsCounter;
-    }
-    
-    public int GetSpawnedCounter()
-    {
-        return _spawnedObjectsCounter;
-    }
 }

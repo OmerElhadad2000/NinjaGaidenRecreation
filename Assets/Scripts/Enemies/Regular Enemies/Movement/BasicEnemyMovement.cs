@@ -18,6 +18,7 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
     protected int EnemySpawnerId;
     protected bool CheckingGround;
     protected bool CheckingWall;
+    protected bool EnemyDead;
     
     [Header("For SeeingPlayer")]
     protected Transform Player;
@@ -110,6 +111,7 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
         PlayerInRange = false;
         transform.rotation = Quaternion.identity;
         EnemySpawnerId = 0;
+        EnemyDead = false;
     }
     
     public void SetPlayerTransform(Transform playerTransform)

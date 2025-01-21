@@ -20,6 +20,7 @@ public class BaseballBatMovement : BasicEnemyMovement
     {
         if (other.CompareTag("Player Attack"))
         {
+            EnemyDead = true;
             EnemyRigidbody2D.simulated = false;
             EnemyAnimator.SetTrigger(EnemyHit); 
         }
@@ -33,6 +34,7 @@ public class BaseballBatMovement : BasicEnemyMovement
 
     private void OnBecameInvisible()
     {
+        if (EnemyDead) return;
         EnemyReturned(EnemySpawnerId, false);
         BaseballBatPool.Instance.Return(this);
     }
