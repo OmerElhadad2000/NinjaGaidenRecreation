@@ -1,5 +1,6 @@
 using System;
 using Mono_Pool;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -28,7 +29,8 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
     private protected Animator EnemyAnimator;
     private protected Rigidbody2D EnemyRigidbody2D;
     
-    public static event Action<int> EnemyReturnedToPool;
+    //true if returned by hit, false if by bounds
+    public static event Action<int,bool> EnemyReturnedToPool;
     
 
     private void OnEnable()
@@ -92,14 +94,9 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
         EnemySpawnerId = id;
     }
     
-    public int GetEnemySpawnerId()
+    protected void EnemyReturned(int enemySpawnerId, bool isHitByPlayer)
     {
-        return EnemySpawnerId;
-    }
-    
-    protected void EnemyReturned(int id)
-    {
-        EnemyReturnedToPool?.Invoke(id);
+        EnemyReturnedToPool?.Invoke(enemySpawnerId,isHitByPlayer);
     }
 
     public virtual void Reset()
@@ -119,4 +116,6 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
     {
         Player = playerTransform;
     }
+
+    
 }

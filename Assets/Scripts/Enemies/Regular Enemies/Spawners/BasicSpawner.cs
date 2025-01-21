@@ -17,18 +17,17 @@ public class BasicSpawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolableO
     private int _currentEnemiesInSpawner;
     private float _spawnRateTimer;
     private bool _isVisible;
+    private int _enemiesKilled;
     
-    private Renderer _renderer;
 
     private void OnEnable()
     {
-        _renderer = GetComponent<Renderer>();
         BasicEnemyMovement.EnemyReturnedToPool += OnEnemyReturnedToPool;
     }
 
     private void Update()
     {
-        if (!_isVisible || _currentEnemiesInSpawner >= maxEnemiesInSpawner) return;
+        if (!(_enemiesKilled < maxEnemiesInSpawner) || !_isVisible || _currentEnemiesInSpawner >= maxEnemiesInSpawner) return;
         _spawnRateTimer += Time.deltaTime;
         if (!(_spawnRateTimer >= spawnRate)) return;
         SpawnEnemy();
@@ -45,22 +44,20 @@ public class BasicSpawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolableO
         enemy.GetComponent<BasicEnemyMovement>().SetEnemySpawnerId(spawnerId);
     }
 
-    private void OnEnemyReturnedToPool(int enemySpawnerId)
+    private void OnEnemyReturnedToPool(int enemySpawnerId, bool returnedByHit)
     {
         if (enemySpawnerId != spawnerId) return;
         _currentEnemiesInSpawner--;
-        print("enemy returned to pool");
+        if (returnedByHit)
+        {
+            _enemiesKilled++;
+        }
     }
-
-    private void OnDisable()
-    {
-        BasicEnemyMovement.EnemyReturnedToPool -= OnEnemyReturnedToPool;
-    }
-
+    
     protected virtual void OnBecameInvisible()
     {
-        print("Became invisible");
         _isVisible = false;
+        _enemiesKilled = 0;
     }
     
     protected virtual void OnBecameVisible()
@@ -68,4 +65,10 @@ public class BasicSpawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolableO
         _spawnRateTimer = spawnRate;
         _isVisible = true;
     }
+    
+    private void OnDisable()
+    {
+        BasicEnemyMovement.EnemyReturnedToPool -= OnEnemyReturnedToPool;
+    }
+
 }

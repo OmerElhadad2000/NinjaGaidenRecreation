@@ -25,9 +25,15 @@ public class BaseballBatMovement : BasicEnemyMovement
         }
     }
     
-    private void OnHitByPlayer()
+    private void OnEnemyGotHit()
     {
-        EnemyReturned(EnemySpawnerId);
+        EnemyReturned(EnemySpawnerId, true);
+        BaseballBatPool.Instance.Return(this);
+    }
+
+    private void OnBecameInvisible()
+    {
+        EnemyReturned(EnemySpawnerId, false);
         BaseballBatPool.Instance.Return(this);
     }
 }

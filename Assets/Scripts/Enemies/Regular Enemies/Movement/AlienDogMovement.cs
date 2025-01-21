@@ -62,9 +62,15 @@ public class AlienDogMovement : BasicEnemyMovement
         }
     }
     
+    private void OnBecameInvisible()
+    {
+        EnemyReturned(EnemySpawnerId, false);
+        AlienDogPool.Instance.Return(this);
+    }
+    
     private void OnEnemyGotHit()
     {
-        EnemyReturned(EnemySpawnerId);
+        EnemyReturned(EnemySpawnerId, true);
         AlienDogPool.Instance.Return(this);
     }
     
