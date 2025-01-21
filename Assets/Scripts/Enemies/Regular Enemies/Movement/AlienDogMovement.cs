@@ -57,15 +57,10 @@ public class AlienDogMovement : BasicEnemyMovement
     {
         if (other.CompareTag("Player Attack"))
         {
+            EnemyDead = true;
             EnemyRigidbody2D.simulated = false;
             EnemyAnimator.SetTrigger(EnemyHit);
         }
-    }
-    
-    private void OnBecameInvisible()
-    {
-        EnemyReturned(EnemySpawnerId, false);
-        AlienDogPool.Instance.Return(this);
     }
     
     private void OnEnemyGotHit()
@@ -74,5 +69,10 @@ public class AlienDogMovement : BasicEnemyMovement
         AlienDogPool.Instance.Return(this);
     }
     
-    
+    private void OnBecameInvisible()
+    {
+        if (EnemyDead) return;
+        EnemyReturned(EnemySpawnerId, false);
+        AlienDogPool.Instance.Return(this);
+    }
 }
