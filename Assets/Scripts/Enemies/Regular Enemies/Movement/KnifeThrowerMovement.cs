@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 public class KnifeThrowerMovement : BasicEnemyMovement
 {
+    private static readonly int EnemyHit = Animator.StringToHash("EnemyHit");
+
     private enum EnemyState
     {
         Standing,
@@ -86,8 +88,9 @@ public class KnifeThrowerMovement : BasicEnemyMovement
     {
         if (other.CompareTag("Player Attack"))
         {
+            EnemyDead = true;
             EnemyRigidbody2D.simulated = false;
-            EnemyAnimator.SetTrigger("EnemyHit");
+            EnemyAnimator.SetTrigger(EnemyHit);
         }
     }
     
@@ -99,6 +102,7 @@ public class KnifeThrowerMovement : BasicEnemyMovement
     
     private void OnBecameInvisible()
     {
+        if (EnemyDead) return;
         EnemyReturned(EnemySpawnerId, false);
         KnifeThrowerPool.Instance.Return(this);
     }
