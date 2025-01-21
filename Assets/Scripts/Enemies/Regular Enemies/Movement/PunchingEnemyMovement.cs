@@ -76,6 +76,7 @@ public class PunchingEnemyMovement : BasicEnemyMovement
     {
         if (other.CompareTag("Player Attack"))
         {
+            EnemyDead = true;
             EnemyRigidbody2D.simulated = false;
             EnemyAnimator.SetTrigger(EnemyHit);
         }
@@ -89,6 +90,7 @@ public class PunchingEnemyMovement : BasicEnemyMovement
     
     private void OnBecameInvisible()
     {
+        if (EnemyDead) return;
         EnemyReturned(EnemySpawnerId, false);
         BoxerPool.Instance.Return(this);
     }

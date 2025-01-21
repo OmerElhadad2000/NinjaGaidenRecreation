@@ -40,7 +40,6 @@ public class BasicSpawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolableO
         var enemy = enemyPool.Get();
         enemy.transform.position = transform.position;
         enemy.GetComponent<BasicEnemyMovement>().SetEnemySpawnerId(spawnerId);
-        print("enemy spawned from spawner: " + spawnerId);
         enemy.SetPlayerTransform(player);
     }
 
