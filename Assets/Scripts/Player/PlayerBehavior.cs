@@ -12,7 +12,7 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private float flickerInterval = 0.1f; // Interval between flickers
     [SerializeField] private int lives = 2;
     
-    private SpriteRenderer _spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     private Color _originalColor;    
     private bool _isInvincible;
     private int _currentHealth;
@@ -24,8 +24,7 @@ public class PlayerBehavior : MonoBehaviour
     private void OnEnable()
     {
         _currentHealth = MaxHealth;
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _originalColor = _spriteRenderer.color;
+        _originalColor = spriteRenderer.color;
         CollectablesManager.HealthCollected += OnPlayerHealthCollected;
         PlayerMovement.StartInvincibility += StartInvincibility;
     }
@@ -92,14 +91,14 @@ public class PlayerBehavior : MonoBehaviour
         IgnoreEnemyLayer();
         while (elapsedTime < invincibilityDuration)
         {
-            _spriteRenderer.color = new Color(_originalColor.r, _originalColor.g, _originalColor.b, invincibilityAlpha);
+            spriteRenderer.color = new Color(_originalColor.r, _originalColor.g, _originalColor.b, invincibilityAlpha);
             yield return new WaitForSeconds(flickerInterval);
-            _spriteRenderer.color = _originalColor;
+            spriteRenderer.color = _originalColor;
             yield return new WaitForSeconds(flickerInterval);
             elapsedTime += 2 * flickerInterval;
         }
         ReenableEnemyLayer();
-        _spriteRenderer.color = _originalColor;
+        spriteRenderer.color = _originalColor;
         _isInvincible = false;
     }
     

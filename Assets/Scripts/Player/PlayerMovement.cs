@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private float jumpingPower;
     [SerializeField] private LayerMask slideLayer;
+    [SerializeField] private GameObject player;
     
     [SerializeField] private float knockbackForce = 3f; // Force applied when hit
     [SerializeField] private float knockbackDuration = 0.5f; // Duration of knockback
@@ -48,8 +49,8 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         PlayerBehavior.PlayerHit += OnPlayerHit;
+        WallJump.WallJumpingEnabled += OnWallJumpingEnabled;
     }
-
     private void Update()
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
@@ -65,14 +66,13 @@ public class PlayerMovement : MonoBehaviour
             // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
             Jumping?.Invoke();
         }
-        
 
         if (IsGrounded() && _vertical < 0f)
         {
             _isCrouching = true;
         }
         
-        WallJump();
+        PreformWallJump();
 
         WallHanging?.Invoke(_isWallSliding);
         Crouching?.Invoke(_isCrouching);
@@ -84,6 +84,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnWallJumpingEnabled()
+    {
+        _isWallSliding = true;
+    }
     private void FixedUpdate()
     {
         if (!_isWallJumping)
@@ -103,15 +107,15 @@ public class PlayerMovement : MonoBehaviour
         Grounded?.Invoke(_isGrounded);
         return _isGrounded;
     }
-
+    
 
     // ReSharper disable Unity.PerformanceAnalysis
-    private void WallJump()
+    private void PreformWallJump()
     {
         if (_isWallSliding)
         {
             _isWallJumping = false;
-            _wallJumpingDirection = -transform.localScale.x;
+            _wallJumpingDirection = -player.transform.localScale.x;
             _wallJumpingCounter = WallJumpingTime;
 
             CancelInvoke(nameof(StopWallJumping));
@@ -130,12 +134,12 @@ public class PlayerMovement : MonoBehaviour
         _wallJumpingCounter = 0f;
         
 
-        if (!Mathf.Approximately(transform.localScale.x, _wallJumpingDirection))
+        if (!Mathf.Approximately(player.transform.localScale.x, _wallJumpingDirection))
         {
             _isFacingRight = !_isFacingRight;
-            Vector3 localScale = transform.localScale;
+            Vector3 localScale = player.transform.localScale;
             localScale.x *= -1f;
-            transform.localScale = localScale;
+            player.transform.localScale = localScale;
         }
 
         Invoke(nameof(StopWallJumping), WallJumpingDuration);
@@ -150,32 +154,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((!_isFacingRight || !(_horizontal < 0f)) && (_isFacingRight || !(_horizontal > 0f)) || _isWallSliding) return;
         _isFacingRight = !_isFacingRight;
-        Vector3 localScale = transform.localScale;
+        Vector3 localScale = player.transform.localScale;
         localScale.x *= -1f;
-        transform.localScale = localScale;
+        player.transform.localScale = localScale;
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Wall Slide Left"))
-        {
-            if (other.transform.position.x < transform.position.x && !IsGrounded()
-                && Physics2D.OverlapCircle(wallCheck.position, 0.2f,slideLayer ))
-            {
-                _isWallSliding = true;
-                rb.simulated = false;
-            }
-        }
-        if (other.CompareTag("Wall Slide Right"))
-        {
-            if (other.transform.position.x > transform.position.x && !IsGrounded() && 
-                 Physics2D.OverlapCircle(wallCheck.position, 0.2f, slideLayer))
-            {
-                _isWallSliding = true;
-                rb.simulated = false;
-            }
-        }
-    }
+    
     
     void OnPlayerHit(Vector2 contactPoint)
     {
