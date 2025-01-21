@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerAttacks : MonoBehaviour
 {
@@ -10,9 +11,9 @@ public class PlayerAttacks : MonoBehaviour
     
     [SerializeField] private GameObject currentAttack;
     
-    [SerializeField] private BoxCollider2D standingSwordAttackCollider;
-    [SerializeField] private BoxCollider2D crouchingSwordAttackCollider;
-    [SerializeField] private BoxCollider2D currentSwordCollider;
+    [SerializeField] private GameObject standingSwordAttackGameObject;
+    [SerializeField] private GameObject crouchingSwordAttackGameObject;
+    [SerializeField] private GameObject currentSwordCollider;
     
     private Dictionary<string, int> _attackCostDictionary = new Dictionary<string, int> 
     {
@@ -60,7 +61,7 @@ public class PlayerAttacks : MonoBehaviour
     
     private void PreformSwordAttack()
     {
-        currentSwordCollider.enabled = true;
+        currentSwordCollider.SetActive(true);
     }
     
     private void OnFireCircleCollected(Sprite fireCircleSprite)
@@ -77,12 +78,12 @@ public class PlayerAttacks : MonoBehaviour
     
     private void OnCrouching(bool isCrouching)
     {
-        currentSwordCollider = isCrouching ? crouchingSwordAttackCollider : standingSwordAttackCollider;
+        currentSwordCollider = isCrouching ? crouchingSwordAttackGameObject : standingSwordAttackGameObject;
     }
 
     private void OnSwordAttackEnded()
     {
-        currentSwordCollider.enabled = false;
+        currentSwordCollider.SetActive(false);
     }
     
     
