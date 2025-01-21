@@ -43,6 +43,7 @@ public class KnifeThrowerMovement : BasicEnemyMovement
     
     private void OnPlayerSeen()
     {
+        if (EnemyFrozen) return;
         FlipTowardsPlayer();
         if (_throwCooldown <= 0)
         {

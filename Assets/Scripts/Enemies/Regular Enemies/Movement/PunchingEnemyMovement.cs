@@ -27,7 +27,7 @@ public class PunchingEnemyMovement : BasicEnemyMovement
         {
             Patrolling();
         }
-        if (!PlayerInRange || !_isGrounded || !_canJump) return;
+        if (!PlayerInRange || !_isGrounded || !_canJump || EnemyFrozen) return;
         FlipTowardsPlayer();
         JumpAttack();
     }
