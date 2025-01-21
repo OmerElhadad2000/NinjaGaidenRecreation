@@ -10,7 +10,6 @@ public class CollectablesManager : MonoBehaviour
     public static event Action TimeFreezeCollected;
     public static event Action<int> RedPointsCollected;
     public static event Action<int> BluePointsCollected;
-    
     public static event Action<Sprite> RegularShurikenCollected;
     public static event Action<Sprite> FireCircleCollected;
     public static event Action<Sprite> SpecialJumpCollected;
@@ -23,7 +22,6 @@ public class CollectablesManager : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Blue Spirit Points"))
         {
-            print("Blue spirit points collected");
             BlueSpiritPointsCollected?.Invoke(5);
         }
 

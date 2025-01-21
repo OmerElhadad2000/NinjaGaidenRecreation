@@ -27,6 +27,7 @@ public class PlayerBehavior : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _originalColor = _spriteRenderer.color;
         CollectablesManager.HealthCollected += OnPlayerHealthCollected;
+        PlayerMovement.StartInvincibility += StartInvincibility;
     }
 
     private void TakeDamage(int damage)
@@ -34,16 +35,15 @@ public class PlayerBehavior : MonoBehaviour
         if (_isDead || _isInvincible) return;
         _currentHealth -= damage;
         PlayerHealthChanged?.Invoke(_currentHealth);
-        if (_currentHealth < 0)
-        {
-            _currentHealth = 0;
-            _isDead = true;
-            OnPlayerDeath();
-        }
-        else
-        {
-            StartCoroutine(InvincibilityCoroutine());
-        }
+        if (_currentHealth >= 0) return;
+        _currentHealth = 0;
+        _isDead = true;
+        OnPlayerDeath();
+    }
+    
+    private void StartInvincibility()
+    {
+        StartCoroutine(InvincibilityCoroutine());
     }
     
     private void OnPlayerHealthCollected(int healAmount)
@@ -81,7 +81,7 @@ public class PlayerBehavior : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (!(other.gameObject.CompareTag("Boss Enemy") || other.gameObject.CompareTag("Regular Enemy") || other.gameObject.CompareTag("Enemy Attack"))) return;
-        PlayerHit?.Invoke(other.GetContact(0).point);
+        PlayerHit?.Invoke((other.transform.position - transform.position).normalized);
         TakeDamage(other.gameObject.CompareTag("Boss Enemy") ? 2 : 1);
     }
 

@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpingPower;
     [SerializeField] private LayerMask slideLayer;
     
-    [SerializeField] private float knockbackForce = 5f; // Force applied when hit
+    [SerializeField] private float knockbackForce = 3f; // Force applied when hit
     [SerializeField] private float knockbackDuration = 0.5f; // Duration of knockback
 
     //Movement Variables
@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     public static event Action<bool> WallHanging;
     public static event Action<bool> Crouching;
     public static event Action<bool> Running;
+    
+    public static event Action StartInvincibility;
     
     //Player Movement Logic
 
@@ -177,25 +179,28 @@ public class PlayerMovement : MonoBehaviour
     
     void OnPlayerHit(Vector2 contactPoint)
     {
-        if (contactPoint == Vector2.zero)
-        {
-            contactPoint = rb.position + Vector2.left; // Default direction if contact point is zero
-        }
-
-        Vector2 knockbackDirection = (rb.position - contactPoint).normalized;
-
-        if (IsGrounded())
-        {
-            knockbackDirection.x = Mathf.Max(Mathf.Abs(knockbackDirection.x), 0.1f) * Mathf.Sign(knockbackDirection.x); 
-        }
-        else
-        {
-            knockbackDirection.x = Mathf.Max(Mathf.Abs(knockbackDirection.x), 0.1f) * Mathf.Sign(knockbackDirection.x); // Ensure a small horizontal component
-            knockbackDirection.y = Mathf.Max(knockbackDirection.y, 0.1f); // Ensure a small upward component
-        }
-
-        Vector2 knockbackVelocity = knockbackDirection.normalized * knockbackForce;
-        rb.linearVelocity = knockbackVelocity;
+        // print(contactPoint);
+        // if (contactPoint == Vector2.zero)
+        // {
+        //     contactPoint = rb.position + Vector2.left; // Default direction if contact point is zero
+        // }
+        //
+        // Vector2 knockbackDirection = (rb.position - contactPoint).normalized;
+        //
+        // if (IsGrounded())
+        // {
+        //     knockbackDirection.x = Mathf.Max(Mathf.Abs(knockbackDirection.x), 1f) * Mathf.Sign(knockbackDirection.x); 
+        // }
+        // else
+        // {
+        //     knockbackDirection.x = Mathf.Max(Mathf.Abs(knockbackDirection.x), 1f) * Mathf.Sign(knockbackDirection.x); // Ensure a small horizontal component
+        //     knockbackDirection.y = Mathf.Max(knockbackDirection.y, 1f); // Ensure a small upward component
+        // }
+        //
+        // Vector2 knockbackVelocity = knockbackDirection.normalized * knockbackForce;
+        // rb.linearVelocity = knockbackVelocity;
+        
+        rb.AddForce(contactPoint * knockbackForce, ForceMode2D.Impulse);
         StartCoroutine(DisableMovementUntilGrounded());
     }
 
@@ -204,6 +209,7 @@ public class PlayerMovement : MonoBehaviour
         enabled = false; // Disable player movement
         yield return new WaitUntil(IsGrounded); // Wait until the player is grounded
         enabled = true; // Re-enable player movement
+        StartInvincibility?.Invoke();
     }
     
     void OnDisable()
