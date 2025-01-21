@@ -8,6 +8,8 @@ public class CollidersController : MonoBehaviour
     // [SerializeField] private BoxCollider2D swordAttackCollider;
     // [SerializeField] private CircleCollider2D jumpSwordAttackCollider;
     private bool _isGrounded;
+    private bool _isCrouching;
+    private bool _isRunning;
     
     private void OnEnable()
     {
@@ -49,6 +51,7 @@ public class CollidersController : MonoBehaviour
     
     private void OnRunning(bool isRunning)
     {
+        _isRunning = isRunning;
         switch (isRunning)
         {
             case true when _isGrounded:
@@ -62,9 +65,21 @@ public class CollidersController : MonoBehaviour
         }
     }
     
+    
     private void OnGrounded(bool isGrounded)
     {
         _isGrounded = isGrounded;
+        switch (isGrounded)
+        {
+            case true when _isCrouching:
+                DisableAllColliders();
+                crouchingCollider.enabled = true;
+                break;
+            case true when !_isRunning:
+                DisableAllColliders();
+                standingCollider.enabled = true;
+                break;
+        }
     }
     
     private void OnDisable()

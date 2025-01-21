@@ -19,15 +19,9 @@ public class AnimationManager : MonoSingleton<AnimationManager>
         PlayerMovement.WallHanging += OnWallHanging;
         PlayerMovement.Crouching += OnCrouching;
         PlayerMovement.Running += OnRunning;
+        PlayerAttacks.SwordAttack += SwordAttack;
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SwordAttack();
-        }
-    }
+    
 
     private void OnJumping()
     {
@@ -76,5 +70,7 @@ public class AnimationManager : MonoSingleton<AnimationManager>
         PlayerMovement.WallHanging -= OnWallHanging;
         PlayerMovement.Crouching -= OnCrouching;
         PlayerMovement.Running -= OnRunning;
+        PlayerAttacks.SwordAttack -= SwordAttack;
+        
     }
 }

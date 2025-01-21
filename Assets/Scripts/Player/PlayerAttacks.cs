@@ -10,6 +10,10 @@ public class PlayerAttacks : MonoBehaviour
     
     [SerializeField] private GameObject currentAttack;
     
+    [SerializeField] private BoxCollider2D standingSwordAttackCollider;
+    [SerializeField] private BoxCollider2D crouchingSwordAttackCollider;
+    [SerializeField] private BoxCollider2D currentSwordCollider;
+    
     private Dictionary<string, int> _attackCostDictionary = new Dictionary<string, int> 
     {
         {"JumpSwordAttack", 10},
@@ -19,6 +23,18 @@ public class PlayerAttacks : MonoBehaviour
     
     public static event Action<int> ManaChanged;
     public static event Action<Sprite> AttackChanged;
+    
+    public static event Action SwordAttack;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SwordAttack?.Invoke();
+            PreformSwordAttack();
+        }
+    }
+
     private void OnEnable()
     {
         CollectablesManager.RedSpiritPointsCollected += UpdateSpiritPoints;
@@ -26,6 +42,7 @@ public class PlayerAttacks : MonoBehaviour
         CollectablesManager.RegularShurikenCollected += OnRegularShurikenCollected;
         CollectablesManager.FireCircleCollected += OnFireCircleCollected;
         CollectablesManager.SpecialJumpCollected += OnSpecialJumpCollected;
+        PlayerMovement.Crouching += OnCrouching;
     }
 
     private void UpdateSpiritPoints(int spiritPoints)
@@ -41,6 +58,11 @@ public class PlayerAttacks : MonoBehaviour
         AttackChanged?.Invoke(shurikenSprite);
     }
     
+    private void PreformSwordAttack()
+    {
+        currentSwordCollider.enabled = true;
+    }
+    
     private void OnFireCircleCollected(Sprite fireCircleSprite)
     {
         // will update the canvas with the pic of the fire circle
@@ -52,6 +74,17 @@ public class PlayerAttacks : MonoBehaviour
         // will update the canvas with the pic of the special jump
         AttackChanged?.Invoke(specialJumpSprite);
     }
+    
+    private void OnCrouching(bool isCrouching)
+    {
+        currentSwordCollider = isCrouching ? crouchingSwordAttackCollider : standingSwordAttackCollider;
+    }
+
+    private void OnSwordAttackEnded()
+    {
+        currentSwordCollider.enabled = false;
+    }
+    
     
     private void OnDisable()
     {
