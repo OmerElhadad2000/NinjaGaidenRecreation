@@ -83,6 +83,7 @@ public class PunchingEnemyMovement : BasicEnemyMovement
     
     private void OnHitByPlayer()
     {
+        EnemyReturned(EnemySpawnerId);
         BoxerPool.Instance.Return(this);
     }
 }

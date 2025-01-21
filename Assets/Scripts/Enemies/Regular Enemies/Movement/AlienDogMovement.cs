@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class AlienDogMovement : BasicEnemyMovement
@@ -9,6 +10,7 @@ public class AlienDogMovement : BasicEnemyMovement
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Vector2 boxSize;
     private bool _isGrounded;
+    
     
     private void FixedUpdate()
     {
@@ -62,6 +64,7 @@ public class AlienDogMovement : BasicEnemyMovement
     
     private void OnEnemyGotHit()
     {
+        EnemyReturned(EnemySpawnerId);
         AlienDogPool.Instance.Return(this);
     }
 }

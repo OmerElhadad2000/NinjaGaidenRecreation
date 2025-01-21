@@ -93,6 +93,7 @@ public class KnifeThrowerMovement : BasicEnemyMovement
     
     private void OnEnemyGotHit()
     {
+        EnemyReturned(EnemySpawnerId);
         KnifeThrowerPool.Instance.Return(this);
     }
 

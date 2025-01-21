@@ -27,6 +27,7 @@ public class BaseballBatMovement : BasicEnemyMovement
     
     private void OnHitByPlayer()
     {
+        EnemyReturned(EnemySpawnerId);
         BaseballBatPool.Instance.Return(this);
     }
 }

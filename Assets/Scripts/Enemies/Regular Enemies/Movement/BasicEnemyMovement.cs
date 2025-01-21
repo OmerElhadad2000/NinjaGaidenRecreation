@@ -14,6 +14,7 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
     [SerializeField] protected LayerMask groundLayer;
     [SerializeField] protected float circleRadius;
     
+    protected int EnemySpawnerId;
     protected bool CheckingGround;
     protected bool CheckingWall;
     
@@ -26,6 +27,9 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
     [Header("Other")]
     private protected Animator EnemyAnimator;
     private protected Rigidbody2D EnemyRigidbody2D;
+    
+    public static event Action<int> EnemyReturnedToPool;
+    
 
     private void OnEnable()
     {
@@ -82,6 +86,21 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
         Gizmos.DrawWireCube(transform.position, lineOfSite);
     
     }
+    
+    public void SetEnemySpawnerId(int id)
+    {
+        EnemySpawnerId = id;
+    }
+    
+    public int GetEnemySpawnerId()
+    {
+        return EnemySpawnerId;
+    }
+    
+    protected void EnemyReturned(int id)
+    {
+        EnemyReturnedToPool?.Invoke(id);
+    }
 
     public virtual void Reset()
     {
@@ -93,6 +112,7 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
         CheckingWall = false;
         PlayerInRange = false;
         transform.rotation = Quaternion.identity;
+        EnemySpawnerId = 0;
     }
     
     public void SetPlayerTransform(Transform playerTransform)
