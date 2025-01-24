@@ -19,7 +19,7 @@ public class CanvasManager : MonoSingleton<CanvasManager>
     {
         _currentScore = 0;
         score.text = _currentScore.ToString("D6");
-        lives.text = "03";
+        lives.text = "02";
         spiritPoints.text = "00";
         timer.text = "150";
         specialAttackSlot.enabled = false;
@@ -34,6 +34,7 @@ public class CanvasManager : MonoSingleton<CanvasManager>
         PlayerAttacks.ManaChanged += UpdateSpiritPoints;
         
         PlayerBehavior.PlayerHealthChanged += UpdateNinjaHealth;
+        PlayerBehavior.PlayerLivesChanged += UpdateLives;
     }
 
     private void UpdateScore(int value)

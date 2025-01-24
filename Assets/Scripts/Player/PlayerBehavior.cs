@@ -21,11 +21,15 @@ public class PlayerBehavior : MonoBehaviour
     public static event Action<Vector2> PlayerHit;
     public static event Action<int> PlayerHealthChanged;
     
+    public static event Action PlayerDeath;
+    public static event Action<int> PlayerLivesChanged;
+    
     private void OnEnable()
     {
         _currentHealth = MaxHealth;
         _originalColor = spriteRenderer.color;
         CollectablesManager.HealthCollected += OnPlayerHealthCollected;
+        CollectablesManager.ExtraLifeCollected += OnPlayerExtraLifeCollected;
         PlayerMovement.StartInvincibility += StartInvincibility;
     }
 
@@ -49,32 +53,32 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (_isDead) return;
         _currentHealth += healAmount;
-        PlayerHealthChanged?.Invoke(_currentHealth);
         if (_currentHealth > MaxHealth)
         {
             _currentHealth = MaxHealth;
         }
+        PlayerHealthChanged?.Invoke(_currentHealth);
     }
     
     private void OnPlayerExtraLifeCollected()
     {
         lives++;
+        PlayerLivesChanged?.Invoke(lives);
     }
     
     private void OnPlayerDeath()
     {
         lives--;
-        if (lives <= 0)
+        
+        if (lives < 0)
         {
             //will call an event to end the game
             Debug.Log("Game Over");
+            return;
         }
-        else
-        {
-            //will call an event to reset the player
-            _currentHealth = MaxHealth;
-            _isDead = false;
-        }
+        OnPlayerHealthCollected(MaxHealth);
+        PlayerLivesChanged?.Invoke(lives);
+        PlayerDeath?.Invoke();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
