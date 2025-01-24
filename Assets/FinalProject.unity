@@ -6476,12 +6476,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1103572167309071292, guid: 7ec6aad2b23d83e45bca7936382beb44, type: 3}
       propertyPath: collectableTag
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1103572167309071292, guid: 7ec6aad2b23d83e45bca7936382beb44, type: 3}
       propertyPath: collectableSprite
       value: 
-      objectReference: {fileID: -5361982030538584579, guid: 50e69d892feb0e244a2560fc6628fc27, type: 3}
+      objectReference: {fileID: -9222742675532268786, guid: 50e69d892feb0e244a2560fc6628fc27, type: 3}
     - target: {fileID: 3433468976382979219, guid: 7ec6aad2b23d83e45bca7936382beb44, type: 3}
       propertyPath: m_LocalScale.x
       value: 4.0467415
@@ -8064,8 +8064,8 @@ Transform:
   m_GameObject: {fileID: 704753727}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.938538, y: -0.5853237, z: 0}
-  m_LocalScale: {x: 2.3759186, y: 0.15625453, z: 0.16032632}
+  m_LocalPosition: {x: 7.938538, y: -0.57271, z: 0}
+  m_LocalScale: {x: 2.3759186, y: 0.18148182, z: 0.16032632}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1332750573}
