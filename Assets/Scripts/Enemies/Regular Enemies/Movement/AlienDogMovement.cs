@@ -55,12 +55,10 @@ public class AlienDogMovement : BasicEnemyMovement
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player Attack"))
-        {
-            EnemyDead = true;
-            EnemyRigidbody2D.simulated = false;
-            EnemyAnimator.SetTrigger(EnemyHit);
-        }
+        if (!other.CompareTag("Player Attack")) return;
+        EnemyDead = true;
+        EnemyRigidbody2D.simulated = false;
+        EnemyAnimator.SetTrigger(EnemyHit);
     }
     
     private void OnEnemyGotHit()
