@@ -36,12 +36,10 @@ public class PunchingEnemyMovement : BasicEnemyMovement
     {
         float distanceFromPlayer = Player.position.x - transform.position.x;
 
-        if (_isGrounded)
-        {
-            EnemyRigidbody2D.AddForce(new Vector2(distanceFromPlayer, jumpHeight), ForceMode2D.Impulse);
-            StartCoroutine(JumpCooldown());
-            EnemyAnimator.SetTrigger(CanSeePlayer);
-        }
+        if (!_isGrounded) return;
+        EnemyRigidbody2D.AddForce(new Vector2(distanceFromPlayer, jumpHeight), ForceMode2D.Impulse);
+        StartCoroutine(JumpCooldown());
+        EnemyAnimator.SetTrigger(CanSeePlayer);
     }
 
     private IEnumerator JumpCooldown()
@@ -74,12 +72,11 @@ public class PunchingEnemyMovement : BasicEnemyMovement
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player Attack"))
-        {
-            EnemyDead = true;
-            EnemyRigidbody2D.simulated = false;
-            EnemyAnimator.SetTrigger(EnemyHit);
-        }
+        if (!other.CompareTag("Player Attack")) return;
+        SetEnemyScore(300);
+        EnemyDead = true;
+        EnemyRigidbody2D.simulated = false;
+        EnemyAnimator.SetTrigger(EnemyHit);
     }
     
     private void OnEnemyGotHit()

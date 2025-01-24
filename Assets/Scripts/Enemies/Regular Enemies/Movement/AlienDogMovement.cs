@@ -12,6 +12,7 @@ public class AlienDogMovement : BasicEnemyMovement
     private bool _isGrounded;
     
     
+    
     private void FixedUpdate()
     {
         CheckingGround = Physics2D.OverlapCircle(groundCheckPoint.position, circleRadius, groundLayer);
@@ -52,10 +53,11 @@ public class AlienDogMovement : BasicEnemyMovement
         base.Reset();
         _isGrounded = true;
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player Attack")) return;
+        SetEnemyScore(100);
         EnemyDead = true;
         EnemyRigidbody2D.simulated = false;
         EnemyAnimator.SetTrigger(EnemyHit);

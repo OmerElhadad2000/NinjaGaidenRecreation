@@ -18,12 +18,11 @@ public class BaseballBatMovement : BasicEnemyMovement
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player Attack"))
-        {
-            EnemyDead = true;
-            EnemyRigidbody2D.simulated = false;
-            EnemyAnimator.SetTrigger(EnemyHit); 
-        }
+        if (!other.CompareTag("Player Attack")) return;
+        SetEnemyScore(100);
+        EnemyDead = true;
+        EnemyRigidbody2D.simulated = false;
+        EnemyAnimator.SetTrigger(EnemyHit);
     }
     
     private void OnEnemyGotHit()

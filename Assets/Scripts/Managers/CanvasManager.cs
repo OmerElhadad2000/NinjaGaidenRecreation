@@ -35,6 +35,8 @@ public class CanvasManager : MonoSingleton<CanvasManager>
         
         PlayerBehavior.PlayerHealthChanged += UpdateNinjaHealth;
         PlayerBehavior.PlayerLivesChanged += UpdateLives;
+        
+        BasicEnemyMovement.EnemyDiedByPlayer += UpdateScore;
     }
 
     private void UpdateScore(int value)
@@ -97,7 +99,7 @@ public class CanvasManager : MonoSingleton<CanvasManager>
     {
         _currentScore = 0;
         score.text = _currentScore.ToString("D6");
-        lives.text = "03";
+        lives.text = "02";
         spiritPoints.text = "00";
         timer.text = "150";
         specialAttackSlot.enabled = false;

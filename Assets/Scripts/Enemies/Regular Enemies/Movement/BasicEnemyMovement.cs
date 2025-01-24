@@ -21,6 +21,7 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
     protected bool CheckingWall;
     protected bool EnemyDead;
     protected bool EnemyFrozen;
+    protected int EnemyScore;
     
     [Header("For SeeingPlayer")]
     protected Transform Player;
@@ -34,6 +35,7 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
     
     //true if returned by hit, false if by bounds
     public static event Action<int,bool> EnemyReturnedToPool;
+    public static event Action<int> EnemyDiedByPlayer;
     
 
     private void OnEnable()
@@ -41,6 +43,11 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
         EnemyAnimator = GetComponent<Animator>();
         EnemyRigidbody2D = GetComponent<Rigidbody2D>();
         CollectablesManager.TimeFreezeCollected += OnTimeFreezeCollected;
+    }
+    
+    protected virtual void SetEnemyScore(int score)
+    {
+        EnemyScore = score;
     }
 
     private void OnTimeFreezeCollected()
@@ -116,6 +123,10 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
     
     protected void EnemyReturned(int enemySpawnerId, bool isHitByPlayer)
     {
+        if (isHitByPlayer)
+        {
+            EnemyDiedByPlayer?.Invoke(EnemyScore);
+        }
         EnemyReturnedToPool?.Invoke(enemySpawnerId,isHitByPlayer);
     }
 
