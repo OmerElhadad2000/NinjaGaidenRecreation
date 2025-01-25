@@ -12,6 +12,9 @@ public class AnimationManager : MonoSingleton<AnimationManager>
     private static readonly int WallHang = Animator.StringToHash("WallHang");
     private static readonly int Crouching = Animator.StringToHash("Crouching");
     private static readonly int Attack = Animator.StringToHash("SwordAttack");
+    private static readonly int SpecialJumpAttack = Animator.StringToHash("SpecialJump");
+    private static readonly int JumpAttack = Animator.StringToHash("SpecialJumpAttack");
+
     private void OnEnable()
     {
         PlayerMovement.Jumping += OnJumping;
@@ -20,6 +23,7 @@ public class AnimationManager : MonoSingleton<AnimationManager>
         PlayerMovement.Crouching += OnCrouching;
         PlayerMovement.Running += OnRunning;
         PlayerAttacks.SwordAttack += SwordAttack;
+        PlayerAttacks.JumpingSwordAttack += OnJumpingSwordAttack;
     }
     
 
@@ -35,6 +39,10 @@ public class AnimationManager : MonoSingleton<AnimationManager>
     {
         animator.SetBool(Jumping, !isGrounded);
         animator.SetBool(Grounded, isGrounded);
+        if (isGrounded)
+        {
+            animator.SetBool(JumpAttack, false);
+        }
     }
 
     private void OnWallHanging(bool isWallHanged)
@@ -62,6 +70,14 @@ public class AnimationManager : MonoSingleton<AnimationManager>
     {
         animator.SetTrigger(Attack);
     }
+    
+    private void OnJumpingSwordAttack()
+    {
+        animator.SetBool(SpecialJumpAttack, true);
+        animator.SetBool(Jumping, true);
+        animator.SetBool(Grounded, false);
+    }
+    
         
     private void OnDisable()
     {
@@ -71,6 +87,7 @@ public class AnimationManager : MonoSingleton<AnimationManager>
         PlayerMovement.Crouching -= OnCrouching;
         PlayerMovement.Running -= OnRunning;
         PlayerAttacks.SwordAttack -= SwordAttack;
+        PlayerAttacks.JumpingSwordAttack -= OnJumpingSwordAttack;
         
     }
 }

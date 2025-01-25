@@ -103,12 +103,12 @@ TextureImporter:
       name: Roll-Fix_0
       rect:
         serializedVersion: 2
-        x: 185
-        y: 135
-        width: 24
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 187
+        y: 136
+        width: 21
+        height: 23
+      alignment: 9
+      pivot: {x: 0.5714286, y: 0.5652174}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: aec1f3238466dca4aabb10d60d9a6a25
     internalID: 0
     vertices: []
     indices: 

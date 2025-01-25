@@ -5,6 +5,7 @@ public class CollidersController : MonoBehaviour
     [SerializeField] private BoxCollider2D standingCollider;
     [SerializeField] private BoxCollider2D crouchingCollider;
     [SerializeField] private CircleCollider2D jumpingCollider;
+    [SerializeField] private CircleCollider2D jumpingSwordAttackCollider;
     // [SerializeField] private BoxCollider2D swordAttackCollider;
     // [SerializeField] private CircleCollider2D jumpSwordAttackCollider;
     private bool _isGrounded;
@@ -18,6 +19,7 @@ public class CollidersController : MonoBehaviour
         PlayerMovement.WallHanging += OnWallHanging;
         PlayerMovement.Running += OnRunning;
         PlayerMovement.Grounded += OnGrounded;
+        PlayerAttacks.JumpingSwordAttack += OnJumpingSwordAttack;
     }
     
     private void DisableAllColliders()
@@ -26,7 +28,7 @@ public class CollidersController : MonoBehaviour
         crouchingCollider.enabled = false;
         jumpingCollider.enabled = false;
         // swordAttackCollider.enabled = false;
-        // jumpSwordAttackCollider.enabled = false;
+        jumpingSwordAttackCollider.enabled = false;
     }
     
     private void OnJumping()
@@ -82,11 +84,19 @@ public class CollidersController : MonoBehaviour
         }
     }
     
+    private void OnJumpingSwordAttack()
+    {
+        DisableAllColliders();
+        jumpingSwordAttackCollider.enabled = true;
+    }
+    
     private void OnDisable()
     {
         PlayerMovement.Jumping -= OnJumping;
         PlayerMovement.Crouching -= OnCrouching;
         PlayerMovement.WallHanging -= OnWallHanging;
         PlayerMovement.Running -= OnRunning;
+        PlayerMovement.Grounded -= OnGrounded;
+        PlayerAttacks.JumpingSwordAttack -= OnJumpingSwordAttack;
     }
 }
