@@ -35,9 +35,10 @@ public class CanvasManager : MonoSingleton<CanvasManager>
         
         PlayerBehavior.PlayerHealthChanged += UpdateNinjaHealth;
         PlayerBehavior.PlayerLivesChanged += UpdateLives;
+        PlayerBehavior.PlayerDeath += OnPlayerDeath;
         
         BasicEnemyMovement.EnemyDiedByPlayer += UpdateScore;
-        GameManager.Instance.OnTimerTick += UpdateTimer;
+        GameManager.Instance.TimerTick += UpdateTimer;
     }
 
     private void UpdateScore(int value)
@@ -58,13 +59,21 @@ public class CanvasManager : MonoSingleton<CanvasManager>
             ninjaHealthBars[i].enabled = i < currentHealth;
         }
     }
-    
-    public void ResetEnemyHealth(int currentHealth)
+
+    private void ResetEnemyHealth()
     {
         foreach (var t in enemyHealthBars)
         {
             t.enabled = true;
         }
+    }
+    
+    private void OnPlayerDeath()
+    {
+        ResetEnemyHealth();
+        UpdateTimer(150);
+        DisableSpecialAttackSlot();
+        
     }
     
     public void UpdateEnemyHealth(int currentHealth)
@@ -87,11 +96,17 @@ public class CanvasManager : MonoSingleton<CanvasManager>
     
     private void OnSpecialAttackCollected(Sprite specialAttackSprite)
     {
+        if (specialAttackSprite == null)
+        {
+            DisableSpecialAttackSlot();
+            return;
+        }
         specialAttackSlot.enabled = true;
         specialAttackSlot.sprite = specialAttackSprite;
     }
     
-    public void DisableSpecialAttackSlot()
+    
+    private void DisableSpecialAttackSlot()
     {
         specialAttackSlot.enabled = false;
     }

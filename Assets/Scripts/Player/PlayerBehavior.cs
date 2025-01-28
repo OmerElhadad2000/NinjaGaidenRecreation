@@ -31,6 +31,7 @@ public class PlayerBehavior : MonoBehaviour
         CollectablesManager.HealthCollected += OnPlayerHealthCollected;
         CollectablesManager.ExtraLifeCollected += OnPlayerExtraLifeCollected;
         PlayerMovement.StartInvincibility += StartInvincibility;
+        GameManager.Instance.PlayerLost += OnPlayerDeath;
     }
 
     private void TakeDamage(int damage)

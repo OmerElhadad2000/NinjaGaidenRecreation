@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,10 +9,14 @@ public class PlayerAttacks : MonoBehaviour
     private int _mana;
     private bool _groundedState = true;
     [SerializeField] private Transform attackPoint;
-    
     [SerializeField] private GameObject standingSwordAttackCollider;
     [SerializeField] private GameObject crouchingSwordAttackCollider;
     [SerializeField] private GameObject currentSwordCollider;
+    
+    [SerializeField] private GameObject fireCircleAttack;
+    
+    
+    private GameObject _currentAttack;
     
     private Dictionary<string, int> _attackCostDictionary = new Dictionary<string, int> 
     {
@@ -26,6 +31,8 @@ public class PlayerAttacks : MonoBehaviour
     public static event Action SwordAttack;
     
     public static event Action JumpingSwordAttack;
+    
+    public static event Action FireCircleTick;
 
     private void Update()
     {
@@ -52,12 +59,17 @@ public class PlayerAttacks : MonoBehaviour
         CollectablesManager.SpecialJumpCollected += OnSpecialJumpCollected;
         PlayerMovement.Crouching += OnCrouching;
         PlayerMovement.Grounded += UpdateGroundedState;
+        GameManager.Instance.PlayerLost += OnPlayerDeath;
     }
 
     private void UpdateSpiritPoints(int spiritPoints)
     {
         print("Updating spirit points with " + spiritPoints);
         _mana += spiritPoints;
+        if (_mana < 0)
+        {
+            _mana = 0;
+        }
         ManaChanged?.Invoke(_mana);
     }
 
@@ -65,6 +77,7 @@ public class PlayerAttacks : MonoBehaviour
     {
         // will update the canvas with the pic of the shuriken
         AttackChanged?.Invoke(shurikenSprite);
+        
     }
     
     private void PreformSwordAttack()
@@ -72,10 +85,14 @@ public class PlayerAttacks : MonoBehaviour
         currentSwordCollider.SetActive(true);
     }
     
+    
     private void OnFireCircleCollected(Sprite fireCircleSprite)
     {
         // will update the canvas with the pic of the fire circle
         AttackChanged?.Invoke(fireCircleSprite);
+        StartCoroutine(FireCircleCoroutine());
+        
+
     }
     
     private void OnSpecialJumpCollected(Sprite specialJumpSprite)
@@ -99,6 +116,13 @@ public class PlayerAttacks : MonoBehaviour
         _groundedState = isGrounded;
     }
     
+    private void OnPlayerDeath()
+    {
+        _mana = 0;
+        ManaChanged?.Invoke(_mana);
+        _currentAttack = null;
+    }
+    
     private void OnJumpingSwordAttack()
     {
         // if (_mana < _attackCostDictionary["JumpSwordAttack"]) return;
@@ -107,9 +131,18 @@ public class PlayerAttacks : MonoBehaviour
         JumpingSwordAttack?.Invoke();
     }
     
-    
-    
-    
+    private IEnumerator FireCircleCoroutine()
+    {
+        fireCircleAttack.SetActive(true);
+        for (int i = 5; i > 0; i--)
+        {
+            FireCircleTick?.Invoke();
+            yield return new WaitForSeconds(1);
+        }
+        fireCircleAttack.SetActive(false);
+        AttackChanged?.Invoke(null);
+        _currentAttack = null;
+    }
 
     
     private void OnDisable()

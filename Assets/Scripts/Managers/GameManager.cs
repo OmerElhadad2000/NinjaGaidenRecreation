@@ -8,7 +8,8 @@ public class GameManager : MonoSingleton<GameManager>
     private const float InitTimer = 150;
     private float _timer;
 
-    public event Action<int> OnTimerTick;
+    public event Action<int> TimerTick;
+    public event Action PlayerLost;
 
     private void Start()
     {
@@ -22,8 +23,9 @@ public class GameManager : MonoSingleton<GameManager>
         {
             yield return new WaitForSeconds(1);
             _timer--;
-            OnTimerTick?.Invoke(Mathf.CeilToInt(_timer));
+            TimerTick?.Invoke(Mathf.CeilToInt(_timer));
         }
+        PlayerLost?.Invoke();
     }
 
     private void PauseGame()
