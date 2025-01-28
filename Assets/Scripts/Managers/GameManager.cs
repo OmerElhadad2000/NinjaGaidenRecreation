@@ -10,8 +10,11 @@ public class GameManager : MonoSingleton<GameManager>
 
     public event Action<int> TimerTick;
     public event Action PlayerLost;
+    
+    public event Action GameStart;
     private void Start()
     {
+        GameStart?.Invoke();
         _timer = InitTimer;
         StartCoroutine(TimerCoroutine());
     }

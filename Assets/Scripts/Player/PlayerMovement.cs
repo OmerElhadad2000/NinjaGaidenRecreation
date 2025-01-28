@@ -44,12 +44,15 @@ public class PlayerMovement : MonoBehaviour
     
     public static event Action StartInvincibility;
     
+    public static event Action JumpKeyPressed; 
+    
     //Player Movement Logic
 
     private void OnEnable()
     {
         PlayerBehavior.PlayerHit += OnPlayerHit;
         WallJump.WallJumpingEnabled += OnWallJumpingEnabled;
+        
     }
     private void Update()
     {
@@ -58,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
+            JumpKeyPressed?.Invoke();
             rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
         }
 
@@ -127,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (!Input.GetButtonDown("Jump") || !(_wallJumpingCounter > 0f)) return;
+        JumpKeyPressed?.Invoke();
         _isWallJumping = true;
         _isWallSliding = false;
         rb.simulated = true;

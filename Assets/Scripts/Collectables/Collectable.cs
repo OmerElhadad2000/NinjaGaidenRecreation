@@ -5,6 +5,8 @@ using UnityEngine;
 public class Collectable : MonoBehaviour, IPoolableObject
 {
     private SpriteRenderer _spriteRenderer;
+    
+    public static event Action CollectableCollected;
     private void OnEnable()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -19,10 +21,9 @@ public class Collectable : MonoBehaviour, IPoolableObject
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            CollectablePool.Instance.Return(this);
-        }
+        if (!other.gameObject.CompareTag("Player")) return;
+        CollectableCollected?.Invoke();
+        CollectablePool.Instance.Return(this);
     }
     
     public void SetGameTag(string collectableTag)
