@@ -748,10 +748,10 @@ TextureImporter:
       name: Full_Boss_Sprite_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 1566
-        width: 30
-        height: 42
+        x: 6
+        y: 1567
+        width: 28
+        height: 40
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -770,10 +770,10 @@ TextureImporter:
       name: Full_Boss_Sprite_1
       rect:
         serializedVersion: 2
-        x: 38
-        y: 1567
-        width: 30
-        height: 41
+        x: 39
+        y: 1568
+        width: 28
+        height: 39
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -792,10 +792,10 @@ TextureImporter:
       name: Full_Boss_Sprite_2
       rect:
         serializedVersion: 2
-        x: 71
-        y: 1566
-        width: 31
-        height: 42
+        x: 72
+        y: 1567
+        width: 29
+        height: 40
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -837,9 +837,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 147
-        y: 1566
+        y: 1567
         width: 30
-        height: 42
+        height: 41
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1166,10 +1166,10 @@ TextureImporter:
       name: Full_Boss_Sprite_19
       rect:
         serializedVersion: 2
-        x: 5
-        y: 1517
-        width: 30
-        height: 42
+        x: 6
+        y: 1518
+        width: 28
+        height: 40
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1188,10 +1188,10 @@ TextureImporter:
       name: Full_Boss_Sprite_20
       rect:
         serializedVersion: 2
-        x: 39
-        y: 1517
-        width: 30
-        height: 42
+        x: 40
+        y: 1518
+        width: 28
+        height: 40
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1210,12 +1210,12 @@ TextureImporter:
       name: Full_Boss_Sprite_21
       rect:
         serializedVersion: 2
-        x: 72
-        y: 1518
-        width: 46
-        height: 41
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 73
+        y: 1519
+        width: 44
+        height: 40
+      alignment: 9
+      pivot: {x: 0.3181818, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1229,37 +1229,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Full_Boss_Sprite_22
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 1517
-        width: 31
-        height: 50
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3467548bf14a065d0800000000000000
-      internalID: -3071274489724176829
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Full_Boss_Sprite_23
       rect:
         serializedVersion: 2
-        x: 153
-        y: 1517
-        width: 31
-        height: 50
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 154
+        y: 1518
+        width: 29
+        height: 48
+      alignment: 9
+      pivot: {x: 0.4827586, y: 0.41666666}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1276,12 +1254,12 @@ TextureImporter:
       name: Full_Boss_Sprite_24
       rect:
         serializedVersion: 2
-        x: 188
-        y: 1517
-        width: 53
-        height: 42
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 189
+        y: 1518
+        width: 51
+        height: 48
+      alignment: 9
+      pivot: {x: 0.25490198, y: 0.4166667}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1298,12 +1276,12 @@ TextureImporter:
       name: Full_Boss_Sprite_25
       rect:
         serializedVersion: 2
-        x: 245
-        y: 1517
-        width: 36
-        height: 42
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 246
+        y: 1518
+        width: 34
+        height: 48
+      alignment: 9
+      pivot: {x: 0.38235295, y: 0.4166667}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1312,28 +1290,6 @@ TextureImporter:
       bones: []
       spriteID: 095e012bfcad0da40800000000000000
       internalID: 5391049339543020944
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Full_Boss_Sprite_26
-      rect:
-        serializedVersion: 2
-        x: 285
-        y: 1517
-        width: 36
-        height: 42
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 76f81c06c013a0660800000000000000
-      internalID: 7352743270868422503
       vertices: []
       indices: 
       edges: []

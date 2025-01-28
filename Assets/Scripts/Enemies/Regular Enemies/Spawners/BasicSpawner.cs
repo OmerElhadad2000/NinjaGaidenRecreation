@@ -13,6 +13,7 @@ public class BasicSpawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolableO
     [SerializeField] protected Transform player;
     [SerializeField] private MonoPool<T> enemyPool;
     [SerializeField] private int spawnerId;
+    [SerializeField] private bool faceRight;
 
     private int _currentEnemiesInSpawner;
     private float _spawnRateTimer;
@@ -39,8 +40,13 @@ public class BasicSpawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolableO
     {
         var enemy = enemyPool.Get();
         enemy.transform.position = transform.position;
+        //preform a flip if we want the spawner to face right using Flip of enemy
         enemy.GetComponent<BasicEnemyMovement>().SetEnemySpawnerId(spawnerId);
         enemy.SetPlayerTransform(player);
+        if (!faceRight)
+        {
+            enemy.GetComponent<BasicEnemyMovement>().Flip();
+        }
     }
 
     private void OnEnemyReturnedToPool(int enemySpawnerId, bool returnedByHit)

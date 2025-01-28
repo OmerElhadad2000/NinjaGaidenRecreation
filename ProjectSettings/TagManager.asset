@@ -25,6 +25,7 @@ TagManager:
   - Wall Slide Left
   - Wall Slide Right
   - Enemy Attack
+  - Door
   layers:
   - Default
   - TransparentFX

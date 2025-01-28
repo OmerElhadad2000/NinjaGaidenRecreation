@@ -6,8 +6,7 @@ public class CollidersController : MonoBehaviour
     [SerializeField] private BoxCollider2D crouchingCollider;
     [SerializeField] private CircleCollider2D jumpingCollider;
     [SerializeField] private CircleCollider2D jumpingSwordAttackCollider;
-    // [SerializeField] private BoxCollider2D swordAttackCollider;
-    // [SerializeField] private CircleCollider2D jumpSwordAttackCollider;
+
     private bool _isGrounded;
     private bool _isCrouching;
     private bool _isRunning;
@@ -28,7 +27,7 @@ public class CollidersController : MonoBehaviour
         crouchingCollider.enabled = false;
         jumpingCollider.enabled = false;
         // swordAttackCollider.enabled = false;
-        jumpingSwordAttackCollider.enabled = false;
+        // jumpingSwordAttackCollider.enabled = false;
     }
     
     private void OnJumping()
@@ -59,6 +58,7 @@ public class CollidersController : MonoBehaviour
             case true when _isGrounded:
                 DisableAllColliders();
                 standingCollider.enabled = true;
+                jumpingSwordAttackCollider.enabled = false;
                 break;
             case true when !_isGrounded:
                 DisableAllColliders();
@@ -76,10 +76,12 @@ public class CollidersController : MonoBehaviour
             case true when _isCrouching:
                 DisableAllColliders();
                 crouchingCollider.enabled = true;
+                jumpingSwordAttackCollider.enabled = false;
                 break;
             case true when !_isRunning:
                 DisableAllColliders();
                 standingCollider.enabled = true;
+                jumpingSwordAttackCollider.enabled = false;
                 break;
         }
     }
@@ -87,6 +89,7 @@ public class CollidersController : MonoBehaviour
     private void OnJumpingSwordAttack()
     {
         DisableAllColliders();
+        jumpingCollider.enabled = true;     
         jumpingSwordAttackCollider.enabled = true;
     }
     

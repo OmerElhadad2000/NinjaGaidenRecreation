@@ -96,7 +96,7 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
             Flip();
         }
     }
-    protected void Flip()
+    public void Flip()
     {
         MoveDirection *= -1;
         FacingRight = !FacingRight;
@@ -142,6 +142,8 @@ public class BasicEnemyMovement : MonoBehaviour, IPoolableObject
         transform.rotation = Quaternion.identity;
         EnemySpawnerId = 0;
         EnemyDead = false;
+        EnemyFrozen = false;
+        
     }
     
     private void OnDisable()

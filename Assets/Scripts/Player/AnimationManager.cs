@@ -12,12 +12,10 @@ public class AnimationManager : MonoSingleton<AnimationManager>
     private static readonly int WallHang = Animator.StringToHash("WallHang");
     private static readonly int Crouching = Animator.StringToHash("Crouching");
     private static readonly int Attack = Animator.StringToHash("SwordAttack");
-    private static readonly int SpecialJumpAttack = Animator.StringToHash("SpecialJump");
-    private static readonly int JumpAttack = Animator.StringToHash("SpecialJumpAttack");
+    private static readonly int SpecialJumpAttack = Animator.StringToHash("SpecialJumpAttack");
 
     private void OnEnable()
     {
-        PlayerMovement.Jumping += OnJumping;
         PlayerMovement.Grounded += OnGrounded;
         PlayerMovement.WallHanging += OnWallHanging;
         PlayerMovement.Crouching += OnCrouching;
@@ -26,23 +24,15 @@ public class AnimationManager : MonoSingleton<AnimationManager>
         PlayerAttacks.JumpingSwordAttack += OnJumpingSwordAttack;
     }
     
-
-    private void OnJumping()
-    {
-        animator.SetBool(Running, false);
-        animator.SetBool(Grounded, false);
-        animator.SetBool(WallHang, false);
-        animator.SetBool(Jumping, true);
-    }
+    
 
     private void OnGrounded(bool isGrounded)
     {
         animator.SetBool(Jumping, !isGrounded);
         animator.SetBool(Grounded, isGrounded);
-        if (isGrounded)
-        {
-            animator.SetBool(JumpAttack, false);
-        }
+        if (!isGrounded) return;
+        animator.SetBool(SpecialJumpAttack, false);
+        animator.SetBool(Jumping, false);
     }
 
     private void OnWallHanging(bool isWallHanged)
@@ -52,6 +42,7 @@ public class AnimationManager : MonoSingleton<AnimationManager>
         {
             animator.SetBool(Grounded, false);
             animator.SetBool(Jumping, false);
+            animator.SetBool(SpecialJumpAttack, false);
         }
         animator.SetBool(WallHang, isWallHanged);
     }
@@ -74,14 +65,13 @@ public class AnimationManager : MonoSingleton<AnimationManager>
     private void OnJumpingSwordAttack()
     {
         animator.SetBool(SpecialJumpAttack, true);
-        animator.SetBool(Jumping, true);
         animator.SetBool(Grounded, false);
+        animator.SetBool(Jumping, false);
     }
     
         
     private void OnDisable()
     {
-        PlayerMovement.Jumping -= OnJumping;
         PlayerMovement.Grounded -= OnGrounded;
         PlayerMovement.WallHanging -= OnWallHanging;
         PlayerMovement.Crouching -= OnCrouching;
