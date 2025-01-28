@@ -37,6 +37,7 @@ public class CanvasManager : MonoSingleton<CanvasManager>
         PlayerBehavior.PlayerLivesChanged += UpdateLives;
         
         BasicEnemyMovement.EnemyDiedByPlayer += UpdateScore;
+        GameManager.Instance.OnTimerTick += UpdateTimer;
     }
 
     private void UpdateScore(int value)
@@ -79,7 +80,7 @@ public class CanvasManager : MonoSingleton<CanvasManager>
         spiritPoints.text = value.ToString("D2");
     }
     
-    public void UpdateTimer(float value)
+    private void UpdateTimer(int value)
     {
         timer.text = value.ToString("D3");
     }
