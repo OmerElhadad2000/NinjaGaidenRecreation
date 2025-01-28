@@ -14,6 +14,8 @@ public class CanvasManager : MonoSingleton<CanvasManager>
     [SerializeField] private List<Image> ninjaHealthBars; // List of health bar images
     [SerializeField] private List<Image> enemyHealthBars; // List of health bar images
     [SerializeField] private Image specialAttackSlot;
+    [SerializeField] private TMP_Text stage;
+    private int _currentStage = 1;
     private int _currentScore;
     private void Start()
     {
@@ -23,6 +25,7 @@ public class CanvasManager : MonoSingleton<CanvasManager>
         spiritPoints.text = "00";
         timer.text = "150";
         specialAttackSlot.enabled = false;
+        stage.text = _currentStage.ToString("D1");
     }
     private void OnEnable()
     {
@@ -39,6 +42,18 @@ public class CanvasManager : MonoSingleton<CanvasManager>
         
         BasicEnemyMovement.EnemyDiedByPlayer += UpdateScore;
         GameManager.Instance.TimerTick += UpdateTimer;
+    }
+
+    private void UpdateStage()
+    {
+        _currentStage++;
+        stage.text = _currentStage.ToString("D1");
+    }
+
+    private void ResetStage()
+    {
+        _currentStage = 1;
+        stage.text = _currentStage.ToString("D1");
     }
 
     private void UpdateScore(int value)
@@ -73,7 +88,7 @@ public class CanvasManager : MonoSingleton<CanvasManager>
         ResetEnemyHealth();
         UpdateTimer(150);
         DisableSpecialAttackSlot();
-        
+        ResetStage();
     }
     
     public void UpdateEnemyHealth(int currentHealth)
@@ -96,7 +111,7 @@ public class CanvasManager : MonoSingleton<CanvasManager>
     
     private void OnSpecialAttackCollected(Sprite specialAttackSprite)
     {
-        if (specialAttackSprite == null)
+        if (!specialAttackSprite)
         {
             DisableSpecialAttackSlot();
             return;
@@ -111,7 +126,7 @@ public class CanvasManager : MonoSingleton<CanvasManager>
         specialAttackSlot.enabled = false;
     }
     
-    public void OnGameOver()
+    private void OnGameOver()
     {
         _currentScore = 0;
         score.text = _currentScore.ToString("D6");
@@ -125,5 +140,10 @@ public class CanvasManager : MonoSingleton<CanvasManager>
     {
         PlayerAttacks.AttackChanged -= OnSpecialAttackCollected;
         PlayerAttacks.ManaChanged -= UpdateSpiritPoints;
+        PlayerBehavior.PlayerHealthChanged -= UpdateNinjaHealth;
+        PlayerBehavior.PlayerLivesChanged -= UpdateLives;
+        PlayerBehavior.PlayerDeath -= OnPlayerDeath;
+        BasicEnemyMovement.EnemyDiedByPlayer -= UpdateScore;
+        GameManager.Instance.TimerTick -= UpdateTimer;
     }
 }

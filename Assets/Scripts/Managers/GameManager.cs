@@ -5,12 +5,11 @@ using UnityEngine;
 public class GameManager : MonoSingleton<GameManager>
 {
     private bool IsGamePaused { get; set; }
-    private const float InitTimer = 150;
+    private const float InitTimer = 20;
     private float _timer;
 
     public event Action<int> TimerTick;
     public event Action PlayerLost;
-
     private void Start()
     {
         _timer = InitTimer;

@@ -24,6 +24,8 @@ public class PlayerBehavior : MonoBehaviour
     public static event Action PlayerDeath;
     public static event Action<int> PlayerLivesChanged;
     
+    public static event Action GameOver;
+    
     private void OnEnable()
     {
         _currentHealth = MaxHealth;
@@ -74,7 +76,7 @@ public class PlayerBehavior : MonoBehaviour
         if (lives < 0)
         {
             //will call an event to end the game
-            Debug.Log("Game Over");
+            GameOver?.Invoke();
             return;
         }
         OnPlayerHealthCollected(MaxHealth);

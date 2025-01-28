@@ -2,23 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerAttacks : MonoBehaviour
 {
     private int _mana;
-    private bool _groundedState = true;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private GameObject standingSwordAttackCollider;
     [SerializeField] private GameObject crouchingSwordAttackCollider;
-    [SerializeField] private GameObject currentSwordCollider;
+    private GameObject _currentSwordCollider;
     
     [SerializeField] private GameObject fireCircleAttack;
     
     
-    private GameObject _currentAttack;
+    private string _currentAttack;
     
-    private Dictionary<string, int> _attackCostDictionary = new Dictionary<string, int> 
+    private readonly Dictionary<string, int> _attackCostDictionary = new Dictionary<string, int> 
     {
         {"JumpSwordAttack", 0},
         {"ShurikenAttack", 5},
@@ -38,16 +36,21 @@ public class PlayerAttacks : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                print("Jumping sword attack");
+                OnJumpingSwordAttack();
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                print("Shuriken attack");
+                return;
+            }
             SwordAttack?.Invoke();
             PreformSwordAttack();
         }
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            OnJumpingSwordAttack();
-        }
-        
-        //add if jumping grounded the gameobject should be turned off. (sword attack)
     }
 
     private void OnEnable()
@@ -58,7 +61,6 @@ public class PlayerAttacks : MonoBehaviour
         CollectablesManager.FireCircleCollected += OnFireCircleCollected;
         CollectablesManager.SpecialJumpCollected += OnSpecialJumpCollected;
         PlayerMovement.Crouching += OnCrouching;
-        PlayerMovement.Grounded += UpdateGroundedState;
         GameManager.Instance.PlayerLost += OnPlayerDeath;
     }
 
@@ -77,12 +79,21 @@ public class PlayerAttacks : MonoBehaviour
     {
         // will update the canvas with the pic of the shuriken
         AttackChanged?.Invoke(shurikenSprite);
+        _currentAttack = "ShurikenAttack";
         
+    }
+    
+    private void PreformShurikenAttack()
+    {
+        if (_mana < _attackCostDictionary["ShurikenAttack"] || _currentAttack != "ShurikenAttack") return;
+        _mana -= _attackCostDictionary["ShurikenAttack"];
+        ManaChanged?.Invoke(_mana);
+        // will instantiate a shuriken prefab
     }
     
     private void PreformSwordAttack()
     {
-        currentSwordCollider.SetActive(true);
+        _currentSwordCollider.SetActive(true);
     }
     
     
@@ -90,8 +101,8 @@ public class PlayerAttacks : MonoBehaviour
     {
         // will update the canvas with the pic of the fire circle
         AttackChanged?.Invoke(fireCircleSprite);
+        _currentAttack = "FireCircleAttack";
         StartCoroutine(FireCircleCoroutine());
-        
 
     }
     
@@ -99,21 +110,17 @@ public class PlayerAttacks : MonoBehaviour
     {
         // will update the canvas with the pic of the special jump
         AttackChanged?.Invoke(specialJumpSprite);
+        _currentAttack = "JumpSwordAttack";
     }
     
     private void OnCrouching(bool isCrouching)
     {
-        currentSwordCollider = isCrouching ? crouchingSwordAttackCollider : standingSwordAttackCollider;
+        _currentSwordCollider = isCrouching ? crouchingSwordAttackCollider : standingSwordAttackCollider;
     }
 
     private void OnSwordAttackEnded()
     {
-        currentSwordCollider.SetActive(false);
-    }
-    
-    private void UpdateGroundedState(bool isGrounded)
-    {
-        _groundedState = isGrounded;
+        _currentSwordCollider.SetActive(false);
     }
     
     private void OnPlayerDeath()
@@ -121,13 +128,15 @@ public class PlayerAttacks : MonoBehaviour
         _mana = 0;
         ManaChanged?.Invoke(_mana);
         _currentAttack = null;
+        AttackChanged?.Invoke(null);
+        _currentSwordCollider.SetActive(false);
     }
     
     private void OnJumpingSwordAttack()
     {
-        // if (_mana < _attackCostDictionary["JumpSwordAttack"]) return;
-        // _mana -= _attackCostDictionary["JumpSwordAttack"];
-        // ManaChanged?.Invoke(_mana);
+        if (_mana < _attackCostDictionary["JumpSwordAttack"] || _currentAttack != "JumpSwordAttack") return;
+        _mana -= _attackCostDictionary["JumpSwordAttack"];
+        ManaChanged?.Invoke(_mana);
         JumpingSwordAttack?.Invoke();
     }
     
@@ -153,6 +162,5 @@ public class PlayerAttacks : MonoBehaviour
         CollectablesManager.FireCircleCollected -= OnFireCircleCollected;
         CollectablesManager.SpecialJumpCollected -= OnSpecialJumpCollected;
         PlayerMovement.Crouching -= OnCrouching;
-        PlayerMovement.Grounded -= UpdateGroundedState;
     }
 }
