@@ -13,6 +13,7 @@ public class AnimationManager : MonoSingleton<AnimationManager>
     private static readonly int Crouching = Animator.StringToHash("Crouching");
     private static readonly int Attack = Animator.StringToHash("SwordAttack");
     private static readonly int SpecialJumpAttack = Animator.StringToHash("SpecialJumpAttack");
+    private static readonly int ShurikenAttack = Animator.StringToHash("ShurikenAttack");
 
     private void OnEnable()
     {
@@ -22,6 +23,7 @@ public class AnimationManager : MonoSingleton<AnimationManager>
         PlayerMovement.Running += OnRunning;
         PlayerAttacks.SwordAttack += SwordAttack;
         PlayerAttacks.JumpingSwordAttack += OnJumpingSwordAttack;
+        PlayerAttacks.ShurikenAttack += OnShurikenAttack;
     }
     
     
@@ -66,7 +68,12 @@ public class AnimationManager : MonoSingleton<AnimationManager>
     {
         animator.SetBool(SpecialJumpAttack, true);
         animator.SetBool(Grounded, false);
-        animator.SetBool(Jumping, false);
+        animator.SetBool(Jumping, true);
+    }
+    
+    private void OnShurikenAttack()
+    {
+        animator.SetTrigger(ShurikenAttack);
     }
     
         

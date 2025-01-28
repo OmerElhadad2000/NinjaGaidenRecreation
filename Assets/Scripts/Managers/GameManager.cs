@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoSingleton<GameManager>
 {
     private bool IsGamePaused { get; set; }
-    private const float InitTimer = 20;
+    private const float InitTimer = 150;
     private float _timer;
 
     public event Action<int> TimerTick;

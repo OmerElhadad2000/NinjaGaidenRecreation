@@ -31,23 +31,31 @@ public class PlayerAttacks : MonoBehaviour
     public static event Action JumpingSwordAttack;
     
     public static event Action FireCircleTick;
+    
+    public static event Action ShurikenAttack;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+
+            if (Input.GetKey(KeyCode.Q) && _currentAttack == "ShurikenAttack")
+            {
+                // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
+                PreformShurikenAttack();
+            }
+        }
+        else if (Input.GetKey(KeyCode.Space))
+        {
+            if (Input.GetKey(KeyCode.Q) && _currentAttack == "JumpSwordAttack")
             {
                 print("Jumping sword attack");
+                // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
                 OnJumpingSwordAttack();
-                return;
             }
-
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                print("Shuriken attack");
-                return;
-            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
             SwordAttack?.Invoke();
             PreformSwordAttack();
         }
@@ -85,10 +93,17 @@ public class PlayerAttacks : MonoBehaviour
     
     private void PreformShurikenAttack()
     {
-        if (_mana < _attackCostDictionary["ShurikenAttack"] || _currentAttack != "ShurikenAttack") return;
+        if (_mana < _attackCostDictionary["ShurikenAttack"] || _currentAttack != "ShurikenAttack")
+        {
+            ShurikenAttack?.Invoke();
+            return;
+        }
+        ShurikenAttack?.Invoke();
         _mana -= _attackCostDictionary["ShurikenAttack"];
         ManaChanged?.Invoke(_mana);
-        // will instantiate a shuriken prefab
+        // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
+        var projectile = PlayerProjectilePool.Instance.Get();
+        projectile.transform.position = attackPoint.position;
     }
     
     private void PreformSwordAttack()
@@ -145,6 +160,7 @@ public class PlayerAttacks : MonoBehaviour
         fireCircleAttack.SetActive(true);
         for (int i = 5; i > 0; i--)
         {
+            // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
             FireCircleTick?.Invoke();
             yield return new WaitForSeconds(1);
         }

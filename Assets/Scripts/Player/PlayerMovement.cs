@@ -43,7 +43,8 @@ public class PlayerMovement : MonoBehaviour
     public static event Action<bool> Running;
     
     public static event Action StartInvincibility;
-    
+
+    public static event Action<bool> FacingRight;
     public static event Action JumpKeyPressed; 
     
     //Player Movement Logic
@@ -52,8 +53,8 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerBehavior.PlayerHit += OnPlayerHit;
         WallJump.WallJumpingEnabled += OnWallJumpingEnabled;
-        
     }
+    
     private void Update()
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
@@ -77,13 +78,14 @@ public class PlayerMovement : MonoBehaviour
         }
         
         PreformWallJump();
-
+        FacingRight?.Invoke(_isFacingRight);
         WallHanging?.Invoke(_isWallSliding);
         Crouching?.Invoke(_isCrouching);
         Running?.Invoke(Mathf.Abs(_horizontal) > 0f);
         
         if (!_isWallJumping)
         {
+            
             Flip();
         }
     }

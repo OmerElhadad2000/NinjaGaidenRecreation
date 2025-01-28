@@ -48,6 +48,7 @@ public class CollidersController : MonoBehaviour
         if (!isWallHanging) return;
         DisableAllColliders();
         jumpingCollider.enabled = true;
+        jumpingSwordAttackCollider.enabled = false;
     }
     
     private void OnRunning(bool isRunning)
@@ -81,7 +82,6 @@ public class CollidersController : MonoBehaviour
             case true when !_isRunning:
                 DisableAllColliders();
                 standingCollider.enabled = true;
-                jumpingSwordAttackCollider.enabled = false;
                 break;
         }
     }
