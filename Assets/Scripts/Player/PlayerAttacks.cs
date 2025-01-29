@@ -36,26 +36,23 @@ public class PlayerAttacks : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
-
-            if (Input.GetKey(KeyCode.Q) && _currentAttack == "ShurikenAttack")
-            {
-                // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
-                PreformShurikenAttack();
-            }
+            if (!Input.GetKeyDown(KeyCode.Q) || _currentAttack != "ShurikenAttack") return;
+            ShurikenAttack?.Invoke();
+            // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
+            PreformShurikenAttack();
         }
         else if (Input.GetKey(KeyCode.Space))
         {
-            if (Input.GetKey(KeyCode.Q) && _currentAttack == "JumpSwordAttack")
-            {
-                print("Jumping sword attack");
-                // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
-                OnJumpingSwordAttack();
-            }
+            if (!Input.GetKey(KeyCode.Q) || _currentAttack != "JumpSwordAttack") return;
+            print("Jumping sword attack");
+            // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
+            OnJumpingSwordAttack();
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
+            // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
             SwordAttack?.Invoke();
             PreformSwordAttack();
         }
@@ -93,12 +90,7 @@ public class PlayerAttacks : MonoBehaviour
     
     private void PreformShurikenAttack()
     {
-        if (_mana < _attackCostDictionary["ShurikenAttack"] || _currentAttack != "ShurikenAttack")
-        {
-            ShurikenAttack?.Invoke();
-            return;
-        }
-        ShurikenAttack?.Invoke();
+        if (_mana < _attackCostDictionary["ShurikenAttack"] || _currentAttack != "ShurikenAttack") { return; }
         _mana -= _attackCostDictionary["ShurikenAttack"];
         ManaChanged?.Invoke(_mana);
         // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
