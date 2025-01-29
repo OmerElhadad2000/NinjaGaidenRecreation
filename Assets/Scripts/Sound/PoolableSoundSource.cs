@@ -16,6 +16,7 @@ public class PoolableSoundSource : MonoBehaviour, IPoolableSoundSource
         GameManager.Instance.GameOverLost += OnGameOver;
         GameManager.Instance.GameOverWon += OnGameOver;
         GameManager.Instance.PlayerLost += OnGameOver;
+        PlayerBehavior.DoorReached += OnGameOver;
     }
 
     // PoolableSoundSource Logic
@@ -64,6 +65,8 @@ public class PoolableSoundSource : MonoBehaviour, IPoolableSoundSource
     {
         audioSource.enabled = true;
         audioSource.clip = null;
+        audioSource.loop = false;
         audioSource.transform.position = Vector3.zero;
     }
+    
 }

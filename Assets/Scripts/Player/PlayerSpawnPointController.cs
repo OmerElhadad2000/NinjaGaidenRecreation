@@ -3,8 +3,9 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerGameOver: MonoBehaviour
+public class PlayerSpawnPointController: MonoBehaviour
 {
+    [SerializeField] private Transform bossSpawnPoint;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform player;
     
@@ -15,6 +16,7 @@ public class PlayerGameOver: MonoBehaviour
     {
         GameManager.Instance.PlayerLost += OnPlayerLost;
         GameManager.Instance.GameOverLost += OnPlayerLost;
+        PlayerBehavior.DoorReached += OnDoorReached;
     }
     private void ResetPlayerPosition()
     {
@@ -25,6 +27,19 @@ public class PlayerGameOver: MonoBehaviour
     private void OnPlayerLost()
     {
         ResetPlayerPosition();
+    }
+    
+    private void OnDoorReached()
+    {
+        player.position = bossSpawnPoint.position;
+        ResetPlayer?.Invoke();
+    }
+    
+    private void OnDisable()
+    {
+        GameManager.Instance.PlayerLost -= OnPlayerLost;
+        GameManager.Instance.GameOverLost -= OnPlayerLost;
+        PlayerBehavior.DoorReached -= ResetPlayerPosition;
     }
     
 }

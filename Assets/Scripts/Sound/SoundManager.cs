@@ -1,9 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 
-public class SoundManager: MonoSingleton<SoundManager>
+public class SoundManager : MonoSingleton<SoundManager>
 {
     [SerializeField] private AudioClip enemyDeathSound;
     [SerializeField] private AudioClip playerDeathSound;
@@ -17,7 +16,16 @@ public class SoundManager: MonoSingleton<SoundManager>
     [SerializeField] private AudioClip bossDeathSound;
     [SerializeField] private AudioClip timerSound;
     [SerializeField] private AudioClip togglePauseSound;
-    
+
+    private AudioSource backgroundMusicSource;
+    private AudioSource soundEffectsSource;
+
+    private void Awake()
+    {
+        backgroundMusicSource = gameObject.AddComponent<AudioSource>();
+        soundEffectsSource = gameObject.AddComponent<AudioSource>();
+    }
+
     private void OnEnable()
     {
         BasicEnemyMovement.EnemyDiedByPlayer += PlayEnemyDeathSound;
@@ -27,99 +35,93 @@ public class SoundManager: MonoSingleton<SoundManager>
         PlayerAttacks.FireCircleTick += PlayerFireCircleTimer;
         PlayerBehavior.PlayerDeath += PlayPlayerDeathSound;
         PlayerBehavior.PlayerHit += PlayPlayerHitSound;
+        PlayerBehavior.DoorReached += PlayBossSound;
         GameManager.Instance.GameStart += OnGameStart;
         GameManager.Instance.GamePause += OnGamePause;
         GameManager.Instance.GameResume += OnGamePause;
-        
     }
-    
+
     private void OnGameStart()
     {
-        var sound = SoundPool.Instance.Get();
-        sound.SetUpClip(backgroundMusic);
-        sound.PlayLoopSound(backgroundMusic);
+        PlayBackgroundMusic(backgroundMusic);
     }
-    
-    private void OnBossFightStart()
+
+    private void PlayBossSound()
     {
-        var sound = SoundPool.Instance.Get();
-        sound.SetUpClip(bossMusic);
-        sound.PlayAudioSource();
+        StartCoroutine(PlayBossSoundWithDelay());
     }
+
+    private IEnumerator PlayBossSoundWithDelay()
+    {
+        yield return new WaitForSeconds(0.1f);
+        PlayBackgroundMusic(bossMusic);
+    }
+
+    private void PlayBackgroundMusic(AudioClip clip)
+    {
+        backgroundMusicSource.clip = clip;
+        backgroundMusicSource.loop = true;
+        backgroundMusicSource.Play();
+    }
+
     private void PlayEnemyDeathSound(int score)
     {
-         var sound = SoundPool.Instance.Get();
-         sound.SetUpClip(enemyDeathSound);
-         sound.PlayAudioSource();
+        PlaySoundEffect(enemyDeathSound);
     }
-    
+
     private void OnGamePause()
     {
-        var sound = SoundPool.Instance.Get();
-        sound.SetUpClip(togglePauseSound);
-        sound.PlayAudioSource();
+        PlaySoundEffect(togglePauseSound);
     }
-    
-    // ReSharper disable Unity.PerformanceAnalysis
+
     private void PlayPlayerDeathSound()
     {
         StartCoroutine(PlayPlayerDeathSoundWithDelay());
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator PlayPlayerDeathSoundWithDelay()
     {
         yield return new WaitForSeconds(0.1f);
-        var sound = SoundPool.Instance.Get();
-        sound.SetUpClip(playerDeathSound);
-        sound.PlayAudioSource();
+        PlaySoundEffect(playerDeathSound);
         yield return new WaitForSeconds(playerDeathSound.length);
         OnGameStart();
     }
-    
+
     private void PlayPlayerShootSound()
     {
-        var sound = SoundPool.Instance.Get();
-        sound.SetUpClip(playerShootSound);
-        sound.PlayAudioSource();
+        PlaySoundEffect(playerShootSound);
     }
-    
+
     private void PlayPlayerSwordSound()
     {
-        var sound = SoundPool.Instance.Get();
-        sound.SetUpClip(playerSwordSound);
-        sound.PlayAudioSource();
+        PlaySoundEffect(playerSwordSound);
     }
-    
+
     private void PlayPlayerHitSound(Vector2 hitDirection)
     {
-        var sound = SoundPool.Instance.Get();
-        sound.SetUpClip(playerHitSound);
-        sound.PlayAudioSource();
+        PlaySoundEffect(playerHitSound);
     }
-    
+
     private void PlayerFireCircleTimer()
     {
-        var sound = SoundPool.Instance.Get();
-        sound.SetUpClip(timerSound);
-        sound.PlayAudioSource();
+        PlaySoundEffect(timerSound);
     }
-    
+
     private void PlayCollectableSound()
     {
-        var sound = SoundPool.Instance.Get();
-        sound.SetUpClip(collectableSound);
-        sound.PlayAudioSource();
+        PlaySoundEffect(collectableSound);
     }
-    
-    // ReSharper disable Unity.PerformanceAnalysis
+
     private void PlayPlayerJumpSound()
     {
-        var sound = SoundPool.Instance.Get();
-        sound.SetUpClip(playerJumpSound);
-        sound.PlayAudioSource();
+        PlaySoundEffect(playerJumpSound);
     }
-    
+
+    private void PlaySoundEffect(AudioClip clip)
+    {
+        soundEffectsSource.PlayOneShot(clip);
+    }
+
     private void OnDisable()
     {
         BasicEnemyMovement.EnemyDiedByPlayer -= PlayEnemyDeathSound;

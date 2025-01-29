@@ -54,7 +54,8 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerBehavior.PlayerHit += OnPlayerHit;
         WallJump.WallJumpingEnabled += OnWallJumpingEnabled;
-        PlayerGameOver.ResetPlayer += ResetPlayerPosition;
+        PlayerSpawnPointController.ResetPlayer += ResetPlayerPosition;
+        PlayerBehavior.DoorReached += ResetPlayerPosition;
     }
     
     private void Update()
@@ -202,6 +203,6 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerBehavior.PlayerHit -= OnPlayerHit;
         WallJump.WallJumpingEnabled -= OnWallJumpingEnabled;
-        PlayerGameOver.ResetPlayer -= ResetPlayerPosition;
+        PlayerSpawnPointController.ResetPlayer -= ResetPlayerPosition;
     }
 }

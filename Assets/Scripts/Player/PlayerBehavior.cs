@@ -26,6 +26,8 @@ public class PlayerBehavior : MonoBehaviour
     
     public static event Action GameOver;
     
+    public static event Action DoorReached;
+    
     private void OnEnable()
     {
         _currentHealth = MaxHealth;
@@ -86,9 +88,16 @@ public class PlayerBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        
         if (!(other.gameObject.CompareTag("Boss Enemy") || other.gameObject.CompareTag("Regular Enemy") || other.gameObject.CompareTag("Enemy Attack"))) return;
         PlayerHit?.Invoke((other.transform.position - transform.position).normalized);
         TakeDamage(other.gameObject.CompareTag("Boss Enemy") ? 2 : 1);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag("Door")) return;
+        DoorReached?.Invoke();
     }
 
     private IEnumerator InvincibilityCoroutine()
