@@ -27,6 +27,7 @@ public class PlayerBehavior : MonoBehaviour
     
     public static event Action DoorReached;
     
+    
     private void OnEnable()
     {
         _currentHealth = MaxHealth;
@@ -119,9 +120,11 @@ public class PlayerBehavior : MonoBehaviour
     
     private void IgnoreEnemyLayer()
     {
+        
         int playerLayer = LayerMask.NameToLayer("Player");
         int enemyLayer = LayerMask.NameToLayer("Regular Enemies");
         int bossLayer = LayerMask.NameToLayer("Boss Enemies");
+        
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
         Physics2D.IgnoreLayerCollision(playerLayer, bossLayer, true);
     }
@@ -131,6 +134,7 @@ public class PlayerBehavior : MonoBehaviour
         int playerLayer = LayerMask.NameToLayer("Player");
         int enemyLayer = LayerMask.NameToLayer("Regular Enemies");
         int bossLayer = LayerMask.NameToLayer("Boss Enemies");
+        
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
         Physics2D.IgnoreLayerCollision(playerLayer, bossLayer, false);
     }
@@ -161,6 +165,9 @@ public class PlayerBehavior : MonoBehaviour
         spriteRenderer.color = new Color(_originalColor.r, _originalColor.g, _originalColor.b, 0.5f);
         // Change player tag to be transparent to enemies
         ChangePlayerTag("Regular Enemy");
+        
+        //invencibility for 5 seconds'
+        StartInvincibility();
 
         // Wait for 5 seconds
         yield return new WaitForSeconds(5f);

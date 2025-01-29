@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8779080855356822997}
   - component: {fileID: 4687723346935771436}
   - component: {fileID: 2084919477154423798}
-  - component: {fileID: -4399918009052961685}
+  - component: {fileID: 5269229010929786971}
   m_Layer: 8
   m_Name: PlayerShurikenProjectile
   m_TagString: Player Attack
@@ -156,7 +156,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 3072
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -186,7 +186,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.08, y: 0.04}
   m_EdgeRadius: 0
---- !u!114 &-4399918009052961685
+--- !u!114 &5269229010929786971
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4297422982823752933}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c0077ec891872b46b1bc5457b70a059, type: 3}
+  m_Script: {fileID: 11500000, guid: b244d9e28a0f4fa9aba145f0b61c5570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 4

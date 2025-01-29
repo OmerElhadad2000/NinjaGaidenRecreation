@@ -1,5 +1,5 @@
 ﻿
-public class PlayerProjectilePool: MonoPool<BasicProjectileMovement>
+public class PlayerProjectilePool: MonoPool<PlayerProjectile>
 {
     
 }

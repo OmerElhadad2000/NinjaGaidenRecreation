@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossMovement : BasicEnemyMovement
 {
     private static readonly int EnemyHit = Animator.StringToHash("EnemyHit");
+    private static readonly int BossDeath = Animator.StringToHash("BossDeath");
     [SerializeField] private Vector2 boxSize;
     [SerializeField] private BoxCollider2D attackCollider;
     private const int InitHealth = 16;
@@ -86,7 +87,7 @@ public class BossMovement : BasicEnemyMovement
         if (_health >= 0) return;
         EnemyFrozen = true;
         EnemyDead = true;
-        EnemyAnimator.SetTrigger("BossDeath");
+        EnemyAnimator.SetTrigger(BossDeath);
         BossDied?.Invoke();
         EnemyReturned(EnemySpawnerId, true);
         BossPool.Instance.Return(this);
