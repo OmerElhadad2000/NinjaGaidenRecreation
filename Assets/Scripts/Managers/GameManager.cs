@@ -11,12 +11,24 @@ public class GameManager : MonoSingleton<GameManager>
     public event Action<int> TimerTick;
     public event Action PlayerLost;
     
+    public event Action GamePause;
+    
+    public event Action GameResume;
+    
     public event Action GameStart;
     private void Start()
     {
         GameStart?.Invoke();
         _timer = InitTimer;
         StartCoroutine(TimerCoroutine());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePauseGame();
+        }
     }
 
     private IEnumerator TimerCoroutine()
@@ -27,22 +39,26 @@ public class GameManager : MonoSingleton<GameManager>
             _timer--;
             TimerTick?.Invoke(Mathf.CeilToInt(_timer));
         }
+        // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
         PlayerLost?.Invoke();
     }
 
     private void PauseGame()
     {
+        GamePause?.Invoke();
         IsGamePaused = true;
         Time.timeScale = 0;
     }
 
     private void ResumeGame()
     {
+        GameResume?.Invoke();
         IsGamePaused = false;
         Time.timeScale = 1;
     }
 
-    public void TogglePauseGame()
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void TogglePauseGame()
     {
         if (IsGamePaused)
         {

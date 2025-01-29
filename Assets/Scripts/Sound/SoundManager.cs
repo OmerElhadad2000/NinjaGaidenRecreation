@@ -15,6 +15,7 @@ public class SoundManager: MonoSingleton<SoundManager>
     [SerializeField] private AudioClip bossMusic;
     [SerializeField] private AudioClip bossDeathSound;
     [SerializeField] private AudioClip timerSound;
+    [SerializeField] private AudioClip togglePauseSound;
     
     private void OnEnable()
     {
@@ -26,6 +27,8 @@ public class SoundManager: MonoSingleton<SoundManager>
         PlayerBehavior.PlayerDeath += PlayPlayerDeathSound;
         PlayerBehavior.PlayerHit += PlayPlayerHitSound;
         GameManager.Instance.GameStart += OnGameStart;
+        GameManager.Instance.GamePause += OnGamePause;
+        GameManager.Instance.GameResume += OnGamePause;
         
     }
     
@@ -47,6 +50,13 @@ public class SoundManager: MonoSingleton<SoundManager>
          var sound = SoundPool.Instance.Get();
          sound.SetUpClip(enemyDeathSound);
          sound.PlayAudioSource();
+    }
+    
+    private void OnGamePause()
+    {
+        var sound = SoundPool.Instance.Get();
+        sound.SetUpClip(togglePauseSound);
+        sound.PlayAudioSource();
     }
     
     private void PlayPlayerDeathSound()
