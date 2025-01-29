@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isFacingRight = true;
     private bool _isWallSliding;
     private float _wallJumpingCounter;
+    private bool _playerHit;
 
     //Movement Constants
     private const float WallJumpingTime = 0.2f;
@@ -121,6 +122,11 @@ public class PlayerMovement : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private void PreformWallJump()
     {
+        if (_playerHit)
+        {
+            return;
+        }
+        
         if (_isWallSliding)
         {
             _isWallJumping = false;
@@ -173,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnPlayerHit(Vector2 contactPoint)
     {
         int throwDirection = groundCheck.position.x - contactPoint.x > 0 ? 1 : -1;
-        
+        _playerHit = true;
         rb.linearVelocity = new Vector2(3*throwDirection,5);
         StartCoroutine(DisableMovementUntilGrounded());
     }
@@ -184,6 +190,7 @@ public class PlayerMovement : MonoBehaviour
         enabled = false; // Disable player movement
         yield return new WaitUntil(IsGrounded); // Wait until the player is grounded
         enabled = true; // Re-enable player movement
+        _playerHit = false;
     }
     
     private void ResetPlayerPosition()

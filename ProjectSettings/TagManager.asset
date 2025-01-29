@@ -26,6 +26,7 @@ TagManager:
   - Wall Slide Right
   - Enemy Attack
   - Door
+  - Smoke Bomb
   layers:
   - Default
   - TransparentFX

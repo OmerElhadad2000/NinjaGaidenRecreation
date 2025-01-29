@@ -20,7 +20,8 @@ public class PlayerAttacks : MonoBehaviour
     {
         {"JumpSwordAttack", 0},
         {"ShurikenAttack", 5},
-        {"FireCircleAttack", 0}
+        {"FireCircleAttack", 0},
+        {"SmokeBomb", 5}
     };
     
     public static event Action<int> ManaChanged;
@@ -33,15 +34,22 @@ public class PlayerAttacks : MonoBehaviour
     public static event Action FireCircleTick;
     
     public static event Action ShurikenAttack;
+    
+    public static event Action SmokeBombPreform;
 
     private void Update()
     {
         if (Input.GetKey(KeyCode.UpArrow))
         {
+            if (Input.GetKeyDown(KeyCode.Q) && _currentAttack == "SmokeBomb")
+            {
+                PreformSmokeBomb();
+            }
             if (!Input.GetKeyDown(KeyCode.Q) || _currentAttack != "ShurikenAttack") return;
             ShurikenAttack?.Invoke();
             // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
             PreformShurikenAttack();
+            
         }
         else if (Input.GetKey(KeyCode.Space))
         {
@@ -58,6 +66,14 @@ public class PlayerAttacks : MonoBehaviour
         }
     }
 
+    private void PreformSmokeBomb()
+    {
+        if (_mana < _attackCostDictionary["SmokeBomb"]) return;
+        _mana -= _attackCostDictionary["SmokeBomb"];
+        ManaChanged?.Invoke(_mana);
+        SmokeBombPreform?.Invoke();
+    }
+
     private void OnEnable()
     {
         CollectablesManager.RedSpiritPointsCollected += UpdateSpiritPoints;
@@ -66,7 +82,8 @@ public class PlayerAttacks : MonoBehaviour
         CollectablesManager.FireCircleCollected += OnFireCircleCollected;
         CollectablesManager.SpecialJumpCollected += OnSpecialJumpCollected;
         PlayerMovement.Crouching += OnCrouching;
-        GameManager.Instance.PlayerLost += OnPlayerDeath;
+        GameManager.Instance.PlayerDied += OnPlayerDeath;
+        CollectablesManager.SmokeBombCollected += OnSmokeBombCollected;
     }
 
     private void UpdateSpiritPoints(int spiritPoints)
@@ -86,6 +103,13 @@ public class PlayerAttacks : MonoBehaviour
         AttackChanged?.Invoke(shurikenSprite);
         _currentAttack = "ShurikenAttack";
         
+    }
+    
+    private void OnSmokeBombCollected(Sprite smokeBombSprite)
+    {
+        // will update the canvas with the pic of the smoke bomb
+        AttackChanged?.Invoke(smokeBombSprite);
+        _currentAttack = "SmokeBomb";
     }
     
     private void PreformShurikenAttack()

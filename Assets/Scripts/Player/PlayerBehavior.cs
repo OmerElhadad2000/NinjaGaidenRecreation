@@ -14,7 +14,6 @@ public class PlayerBehavior : MonoBehaviour
     
     [SerializeField] private SpriteRenderer spriteRenderer;
     private Color _originalColor;    
-    private bool _isInvincible;
     private int _currentHealth;
     private bool _isDead;
     
@@ -35,12 +34,14 @@ public class PlayerBehavior : MonoBehaviour
         CollectablesManager.HealthCollected += OnPlayerHealthCollected;
         CollectablesManager.ExtraLifeCollected += OnPlayerExtraLifeCollected;
         PlayerMovement.StartInvincibility += StartInvincibility;
-        GameManager.Instance.PlayerLost += OnPlayerDeath;
+        GameManager.Instance.PlayerDied += OnPlayerDeath;
+        GameManager.Instance.GameOverWon += OnGameOverWon;
+        PlayerAttacks.SmokeBombPreform += OnSmokeBombPreform;
     }
 
     private void TakeDamage(int damage)
     {
-        if (_isDead || _isInvincible) return;
+        if (_isDead) return;
         _currentHealth -= damage;
         PlayerHealthChanged?.Invoke(_currentHealth);
         if (_currentHealth >= 0) return;
@@ -102,7 +103,6 @@ public class PlayerBehavior : MonoBehaviour
 
     private IEnumerator InvincibilityCoroutine()
     {
-        _isInvincible = true;
         float elapsedTime = 0f;
         IgnoreEnemyLayer();
         while (elapsedTime < invincibilityDuration)
@@ -115,20 +115,65 @@ public class PlayerBehavior : MonoBehaviour
         }
         ReenableEnemyLayer();
         spriteRenderer.color = _originalColor;
-        _isInvincible = false;
     }
     
     private void IgnoreEnemyLayer()
     {
         int playerLayer = LayerMask.NameToLayer("Player");
         int enemyLayer = LayerMask.NameToLayer("Regular Enemies");
+        int bossLayer = LayerMask.NameToLayer("Boss Enemies");
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
+        Physics2D.IgnoreLayerCollision(playerLayer, bossLayer, true);
     }
 
     private void ReenableEnemyLayer()
     {
         int playerLayer = LayerMask.NameToLayer("Player");
         int enemyLayer = LayerMask.NameToLayer("Regular Enemies");
+        int bossLayer = LayerMask.NameToLayer("Boss Enemies");
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
+        Physics2D.IgnoreLayerCollision(playerLayer, bossLayer, false);
     }
+    
+    private void OnGameOverWon()
+    {
+        _currentHealth = MaxHealth;
+        lives = 2;
+        _isDead = false;
+        spriteRenderer.color = _originalColor;
+        PlayerHealthChanged?.Invoke(_currentHealth);
+        PlayerLivesChanged?.Invoke(lives);
+    }
+    
+    private void OnSmokeBombPreform()
+    {
+        MakePlayerHalfVisibleAndTransparent();
+    }
+    
+    private void MakePlayerHalfVisibleAndTransparent()
+    {
+        StartCoroutine(HalfVisibleAndTransparentCoroutine());
+    }
+
+    private IEnumerator HalfVisibleAndTransparentCoroutine()
+    {
+        // Make player half visible
+        spriteRenderer.color = new Color(_originalColor.r, _originalColor.g, _originalColor.b, 0.5f);
+        // Change player tag to be transparent to enemies
+        ChangePlayerTag("Regular Enemy");
+
+        // Wait for 5 seconds
+        yield return new WaitForSeconds(5f);
+
+        // Return to normal opacity
+        spriteRenderer.color = _originalColor;
+        // Revert player tag
+        ChangePlayerTag("Player");
+    }
+
+    private void ChangePlayerTag(string newTag)
+    {
+        gameObject.tag = newTag;
+    }
+    
 }

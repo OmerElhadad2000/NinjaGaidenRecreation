@@ -9,7 +9,7 @@ public class GameManager : MonoSingleton<GameManager>
     private float _timer;
 
     public event Action<int> TimerTick;
-    public event Action PlayerLost;
+    public event Action PlayerDied;
     
     public event Action GamePause;
     
@@ -20,12 +20,20 @@ public class GameManager : MonoSingleton<GameManager>
     
     public event Action GameOverWon;
     
+    private bool _gameOverWon;
+    
     
     private void Start()
     {
         GameStart?.Invoke();
         _timer = InitTimer;
         StartCoroutine(TimerCoroutine());
+    }
+
+    private void OnEnable()
+    {
+        BossMovement.BossDied += OnGameOverWon;
+        PlayerBehavior.PlayerDeath += OnPlayerDeath;
     }
 
     private void Update()
@@ -35,9 +43,37 @@ public class GameManager : MonoSingleton<GameManager>
             TogglePauseGame();
         }
     }
+    
+    // ReSharper disable Unity.PerformanceAnalysis
+    private void OnPlayerDeath()
+    {
+        PlayerDied?.Invoke();
+    }
+    
+    private void OnGameOverWon()
+    {
+        StartCoroutine(HandleGameOverWon());
+    }
+
+    private IEnumerator HandleGameOverWon()
+    {
+        _gameOverWon = true;
+        while (_timer > 0)
+        {
+            yield return new WaitForSeconds(0.1f);
+            _timer--;
+            TimerTick?.Invoke(Mathf.CeilToInt(_timer));
+            // Assuming you have a method to update the score
+            CanvasManager.Instance.UpdateScore(1000);
+        }
+        GameOverWon?.Invoke();
+        _timer = InitTimer;
+        _gameOverWon = false;
+    }
 
     private IEnumerator TimerCoroutine()
     {
+        if (_gameOverWon) yield break;
         while (_timer > 0)
         {
             yield return new WaitForSeconds(1);
@@ -45,7 +81,7 @@ public class GameManager : MonoSingleton<GameManager>
             TimerTick?.Invoke(Mathf.CeilToInt(_timer));
         }
         // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
-        PlayerLost?.Invoke();
+        PlayerDied?.Invoke();
         _timer = InitTimer;
     }
 
@@ -74,5 +110,10 @@ public class GameManager : MonoSingleton<GameManager>
         {
             PauseGame();
         }
+    }
+    
+    private void OnDisable()
+    {
+        PlayerBehavior.PlayerDeath -= OnPlayerDeath;
     }
 }

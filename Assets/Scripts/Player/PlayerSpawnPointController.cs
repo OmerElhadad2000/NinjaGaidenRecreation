@@ -14,8 +14,9 @@ public class PlayerSpawnPointController: MonoBehaviour
     
     private void OnEnable()
     {
-        GameManager.Instance.PlayerLost += OnPlayerLost;
-        GameManager.Instance.GameOverLost += OnPlayerLost;
+        GameManager.Instance.PlayerDied += OnPlayerDied;
+        GameManager.Instance.GameOverLost += OnPlayerDied;
+        GameManager.Instance.GameOverWon += OnPlayerDied;
         PlayerBehavior.DoorReached += OnDoorReached;
     }
     private void ResetPlayerPosition()
@@ -24,7 +25,7 @@ public class PlayerSpawnPointController: MonoBehaviour
         ResetPlayer?.Invoke();
     }
 
-    private void OnPlayerLost()
+    private void OnPlayerDied()
     {
         ResetPlayerPosition();
     }
@@ -37,8 +38,8 @@ public class PlayerSpawnPointController: MonoBehaviour
     
     private void OnDisable()
     {
-        GameManager.Instance.PlayerLost -= OnPlayerLost;
-        GameManager.Instance.GameOverLost -= OnPlayerLost;
+        GameManager.Instance.PlayerDied -= OnPlayerDied;
+        GameManager.Instance.GameOverLost -= OnPlayerDied;
         PlayerBehavior.DoorReached -= ResetPlayerPosition;
     }
     

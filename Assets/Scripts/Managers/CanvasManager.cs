@@ -42,6 +42,8 @@ public class CanvasManager : MonoSingleton<CanvasManager>
         
         BasicEnemyMovement.EnemyDiedByPlayer += UpdateScore;
         GameManager.Instance.TimerTick += UpdateTimer;
+        GameManager.Instance.GameOverWon += OnGameOver;
+        
     }
 
     private void UpdateStage()
@@ -56,7 +58,7 @@ public class CanvasManager : MonoSingleton<CanvasManager>
         stage.text = _currentStage.ToString("D1");
     }
 
-    private void UpdateScore(int value)
+    public void UpdateScore(int value)
     {
         _currentScore += value;
         score.text = _currentScore.ToString("D6");
@@ -95,7 +97,7 @@ public class CanvasManager : MonoSingleton<CanvasManager>
     {
         for (int i = 0; i < enemyHealthBars.Count; i++)
         {
-            enemyHealthBars[i].enabled = i < currentHealth;
+            enemyHealthBars[i].enabled = i <= currentHealth;
         }
     }
 
@@ -134,7 +136,9 @@ public class CanvasManager : MonoSingleton<CanvasManager>
         spiritPoints.text = "00";
         timer.text = "150";
         specialAttackSlot.enabled = false;
+        ResetEnemyHealth();
     }
+    
 
     private void OnDisable()
     {

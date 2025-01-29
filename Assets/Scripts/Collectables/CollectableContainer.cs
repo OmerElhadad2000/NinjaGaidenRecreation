@@ -9,7 +9,7 @@ public class CollectableContainer : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.Instance.PlayerLost += ResetSpawner;
+        GameManager.Instance.PlayerDied += ResetSpawner;
         GameManager.Instance.GameOverLost += ResetSpawner;
         GameManager.Instance.GameOverWon += ResetSpawner;
     }
@@ -51,8 +51,7 @@ public enum CollectableTag
     RedPoints,
     BluePoints,
     RegularShuriken,
-    SpecialShuriken,
-    Flame,
     FireCircle,
-    SpecialJump
+    SpecialJump,
+    SmokeBomb
 }

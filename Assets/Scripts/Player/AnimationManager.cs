@@ -15,6 +15,7 @@ public class AnimationManager : MonoSingleton<AnimationManager>
     private static readonly int SpecialJumpAttack = Animator.StringToHash("SpecialJumpAttack");
     private static readonly int ShurikenAttack = Animator.StringToHash("ShurikenAttack");
     private static readonly int Hit = Animator.StringToHash("Hit");
+    private static readonly int SmokeBomb = Animator.StringToHash("SmokeBomb");
 
 
     private void OnEnable()
@@ -27,6 +28,7 @@ public class AnimationManager : MonoSingleton<AnimationManager>
         PlayerAttacks.JumpingSwordAttack += OnJumpingSwordAttack;
         PlayerAttacks.ShurikenAttack += OnShurikenAttack;
         PlayerBehavior.PlayerHit += OnPlayerHit;
+        PlayerAttacks.SmokeBombPreform += OnSmokeBombPreform;
     }
     
     
@@ -38,6 +40,11 @@ public class AnimationManager : MonoSingleton<AnimationManager>
         if (!isGrounded) return;
         animator.SetBool(SpecialJumpAttack, false);
         animator.SetBool(Jumping, false);
+    }
+    
+    private void OnSmokeBombPreform()
+    {
+        animator.SetTrigger(SmokeBomb);
     }
 
     private void OnWallHanging(bool isWallHanged)

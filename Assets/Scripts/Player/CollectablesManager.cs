@@ -13,6 +13,8 @@ public class CollectablesManager : MonoBehaviour
     public static event Action<Sprite> RegularShurikenCollected;
     public static event Action<Sprite> FireCircleCollected;
     public static event Action<Sprite> SpecialJumpCollected;
+    
+    public static event Action<Sprite> SmokeBombCollected;
 
     private void OnCollisionEnter2D (Collision2D other)
     {
@@ -23,6 +25,11 @@ public class CollectablesManager : MonoBehaviour
         else if (other.gameObject.CompareTag("Blue Spirit Points"))
         {
             BlueSpiritPointsCollected?.Invoke(5);
+        }
+        
+        else if (other.gameObject.CompareTag("Smoke Bomb"))
+        {
+            SmokeBombCollected?.Invoke(other.gameObject.GetComponent<SpriteRenderer>().sprite);
         }
 
         else if (other.gameObject.CompareTag("Health"))

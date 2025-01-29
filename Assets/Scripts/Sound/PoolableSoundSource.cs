@@ -15,7 +15,7 @@ public class PoolableSoundSource : MonoBehaviour, IPoolableSoundSource
         GameManager.Instance.GameResume += ResumeSound;
         GameManager.Instance.GameOverLost += OnGameOver;
         GameManager.Instance.GameOverWon += OnGameOver;
-        GameManager.Instance.PlayerLost += OnGameOver;
+        GameManager.Instance.PlayerDied += OnGameOver;
         PlayerBehavior.DoorReached += OnGameOver;
     }
 

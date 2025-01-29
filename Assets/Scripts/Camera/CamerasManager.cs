@@ -14,6 +14,8 @@ public class CamerasManager : MonoSingleton<CamerasManager>
     private void OnEnable()
     {
         PlayerBehavior.DoorReached += OnDoorReached;
+        PlayerBehavior.PlayerDeath += OnPlayerDeath;
+        GameManager.Instance.GameOverWon += OnPlayerDeath;
         mainCameraAudioListener = mainCamera.GetComponent<AudioListener>();
         bossCameraAudioListener = bossCamera.GetComponent<AudioListener>();
     }
@@ -21,11 +23,18 @@ public class CamerasManager : MonoSingleton<CamerasManager>
     private void OnDisable()
     {
         PlayerBehavior.DoorReached -= OnDoorReached;
+        PlayerBehavior.PlayerDeath -= OnPlayerDeath;
+        
     }
 
     private void OnDoorReached()
     {
         StartCoroutine(SwitchToBossCamera());
+    }
+
+    private void OnPlayerDeath()
+    {
+        StartCoroutine(SwitchToMainCamera());
     }
 
     private IEnumerator SwitchToBossCamera()
@@ -35,6 +44,16 @@ public class CamerasManager : MonoSingleton<CamerasManager>
         mainCameraAudioListener.enabled = false;
         bossCamera.enabled = true;
         bossCameraAudioListener.enabled = true;
+        yield return StartCoroutine(FadeIn());
+    }
+
+    private IEnumerator SwitchToMainCamera()
+    {
+        yield return StartCoroutine(FadeOut());
+        bossCamera.enabled = false;
+        bossCameraAudioListener.enabled = false;
+        mainCamera.enabled = true;
+        mainCameraAudioListener.enabled = true;
         yield return StartCoroutine(FadeIn());
     }
 

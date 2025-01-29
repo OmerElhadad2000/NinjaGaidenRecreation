@@ -14,7 +14,7 @@ public class Collectable : MonoBehaviour, IPoolableObject
         _spriteRenderer = GetComponent<SpriteRenderer>();
         GameManager.Instance.GameOverWon += OnGameOver;
         GameManager.Instance.GameOverLost += OnGameOver;
-        GameManager.Instance.PlayerLost += OnGameOver;
+        GameManager.Instance.PlayerDied += OnGameOver;
     }
 
     public void Reset()

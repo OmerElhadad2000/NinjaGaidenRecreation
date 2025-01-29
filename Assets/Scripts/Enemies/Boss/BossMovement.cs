@@ -32,7 +32,6 @@ public class BossMovement : BasicEnemyMovement
         }
         
         _attackCooldownTimer -= Time.deltaTime;
-        print(_attackCooldownTimer);
         
         CheckingGround = Physics2D.OverlapCircle(groundCheckPoint.position, circleRadius, groundLayer);
         CheckingWall = Physics2D.OverlapCircle(wallCheckPoint.position, circleRadius, groundLayer);
@@ -58,7 +57,6 @@ public class BossMovement : BasicEnemyMovement
 
     private void OnSlashAttackEnded()
     {
-        print("slash attack ended");
         EnemyRigidbody2D.simulated = true;
         _isAttacking = false;
         attackCollider.enabled = false;
@@ -85,16 +83,28 @@ public class BossMovement : BasicEnemyMovement
     {
         _health--;
         CanvasManager.Instance.UpdateEnemyHealth(_health);
-        if (_health > 0) return;
+        if (_health >= 0) return;
         EnemyFrozen = true;
-        // EnemyAnimator.SetTrigger("EnemyDeath");
+        EnemyDead = true;
+        EnemyAnimator.SetTrigger("BossDeath");
         BossDied?.Invoke();
+        EnemyReturned(EnemySpawnerId, true);
+        BossPool.Instance.Return(this);
+    }
+    
+    
+    private void OnBecameInvisible()
+    {
+        if (EnemyDead) return;
+        EnemyReturned(EnemySpawnerId, false);
+        BossPool.Instance.Return(this);
     }
 
     public override void Reset()
     {
         base.Reset();
         _health = InitHealth;
+        EnemyDead = false;
         CanvasManager.Instance.UpdateEnemyHealth(_health);
     }
 }
