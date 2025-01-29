@@ -13,6 +13,9 @@ public class PoolableSoundSource : MonoBehaviour, IPoolableSoundSource
     {
         GameManager.Instance.GamePause += PauseSound;
         GameManager.Instance.GameResume += ResumeSound;
+        GameManager.Instance.GameOverLost += OnGameOver;
+        GameManager.Instance.GameOverWon += OnGameOver;
+        GameManager.Instance.PlayerLost += OnGameOver;
     }
 
     // PoolableSoundSource Logic
@@ -50,6 +53,11 @@ public class PoolableSoundSource : MonoBehaviour, IPoolableSoundSource
     private void ResumeSound()
     {
         audioSource.UnPause();
+    }
+    
+    private void OnGameOver()
+    {
+        SoundPool.Instance.Return(this);
     }
     
     public void Reset()

@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -5,6 +6,13 @@ public class CollectableContainer : MonoBehaviour
 {
     [SerializeField] private CollectableTag collectableTag;
     [SerializeField] private Sprite collectableSprite;
+
+    private void OnEnable()
+    {
+        GameManager.Instance.PlayerLost += ResetSpawner;
+        GameManager.Instance.GameOverLost += ResetSpawner;
+        GameManager.Instance.GameOverWon += ResetSpawner;
+    }
 
     private void OnDeathItemDrop()
     {
@@ -25,6 +33,12 @@ public class CollectableContainer : MonoBehaviour
     {
         return Regex.Replace(tagToConvert.ToString(), "(\\B[A-Z])", " $1");
     }
+    
+    private void ResetSpawner()
+    {
+        gameObject.SetActive(true);
+    }
+    
 }
 
 public enum CollectableTag

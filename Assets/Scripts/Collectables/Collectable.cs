@@ -7,9 +7,14 @@ public class Collectable : MonoBehaviour, IPoolableObject
     private SpriteRenderer _spriteRenderer;
     
     public static event Action CollectableCollected;
+    
+    
     private void OnEnable()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        GameManager.Instance.GameOverWon += OnGameOver;
+        GameManager.Instance.GameOverLost += OnGameOver;
+        GameManager.Instance.PlayerLost += OnGameOver;
     }
 
     public void Reset()
@@ -34,6 +39,11 @@ public class Collectable : MonoBehaviour, IPoolableObject
     public void SetSpriteRenderer(Sprite newSprite)
     {
         _spriteRenderer.sprite = newSprite;
+    }
+    
+    private void OnGameOver()
+    {
+        CollectablePool.Instance.Return(this);
     }
     
     public void SetPlayerTransform(Transform player)

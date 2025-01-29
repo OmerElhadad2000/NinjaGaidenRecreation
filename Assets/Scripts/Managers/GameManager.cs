@@ -16,6 +16,11 @@ public class GameManager : MonoSingleton<GameManager>
     public event Action GameResume;
     
     public event Action GameStart;
+    public event Action GameOverLost;
+    
+    public event Action GameOverWon;
+    
+    
     private void Start()
     {
         GameStart?.Invoke();
@@ -41,6 +46,7 @@ public class GameManager : MonoSingleton<GameManager>
         }
         // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
         PlayerLost?.Invoke();
+        _timer = InitTimer;
     }
 
     private void PauseGame()

@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class SoundManager: MonoSingleton<SoundManager>
@@ -59,11 +60,21 @@ public class SoundManager: MonoSingleton<SoundManager>
         sound.PlayAudioSource();
     }
     
+    // ReSharper disable Unity.PerformanceAnalysis
     private void PlayPlayerDeathSound()
     {
+        StartCoroutine(PlayPlayerDeathSoundWithDelay());
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    private IEnumerator PlayPlayerDeathSoundWithDelay()
+    {
+        yield return new WaitForSeconds(0.1f);
         var sound = SoundPool.Instance.Get();
         sound.SetUpClip(playerDeathSound);
         sound.PlayAudioSource();
+        yield return new WaitForSeconds(playerDeathSound.length);
+        OnGameStart();
     }
     
     private void PlayPlayerShootSound()

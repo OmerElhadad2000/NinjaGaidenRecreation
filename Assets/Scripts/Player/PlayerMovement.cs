@@ -47,12 +47,14 @@ public class PlayerMovement : MonoBehaviour
     public static event Action<bool> FacingRight;
     public static event Action JumpKeyPressed; 
     
+    
     //Player Movement Logic
 
     private void OnEnable()
     {
         PlayerBehavior.PlayerHit += OnPlayerHit;
         WallJump.WallJumpingEnabled += OnWallJumpingEnabled;
+        PlayerGameOver.ResetPlayer += ResetPlayerPosition;
     }
     
     private void Update()
@@ -167,43 +169,39 @@ public class PlayerMovement : MonoBehaviour
     }
     
     
-    void OnPlayerHit(Vector2 contactPoint)
+    private void OnPlayerHit(Vector2 contactPoint)
     {
-        // print(contactPoint);
-        // if (contactPoint == Vector2.zero)
-        // {
-        //     contactPoint = rb.position + Vector2.left; // Default direction if contact point is zero
-        // }
-        //
-        // Vector2 knockbackDirection = (rb.position - contactPoint).normalized;
-        //
-        // if (IsGrounded())
-        // {
-        //     knockbackDirection.x = Mathf.Max(Mathf.Abs(knockbackDirection.x), 1f) * Mathf.Sign(knockbackDirection.x); 
-        // }
-        // else
-        // {
-        //     knockbackDirection.x = Mathf.Max(Mathf.Abs(knockbackDirection.x), 1f) * Mathf.Sign(knockbackDirection.x); // Ensure a small horizontal component
-        //     knockbackDirection.y = Mathf.Max(knockbackDirection.y, 1f); // Ensure a small upward component
-        // }
-        //
-        // Vector2 knockbackVelocity = knockbackDirection.normalized * knockbackForce;
-        // rb.linearVelocity = knockbackVelocity;
+        int throwDirection = groundCheck.position.x - contactPoint.x > 0 ? 1 : -1;
         
-        rb.AddForce(contactPoint * knockbackForce, ForceMode2D.Impulse);
+        rb.linearVelocity = new Vector2(3*throwDirection,5);
         StartCoroutine(DisableMovementUntilGrounded());
     }
 
     private IEnumerator DisableMovementUntilGrounded()
     {
+        StartInvincibility?.Invoke();
         enabled = false; // Disable player movement
         yield return new WaitUntil(IsGrounded); // Wait until the player is grounded
         enabled = true; // Re-enable player movement
-        StartInvincibility?.Invoke();
+    }
+    
+    private void ResetPlayerPosition()
+    {
+        if (!_isFacingRight)
+        {
+            // Flip the player back to the right
+            _isFacingRight = true;
+            Vector3 localScale = player.transform.localScale;
+            localScale.x *= -1f;
+            player.transform.localScale = localScale;
+            rb.linearVelocity = Vector2.zero;
+        }
     }
     
     void OnDisable()
     {
         PlayerBehavior.PlayerHit -= OnPlayerHit;
+        WallJump.WallJumpingEnabled -= OnWallJumpingEnabled;
+        PlayerGameOver.ResetPlayer -= ResetPlayerPosition;
     }
 }

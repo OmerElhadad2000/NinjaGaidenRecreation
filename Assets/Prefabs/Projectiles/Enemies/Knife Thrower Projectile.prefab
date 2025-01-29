@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 4687723346935771436}
   - component: {fileID: 2084919477154423798}
   - component: {fileID: 8042497406724505959}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Knife Thrower Projectile
-  m_TagString: Enemy Attack
+  m_TagString: Regular Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
